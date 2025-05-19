@@ -32,6 +32,7 @@
         /*font-weight: bold;*/
         font-size: 14px;
         transition: color 0.3s ease;
+        white-space: nowrap;
       }
       footer.site-footer {
         background-color: #f8f8f8;
@@ -78,6 +79,12 @@
         margin: 0;
         line-height: 1.5;
       }
+      @media (max-width: 600px) {
+  nav a {
+    font-size: 12px; /* Reduce font size on smaller screens */
+    margin-left: 10px; /* Reduce margin on smaller screens */
+  }
+}
     </style>
   </head>
 

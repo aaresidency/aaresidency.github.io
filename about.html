@@ -12,6 +12,33 @@
         background-color: #fff;
         color: #000 !important;
       }
+            header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: transparent;
+        color: #000;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        letter-spacing: 1.5px;
+      }
+
+      header a {
+        color: black;
+        text-decoration: none;
+        font-weight: normal;
+        font-size: 1.2em;
+      }
+
+      nav a {
+        color: black;
+        text-decoration: none;
+        margin-left: 25px;
+        font-weight: normal;
+        font-size: 14px;
+        transition: color 0.3s ease;
+        white-space: nowrap;
+      }
       .container {
         max-width: 1100px;
         margin: auto;
@@ -54,6 +81,10 @@
         .image-section {
           min-width: 100%;
         }
+        nav a {
+    font-size: 12px; /* Reduce font size on smaller screens */
+    margin-left: 10px; /* Reduce margin on smaller screens */
+  }
       }
       footer.site-footer {
         background-color: #f8f8f8;
