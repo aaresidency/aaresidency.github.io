@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - AA Residency Tirupati</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #fff;
+        color: #222;
+      }
+
+      /* Header */
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: transparent;
+        color: #000;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        letter-spacing: 1.5px;
+      }
+
+      header a {
+        color: black;
+        text-decoration: none;
+        font-weight: normal;
+        font-size: 1.2em;
+      }
+
+      nav a {
+        color: black;
+        text-decoration: none;
+        margin-left: 25px;
+        font-weight: normal;
+        font-size: 14px;
+        transition: color 0.3s ease;
+      }
+
+      /* Main Content */
+      .contact-container {
+        max-width: 900px;
+        margin: 40px auto 60px auto;
+        display: flex;
+        flex-wrap: wrap;
+        background: transparent;
+        border-radius: 12px;
+        padding: 32px 24px;
+      }
+
+      .contact-container .form-column {
+        flex: 1 1 400px;
+        padding-right: 20px;
+      }
+
+      .contact-container .image-column {
+        flex: 1 1 400px; /* Make the image column same flex as form */
+        text-align: center;
+      }
+
+      .contact-container h1 {
+        font-size: 2em;
+        margin-bottom: 10px;
+        color: black;
+      }
+
+      .contact-container p {
+        color: #333;
+        font-size: 1.07em;
+        margin-bottom: 24px;
+      }
+
+      .contact-form label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        color: #222;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 18px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1em;
+        box-sizing: border-box;
+        resize: vertical;
+      }
+
+      .contact-form textarea {
+        min-height: 100px;
+        max-height: 250px;
+      }
+
+      .contact-form button {
+        background-color: #000;
+        color: #fff;
+        padding: 12px 28px;
+        border: none;
+        border-radius: 4px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .contact-form button:hover {
+        background-color: #333;
+      }
+
+      .image-column img {
+        width: 100%;
+        height: auto;
+        max-height: 100%; /* Ensure image does not exceed container */
+        border-radius: 12px;
+        object-fit: cover; /* Maintain aspect ratio and cover area */
+      }
+
+      /* Footer */
+      footer {
+        background: transparent;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 20px 40px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        font-family: Arial, sans-serif;
+        font-size: 0.9em;
+        color: #000;
+        border-top: 1px solid #ddd;
+        position: relative;
+        bottom: 0;
+        left: 0;
+      }
+
+      footer .footer-left {
+        flex: 1 1 200px;
+        font-weight: bold;
+        font-size: 1.1em;
+      }
+
+      footer .footer-right {
+        flex: 2 1 400px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: flex-end;
+      }
+
+      footer .footer-right > div {
+        min-width: 220px;
+      }
+
+      footer h4 {
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+
+      footer address {
+        font-style: normal;
+        line-height: 1.5;
+      }
+
+      footer p {
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      /* Media Query for Responsiveness */
+      @media (max-width: 768px) {
+        .contact-container {
+          flex-direction: column;
+          padding: 20px;
+        }
+
+        .contact-container .form-column,
+        .contact-container .image-column {
+          flex: 1 1 100%;
+          padding-right: 0;
+        }
+
+        .image-column {
+          margin-top: 20px;
+        }
+
+        footer {
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 20px 10px;
+        }
+
+        footer .footer-right {
+          flex-direction: column;
+          gap: 10px;
+          width: 100%;
+          margin-top: 12px;
+        }
+
+        footer .footer-right > div {
+          min-width: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <a href="index.html" style="font-size: 1.2em">AA Residency</a>
+      <nav>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+    </header>
+
+    <!-- Main Contact Section -->
+    <div class="contact-container">
+      <div class="form-column">
+        <h1>Contact Us</h1>
+        <p>
+          Have a question, need assistance, or want to book your stay? Reach out
+          to us using the form below and our team will get back to you promptly.
+          We’re here to ensure your experience at AA Residency in Tirupati is
+          smooth and memorable.
+        </p>
+        <form class="contact-form" autocomplete="off">
+          <label for="fname">First Name</label>
+          <input
+            type="text"
+            id="fname"
+            name="firstname"
+            placeholder="Your first name"
+            required
+          />
+
+          <label for="lname">Last Name</label>
+          <input
+            type="text"
+            id="lname"
+            name="lastname"
+            placeholder="Your last name"
+            required
+          />
+
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="your@email.com"
+            required
+          />
+
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Type your message..."
+            required
+          ></textarea>
+
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+      <div class="image-column">
+        <img src="./images/ContactUs.jpg" alt="Contact AA Residency" />
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-left">AA Residency</div>
+      <div class="footer-right">
+        <div>
+          <h4>Location</h4>
+          <address>
+            22-11-246/1, Gollavani Gunta<br />
+            Renigunta Road, Tirupathi 517501
+          </address>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p>
+            Phone: +91 87900 57559<br />
+            Email: info@aaresidency.com
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

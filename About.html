@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About Us - AA Residency Tirupati</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 40px 20px;
+        background-color: #fff;
+        color: #000 !important;
+      }
+      .container {
+        max-width: 1100px;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 40px;
+      }
+      .text-section {
+        color: #000000; /* black */
+      }
+
+      .text-section h1 {
+        font-size: 2.8em;
+        margin-bottom: 20px;
+        color: #000000;
+      }
+      .text-section p {
+        font-size: 1.2em;
+        line-height: 1.6em;
+        color: #000000;
+      }
+      .image-section {
+        flex: 1 1 450px;
+        min-width: 280px;
+        text-align: center;
+      }
+      .image-section img {
+        max-width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        height: auto;
+      }
+      /* Responsive: stack columns on narrow screens */
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+        }
+        .text-section,
+        .image-section {
+          min-width: 100%;
+        }
+      }
+      footer.site-footer {
+        background-color: #f8f8f8;
+        padding: 20px 40px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        font-family: Arial, sans-serif;
+        font-size: 0.9em;
+        color: #000;
+        border-top: 1px solid #ddd;
+      }
+
+      footer.site-footer .footer-left {
+        flex: 1 1 200px;
+        font-weight: bold;
+        font-size: 1.1em;
+      }
+
+      footer.site-footer .footer-right {
+        flex: 2 1 400px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: flex-end;
+      }
+
+      footer.site-footer .footer-right > div {
+        min-width: 220px;
+      }
+
+      footer.site-footer h4 {
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+
+      footer.site-footer address {
+        font-style: normal;
+        line-height: 1.5;
+      }
+
+      footer.site-footer p {
+        margin: 0;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <header
+      style="
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: transparent;
+        color: #000;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        letter-spacing: 1.5px;
+      "
+    >
+      <a
+        href="index.html"
+        style="
+          color: black;
+          text-decoration: none;
+          font-weight: normal;
+          font-size: 1.2em;
+        "
+        >AA Residency</a
+      >
+      <nav>
+        <a
+          href="about.html"
+          style="
+            color: black;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: normal;
+            font-size: 14px;
+            transition: color 0.3s ease;
+          "
+          >About</a
+        >
+        <a
+          href="ContactUs.html"
+          style="
+            color: black;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: normal;
+            font-size: 14px;
+            transition: color 0.3s ease;
+          "
+          >Contact Us</a
+        >
+      </nav>
+    </header>
+
+    <div class="container">
+      <div class="text-section" style="color: black">
+        <h1>Who We Are</h1>
+        <p>
+          Welcome to AA Residency, your comfortable and convenient hospitality
+          destination in Tirupati. We offer clean, well-appointed rooms and
+          friendly service to ensure a pleasant stay for every guest. Located
+          close to Tirupati’s main attractions and travel hubs, AA Residency is
+          ideal for both pilgrims and business travelers. Experience a relaxing
+          atmosphere, modern amenities, and genuine hospitality during your
+          visit to the temple city.
+        </p>
+      </div>
+      <div class="image-section">
+        <img
+          src="./images/AboutUs.png"
+          alt="Hospitality at AA Residency Tirupati"
+        />
+      </div>
+      <footer
+        style="
+          background: transparent;
+          width: 100%;
+          box-sizing: border-box;
+          padding: 20px 40px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: flex-start;
+          font-family: Arial, sans-serif;
+          font-size: 0.9em;
+          color: #000;
+          border-top: 1px solid #ddd;
+        "
+      >
+        <div style="flex: 1 1 200px; font-weight: bold; font-size: 1.1em">
+          AA Residency
+        </div>
+        <div
+          style="
+            flex: 2 1 400px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: flex-end;
+          "
+        >
+          <div style="min-width: 220px">
+            <h4 style="margin-bottom: 8px; font-weight: bold">Location</h4>
+            <address style="font-style: normal; line-height: 1.5">
+              22-11-246/1, Gollavani Gunta<br />
+              Renigunta Road, Tirupathi 517501
+            </address>
+          </div>
+          <div style="min-width: 220px">
+            <h4 style="margin-bottom: 8px; font-weight: bold">Contact</h4>
+            <p style="margin: 0; line-height: 1.5">
+              Phone: +91 87900 57559<br />
+              Email: info@aaresidency.com
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
