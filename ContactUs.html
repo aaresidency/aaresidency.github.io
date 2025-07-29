@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QPG5QMFRS8">
-</script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-QPG5QMFRS8');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QPG5QMFRS8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QPG5QMFRS8');
+  </script>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Contact AA Residency Tirupati - Best budget and cheap hotel in Tirupati near Balaji Temple. For Tirupati hotel booking, family rooms, AC, free WiFi, and best Tirupati hotels price. Book online for the best deals and accommodation in Tirupati." />
+    <meta name="keywords" content="Contact AA Residency Tirupati, hotels in Tirupati, Tirupati hotel booking, budget hotels in Tirupati, cheap hotels in Tirupati, best hotels near Tirupati temple, Tirupati hotels price, Tirupati hotels online booking, Tirupati hotels with free WiFi, family hotels Tirupati" />
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="AA Residency Tirupati">
     <title>Contact AA Residency Tirupati | Tirupati Hotel Booking, Budget & Cheap Hotels, Free WiFi</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
+        font-family: 'Segoe UI', Arial, sans-serif;
         margin: 0;
         background: #fff;
         color: #222;
       }
-
-      /* Top Contact Bar */
       .top-contact-bar {
         background: #fffbe6;
         color: #000;
@@ -43,8 +42,6 @@
       .top-contact-bar a:hover {
         text-decoration: underline;
       }
-
-      /* Header */
       header {
         display: flex;
         justify-content: space-between;
@@ -55,14 +52,12 @@
         font-size: 1.2em;
         letter-spacing: 1.5px;
       }
-
       header a {
         color: black;
         text-decoration: none;
         font-weight: normal;
         font-size: 1.2em;
       }
-
       nav a {
         color: black;
         text-decoration: none;
@@ -72,88 +67,114 @@
         transition: color 0.3s ease;
         white-space: nowrap;
       }
-
-      /* Main Content */
+      nav a:hover {
+        color: #007b2c;
+      }
       .contact-container {
         max-width: 900px;
-        margin: 40px auto 60px auto;
+        margin: 40px auto 40px auto;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+        padding: 32px 24px;
         display: flex;
         flex-wrap: wrap;
-        background: transparent;
-        border-radius: 12px;
-        padding: 32px 24px;
+        gap: 40px;
+        align-items: flex-start;
       }
-
-      .contact-container .form-column {
-        flex: 1 1 400px;
-        padding-right: 20px;
+      .form-column {
+        flex: 2 1 400px;
+        min-width: 280px;
       }
-
-      .contact-container .image-column {
-        flex: 1 1 400px; /* Make the image column same flex as form */
-        text-align: center;
-      }
-
-      .contact-container h1 {
+      .form-column h1 {
         font-size: 2em;
         margin-bottom: 10px;
-        color: black;
+        color: #007b2c;
+        letter-spacing: 1px;
       }
-
-      .contact-container p {
+      .form-column p {
         color: #333;
         font-size: 1.07em;
         margin-bottom: 24px;
       }
-
       .contact-form label {
         display: block;
         margin-bottom: 6px;
         font-weight: 600;
         color: #222;
       }
-
       .contact-form input,
       .contact-form textarea {
         width: 100%;
         padding: 12px;
         margin-bottom: 18px;
         border: 1px solid #ccc;
-        border-radius: 4px;
+        border-radius: 6px;
         font-size: 1em;
         box-sizing: border-box;
         resize: vertical;
+        background: #f8f8f8;
+        transition: border 0.2s;
       }
-
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        border: 1.5px solid #007b2c;
+        outline: none;
+        background: #fff;
+      }
       .contact-form textarea {
         min-height: 100px;
         max-height: 250px;
       }
-
       .contact-form button {
-        background-color: #000;
+        background-color: #007b2c;
         color: #fff;
-        padding: 12px 28px;
+        padding: 14px 32px;
         border: none;
-        border-radius: 4px;
-        font-size: 1em;
+        border-radius: 6px;
+        font-size: 1.1em;
         cursor: pointer;
+        font-weight: bold;
+        letter-spacing: 1px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.10);
         transition: background 0.2s;
       }
-
       .contact-form button:hover {
-        background-color: #333;
+        background-color: #005a1e;
       }
-
+      .image-column {
+        flex: 1 1 320px;
+        min-width: 220px;
+        text-align: center;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+      }
       .image-column img {
         width: 100%;
+        max-width: 320px;
         height: auto;
-        max-height: 100%; /* Ensure image does not exceed container */
-        border-radius: 12px;
-        object-fit: cover; /* Maintain aspect ratio and cover area */
+        border-radius: 14px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+        object-fit: cover;
       }
-
-      /* Footer */
+      @media (max-width: 900px) {
+        .contact-container {
+          flex-direction: column;
+          gap: 0;
+          padding: 20px 8px;
+        }
+        .form-column, .image-column {
+          min-width: 100%;
+        }
+        .image-column {
+          margin-bottom: 24px;
+        }
+        nav a {
+          font-size: 12px;
+          margin-left: 10px;
+        }
+      }
       footer.site-footer {
         background-color: #f8f8f8;
         padding: 20px 40px;
@@ -166,13 +187,11 @@
         color: #000;
         border-top: 1px solid #ddd;
       }
-
       footer.site-footer .footer-left {
         flex: 1 1 200px;
         font-weight: bold;
         font-size: 1.1em;
       }
-
       footer.site-footer .footer-right {
         flex: 2 1 400px;
         display: flex;
@@ -183,59 +202,25 @@
       footer.site-footer .footer-right > div {
         min-width: 220px;
       }
-
       footer.site-footer h4 {
         margin-bottom: 8px;
         font-weight: bold;
       }
-
       footer.site-footer address {
         font-style: normal;
         line-height: 1.5;
       }
-
       footer.site-footer p {
         margin: 0;
         line-height: 1.5;
       }
-
-      /* Media Query for Responsiveness */
-      @media (max-width: 768px) {
-        .contact-container {
-          flex-direction: column;
-          padding: 20px;
-        }
-
-        .contact-container .form-column,
-        .contact-container .image-column {
-          flex: 1 1 100%;
-          padding-right: 0;
-        }
-
-        .image-column {
-          margin-top: 20px;
-        }
-
-        footer {
-          flex-direction: column;
-          align-items: flex-start;
+      @media (max-width: 600px) {
+        footer.site-footer {
           padding: 20px 10px;
         }
-
-        footer .footer-right {
-          flex-direction: column;
+        footer.site-footer .footer-right {
           gap: 10px;
-          width: 100%;
-          margin-top: 12px;
         }
-
-        footer .footer-right > div {
-          min-width: 0;
-        }
-        nav a {
-    font-size: 12px; /* Reduce font size on smaller screens */
-    margin-left: 10px; /* Reduce margin on smaller screens */
-  }
       }
     </style>
   </head>
@@ -254,12 +239,9 @@
     </header>
 
     <!-- Main Contact Section -->
-    <div class="contact-container" style="margin-bottom:0;">
+    <div class="contact-container">
       <div class="form-column">
         <h1>Contact AA Residency Tirupati</h1>
-        <div class="image-column" style="margin-bottom: 24px;">
-          <img src="./images/ContactUs.jpg" alt="Contact AA Residency Tirupati - Budget Hotel in Tirupati" style="max-width:100%;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.15);height:auto;" />
-        </div>
         <p>
           Looking for <strong>budget hotels in Tirupati</strong>, <strong>cheap hotels in Tirupati</strong>, or the <strong>best hotels near Tirupati temple</strong>? AA Residency Tirupati offers affordable accommodation, family rooms, AC, and <strong>free WiFi</strong>. For <strong>Tirupati hotel booking</strong>, <strong>Tirupati hotels price</strong> details, or <strong>Tirupati hotels online booking</strong>, contact us using the form below. Our team is here to help you with <strong>Tirupati hotel deals</strong> and <strong>Tirupati room booking</strong> for a comfortable stay.
         </p>
@@ -301,6 +283,9 @@
 
           <button type="submit">Send Message</button>
         </form>
+      </div>
+      <div class="image-column">
+        <img src="./images/ContactUs.jpg" alt="Contact AA Residency Tirupati - Budget Hotel in Tirupati" />
       </div>
     </div>
     <!-- Footer -->
