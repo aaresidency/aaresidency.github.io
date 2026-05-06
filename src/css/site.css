@@ -1421,4 +1421,63 @@ body.page-inner {
   .home-google-reviews__aggregate {
     justify-content: center;
   }
+
+  .home-google-reviews.home-section {
+    padding: 44px 14px;
+  }
+
+  .home-google-reviews__header {
+    margin-bottom: 16px;
+    gap: 12px;
+  }
+
+  .home-google-reviews__maps-btn {
+    width: 100%;
+    max-width: 320px;
+    margin-top: 2px;
+    padding: 12px 18px;
+    font-size: 0.98rem;
+  }
+
+  .home-google-reviews__card {
+    padding: 14px 14px 12px;
+    border-radius: 12px;
+  }
+
+  .home-google-reviews__card-head {
+    margin-bottom: 8px;
+    gap: 9px;
+  }
+
+  .home-google-reviews__avatar {
+    width: 34px;
+    height: 34px;
+  }
+
+  .home-google-reviews__author {
+    font-size: 0.95rem;
+  }
+
+  .home-google-reviews__meta-row {
+    font-size: 0.8rem;
+  }
+
+  .home-google-reviews__quote p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .home-google-reviews__grid .home-google-reviews__card:nth-child(n + 3) {
+    display: none;
+  }
+
+  .home-google-reviews__attribution {
+    margin-top: 14px;
+    font-size: 0.75rem;
+    line-height: 1.45;
+  }
 }
