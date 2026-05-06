@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17283929589"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "AW-17283929589");
+      {% if adsConversionLabel %}
+      gtag("event", "ads_conversion_Contact_1", {
+        en: "{{ adsConversionLabel }}",
+      });
+      {% endif %}
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0f172a" />
+    {% if description %}
+    <meta name="description" content="{{ description }}" />
+    {% endif %}
+    {% if keywords %}
+    <meta name="keywords" content="{{ keywords }}" />
+    {% endif %}
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="AA Residency Tirupati" />
+    <link rel="canonical" href="https://aaresidency.com{{ page.url }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ title }}" />
+    {% if description %}
+    <meta property="og:description" content="{{ description }}" />
+    {% endif %}
+    <meta property="og:url" content="https://aaresidency.com{{ page.url }}" />
+    <meta property="og:site_name" content="AA Residency Tirupati" />
+    <meta property="og:image" content="https://aaresidency.com/images/home-slide-1.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ title }}" />
+    {% if description %}
+    <meta name="twitter:description" content="{{ description }}" />
+    {% endif %}
+    <meta name="twitter:image" content="https://aaresidency.com/images/home-slide-1.jpg" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Hotel",
+        "name": "AA Residency Tirupati",
+        "url": "https://aaresidency.com",
+        "sameAs": ["https://maps.app.goo.gl/9AdeCWiaTHM4nEQW8"],
+        "hasMap": "https://maps.app.goo.gl/9AdeCWiaTHM4nEQW8",
+        "telephone": "+91-99929-99961",
+        "email": "info@aaresidency.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "22-11-246/1, Gollavani Gunta, Renigunta Road",
+          "addressLocality": "Tirupati",
+          "addressRegion": "Andhra Pradesh",
+          "postalCode": "517501",
+          "addressCountry": "IN"
+        },
+        "amenityFeature": [
+          { "@type": "LocationFeatureSpecification", "name": "Free Wi-Fi", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Family Rooms", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "24/7 Front Desk", "value": true }
+        ]
+      }
+    </script>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+    <div class="top-contact-bar">
+      Call us: <a href="tel:+919992999961">+91 99929 99961</a>
+    </div>
+    <header>
+      <a href="index.html">AA Residency Tirupati</a>
+      <nav>
+        <a href="about.html">About</a>
+        <a href="ContactUs.html">Contact Us</a>
+        <a href="Booking.html">Book Now</a>
+      </nav>
+    </header>
+
+    {{ content | safe }}
+
+    {% if bodyClass != "page-confirmation" %}
+    <div class="desktop-sticky-actions" aria-label="Desktop quick contact actions">
+      <a
+        href="tel:+919992999961"
+        class="desktop-sticky-action desktop-sticky-action--call"
+        aria-label="Call now"
+        data-track-action="desktop_sticky_call_click"
+      >
+        Call
+      </a>
+      <a
+        href="https://wa.me/919992999961?text=Hello%20AA%20Residency%2C%20I%20want%20to%20book%20a%20room."
+        class="desktop-sticky-action desktop-sticky-action--whatsapp"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat on WhatsApp"
+        data-track-action="desktop_sticky_whatsapp_click"
+      >
+        WhatsApp
+      </a>
+      <a
+        href="Booking.html"
+        class="desktop-sticky-action desktop-sticky-action--book"
+        aria-label="Book your stay now"
+        data-track-action="desktop_sticky_book_click"
+      >
+        Book
+      </a>
+    </div>
+    <div class="mobile-sticky-actions" aria-label="Quick contact actions">
+      <a
+        href="tel:+919992999961"
+        class="mobile-sticky-action mobile-sticky-action--call"
+        aria-label="Call now"
+        data-track-action="sticky_call_click"
+      >
+        Call
+      </a>
+      <a
+        href="https://wa.me/919992999961?text=Hello%20AA%20Residency%2C%20I%20want%20to%20book%20a%20room."
+        class="mobile-sticky-action mobile-sticky-action--whatsapp"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat on WhatsApp"
+        data-track-action="sticky_whatsapp_click"
+      >
+        WhatsApp
+      </a>
+      <a
+        href="Booking.html"
+        class="mobile-sticky-action mobile-sticky-action--book"
+        aria-label="Book your stay now"
+        data-track-action="sticky_book_click"
+      >
+        Book Now
+      </a>
+    </div>
+    {% endif %}
+
+    <footer class="site-footer">
+      <div class="footer-left">AA Residency Tirupati</div>
+      <div class="footer-right">
+        <div>
+          <h4>Popular Pages</h4>
+          <p>
+            <a href="hotels-in-tirupati.html">Hotels in Tirupati</a><br />
+            <a href="rooms-in-tirupati.html">Rooms in Tirupati</a><br />
+            <a href="hotels-near-tirupati-temple.html">Hotels Near Tirupati Temple</a>
+          </p>
+        </div>
+        <div>
+          <h4>Location</h4>
+          <address>
+            <a
+              href="https://maps.app.goo.gl/9AdeCWiaTHM4nEQW8"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-location-link"
+              aria-label="Open AA Residency Tirupati in Google Maps"
+            >
+              22-11-246/1, Gollavani Gunta<br />
+              Renigunta Road, Tirupathi 517501
+            </a>
+          </address>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p>
+            Phone: <a href="tel:+919992999961">+91 99929 99961</a><br />
+            Email: <a href="mailto:info@aaresidency.com">info@aaresidency.com</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      (function () {
+        const trackedActions = document.querySelectorAll("[data-track-action]");
+        if (!trackedActions.length) return;
+
+        trackedActions.forEach(function (element) {
+          element.addEventListener("click", function () {
+            const actionName = element.getAttribute("data-track-action");
+            if (!actionName || typeof window.gtag !== "function") return;
+
+            window.gtag("event", actionName, {
+              event_category: "engagement",
+              event_label: window.location.pathname,
+              transport_type: "beacon",
+            });
+          });
+        });
+
+        const trackedForms = document.querySelectorAll("form[data-track-form]");
+        trackedForms.forEach(function (form) {
+          form.addEventListener("submit", function () {
+            const formActionName = form.getAttribute("data-track-form");
+            if (!formActionName || typeof window.gtag !== "function") return;
+
+            window.gtag("event", formActionName, {
+              event_category: "lead",
+              event_label: window.location.pathname,
+              transport_type: "beacon",
+            });
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

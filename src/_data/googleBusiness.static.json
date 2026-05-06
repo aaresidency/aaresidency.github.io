@@ -1,0 +1,29 @@
+{
+  "reviewsProvenance": "googlePlacesSnapshot",
+  "placeId": "ChIJdQWIiRdLTToRyWWqqurOXok",
+  "mapsUrl": "https://maps.app.goo.gl/9AdeCWiaTHM4nEQW8",
+  "mapsSearchUrl": "https://www.google.com/maps/search/?api=1&query=AA+Residency%2C+22-11-246%2F1+Gollavani+Gunta%2C+Renigunta+Road%2C+Tirupati+517501",
+  "manualReviews": [
+  {
+    "author": "Nithesh Kamasani",
+    "rating": 5,
+    "relativeTime": "2 months ago",
+    "text": "Nice rooms and at good prices . I recommend these hotel. Parking facility available. I will visit again to this aa residency.",
+    "photo": "./images/google-reviews/google-review-1.jpg"
+  },
+  {
+    "author": "praveen manilal patel",
+    "rating": 5,
+    "relativeTime": "1 month ago",
+    "text": "ULYIMATE FAMILY EXPERIENCE AND HOMELY ATMOSPHERE,KIND STAFF.",
+    "photo": "./images/google-reviews/google-review-2.jpg"
+  },
+  {
+    "author": "Himateja Surapalli",
+    "rating": 5,
+    "relativeTime": "1 month ago",
+    "text": "Clean, comfort, spacious and near to busstand.",
+    "photo": "./images/google-reviews/google-review-3.jpg"
+  }
+]
+}

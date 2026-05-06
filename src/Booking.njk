@@ -1,0 +1,118 @@
+---
+layout: base.njk
+title: Book Your Stay | AA Residency Tirupati
+description: Book your stay at AA Residency Tirupati. Choose from A/C Deluxe and Non-A/C Deluxe rooms. Enjoy free cancellation, family-friendly rooms, and the best rates near Tirupati Temple.
+keywords: AA Residency Tirupati booking, Tirupati hotel booking, A/C Deluxe, Non-A/C Deluxe, family hotels Tirupati, free cancellation, best hotels near Tirupati temple
+permalink: /Booking.html
+bodyClass: page-booking
+adsConversionLabel: Booking Page Visit
+---
+
+<div class="booking-container">
+  <h1>Book Your Stay</h1>
+  <form action="https://api.web3forms.com/submit" method="POST" id="bookingForm" autocomplete="off" data-track-form="booking_form_submit">
+    <input type="hidden" name="access_key" value="9f803485-d262-43e1-9d97-967612f625a8" />
+
+    <label for="guestName">Full Name</label>
+    <input type="text" id="guestName" name="name" placeholder="Your full name" required />
+
+    <label for="guestEmail">Email</label>
+    <input type="email" id="guestEmail" name="email" placeholder="your@email.com" required />
+
+    <label for="guestPhone">Phone</label>
+    <input type="tel" id="guestPhone" name="phone" placeholder="Your phone number" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required />
+
+    <label for="arrivalDate">Arrival Date</label>
+    <input type="date" id="arrivalDate" name="arrival_date" required />
+
+    <label for="departureDate">Departure Date</label>
+    <input type="date" id="departureDate" name="departure_date" required />
+
+    <label for="roomType">Room Type</label>
+    <select id="roomType" name="room_type" required>
+      <option value="">Select room type</option>
+      <option value="A/C Deluxe">A/C Deluxe</option>
+      <option value="Non-A/C Deluxe">Non-A/C Deluxe</option>
+    </select>
+
+    <div id="priceLabel" class="price-label"></div>
+
+    <label for="adults">Number of Adults</label>
+    <input type="number" id="adults" name="adults" min="1" max="10" value="1" required />
+
+    <label for="children">Number of Children</label>
+    <input type="number" id="children" name="children" min="0" max="10" value="0" required />
+
+    <label for="notes">Notes or Requests (e.g., accessibility)</label>
+    <textarea id="notes" name="notes" placeholder="Any special requests or accessibility needs?"></textarea>
+
+    <button type="submit" data-track-action="booking_submit_click">Confirm Booking</button>
+    <input type="hidden" name="redirect" value="https://aaresidency.com/Confirmation.html" />
+  </form>
+</div>
+
+<script>
+  document.getElementById("bookingForm").addEventListener("submit", function (e) {
+    const name = document.getElementById("guestName").value.trim();
+    if (!name) {
+      alert("Full Name is required.");
+      document.getElementById("guestName").focus();
+      e.preventDefault();
+      return;
+    }
+    const email = document.getElementById("guestEmail").value.trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      alert("Email is required.");
+      document.getElementById("guestEmail").focus();
+      e.preventDefault();
+      return;
+    }
+    if (!emailPattern.test(email)) {
+      alert("Please enter a valid email address.");
+      document.getElementById("guestEmail").focus();
+      e.preventDefault();
+      return;
+    }
+    const phone = document.getElementById("guestPhone").value.trim();
+    const phonePattern = /^[0-9]{10}$/;
+    if (!phone) {
+      alert("Phone number is required.");
+      document.getElementById("guestPhone").focus();
+      e.preventDefault();
+      return;
+    }
+    if (!phonePattern.test(phone)) {
+      alert("Please enter a valid 10-digit phone number.");
+      document.getElementById("guestPhone").focus();
+      e.preventDefault();
+      return;
+    }
+    const arrival = document.getElementById("arrivalDate").value;
+    if (!arrival) {
+      alert("Arrival date is required.");
+      document.getElementById("arrivalDate").focus();
+      e.preventDefault();
+      return;
+    }
+    const departure = document.getElementById("departureDate").value;
+    if (!departure) {
+      alert("Departure date is required.");
+      document.getElementById("departureDate").focus();
+      e.preventDefault();
+      return;
+    }
+  });
+
+  const roomType = document.getElementById("roomType");
+  const priceLabel = document.getElementById("priceLabel");
+  roomType.addEventListener("change", function () {
+    if (roomType.value === "A/C Deluxe") {
+      priceLabel.textContent = "Price: ₹1700 (incl. all taxes)";
+    } else if (roomType.value === "Non-A/C Deluxe") {
+      priceLabel.textContent = "Price: ₹1200 (incl. all taxes)";
+    } else {
+      priceLabel.textContent = "";
+    }
+  });
+</script>

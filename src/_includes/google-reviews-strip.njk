@@ -1,0 +1,91 @@
+{# Google Maps Platform: display of reviews requires attribution. See https://developers.google.com/maps/documentation/places/web-service/policies #}
+<section class="home-section home-google-reviews" aria-labelledby="google-reviews-heading">
+  <div class="home-section__inner">
+    <div class="home-google-reviews__header">
+      <div class="home-google-reviews__title-block">
+        <p class="home-kicker">Guest reviews</p>
+        <h2 id="google-reviews-heading">What travelers say on Google</h2>
+        {% if googleBusiness.rating and googleBusiness.user_ratings_total %}
+        {% set rn = googleBusiness.rating | round %}
+        <p class="home-google-reviews__aggregate">
+          <span class="home-google-reviews__stars" aria-hidden="true">{% for i in [1,2,3,4,5] %}{% if i <= rn %}★{% else %}☆{% endif %}{% endfor %}</span>
+          <span class="home-google-reviews__score">{{ googleBusiness.rating | round(1) }} / 5</span>
+          <span class="home-google-reviews__count">{{ googleBusiness.user_ratings_total }} reviews on Google</span>
+        </p>
+        {% endif %}
+      </div>
+      <a
+        href="{{ googleBusiness.mapsUrl }}"
+        class="cta-btn home-google-reviews__maps-btn"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-track-action="google_reviews_all_click"
+      >
+        Open in Google Maps
+      </a>
+    </div>
+
+    {% if googleBusiness.reviews and googleBusiness.reviews.length %}
+    <div class="home-google-reviews__grid">
+      {% for review in googleBusiness.reviews %}
+      {% if loop.index <= 3 %}
+      <article class="home-google-reviews__card">
+        <header class="home-google-reviews__card-head">
+          {% if review.photo %}
+          <img
+            src="{{ review.photo }}"
+            alt=""
+            class="home-google-reviews__avatar"
+            loading="lazy"
+            decoding="async"
+            referrerpolicy="no-referrer"
+            width="40"
+            height="40"
+          />
+          {% else %}
+          <span class="home-google-reviews__avatar home-google-reviews__avatar--placeholder" aria-hidden="true">{{ (review.author or "G")[0] }}</span>
+          {% endif %}
+          <div class="home-google-reviews__meta">
+            <p class="home-google-reviews__author">{{ review.author }}</p>
+            <p class="home-google-reviews__meta-row">
+              <span class="home-google-reviews__star-line" aria-label="{{ review.rating or 5 }} out of 5 stars">{% set rr = (review.rating or 5) | round %}{% for i in [1,2,3,4,5] %}{% if i <= rr %}<span class="home-google-reviews__s-full">★</span>{% else %}<span class="home-google-reviews__s-dim">★</span>{% endif %}{% endfor %}</span>
+              {% if review.relativeTime %}<span class="home-google-reviews__muted"> · {{ review.relativeTime }}</span>{% endif %}
+            </p>
+          </div>
+        </header>
+        <blockquote class="home-google-reviews__quote">
+          <p>“{{ review.text }}”</p>
+        </blockquote>
+      </article>
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="home-google-reviews__fallback">
+      <!-- To show review cards: add entries to src/_data/googleBusiness.static.json manualReviews, or set GitHub Actions secrets GBP_PLACE_ID + GOOGLE_MAPS_PLACES_KEY. -->
+      <p>
+        Ratings and verified guest reviews appear on Google. Follow the link below to read scores and detailed feedback from recent visitors.
+      </p>
+      <a
+        href="{{ googleBusiness.mapsUrl }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="home-google-reviews__fallback-link"
+        data-track-action="google_reviews_fallback_click"
+      >
+        View reviews on Google →
+      </a>
+    </div>
+    {% endif %}
+
+    <p class="home-google-reviews__attribution">
+      {% if googleBusiness.source == "google" or googleBusiness.source == "googleSnapshot" %}
+      Reviews reflect feedback from travelers on <a href="{{ googleBusiness.mapsUrl }}" target="_blank" rel="noopener noreferrer">Google Maps</a>; open your listing there for live scores and replies.
+      {% elif googleBusiness.source == "manual" %}
+      These quotes are excerpts for your website; wording should match guest reviews on Google. See <a href="{{ googleBusiness.mapsUrl }}" target="_blank" rel="noopener noreferrer">Google Maps</a> for all reviews.
+      {% else %}
+      This site displays a link to your Google Maps listing so guests can read full reviews directly on Google.
+      {% endif %}
+    </p>
+  </div>
+</section>
