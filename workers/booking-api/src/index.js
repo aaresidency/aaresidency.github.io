@@ -234,6 +234,17 @@ async function sendResendMail(env, payload) {
   }
 }
 
+function extractResendMessage(result) {
+  if (!result || result.ok) return "";
+  const detail = result.detail;
+  if (typeof detail === "string" && detail.trim()) return detail.trim();
+  if (!detail || typeof detail !== "object") return "";
+  if (typeof detail.message === "string" && detail.message.trim()) return detail.message.trim();
+  if (typeof detail.error === "string" && detail.error.trim()) return detail.error.trim();
+  if (typeof detail.name === "string" && detail.name.trim()) return detail.name.trim();
+  return "";
+}
+
 export default {
   async fetch(request, env) {
     const originHeader = request.headers.get("Origin") || "";
@@ -375,11 +386,15 @@ export default {
 
     // If either fails (domain verification/resend onboarding), bubble up minimally for debugging inside worker logs too.
     if (!customerSent.ok || !adminSent.ok) {
+      const customerMsg = extractResendMessage(customerSent);
+      const adminMsg = extractResendMessage(adminSent);
+      const message = customerMsg || adminMsg || "Unable to deliver email. Please verify Resend sender/domain setup.";
       return new Response(
         JSON.stringify({
           ok: false,
           bookingRef,
           error: "email_delivery_failed",
+          message,
           customer: customerSent,
           admin: adminSent,
         }),
