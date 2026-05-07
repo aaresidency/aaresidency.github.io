@@ -28,6 +28,7 @@ jobs:
         env:
           GBP_PLACE_ID: ${{ secrets.GBP_PLACE_ID }}
           GOOGLE_MAPS_PLACES_KEY: ${{ secrets.GOOGLE_MAPS_PLACES_KEY }}
+          BOOKING_API_URL: ${{ secrets.BOOKING_API_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

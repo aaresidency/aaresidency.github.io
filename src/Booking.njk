@@ -8,10 +8,39 @@ bodyClass: page-booking
 adsConversionLabel: Booking Page Visit
 ---
 
-<div class="booking-container">
+<div class="booking-container"
+  {% if booking.apiUrl %}
+  data-booking-api="{{ booking.apiUrl | escape }}"
+  {% endif %}>
   <h1>Book Your Stay</h1>
-  <form action="https://api.web3forms.com/submit" method="POST" id="bookingForm" autocomplete="off" data-track-form="booking_form_submit">
+  <form
+    method="POST"
+    id="bookingForm"
+    autocomplete="off"
+    data-track-form="booking_form_submit"
+    {% if booking.apiUrl %}
+    action="#"
+    {% else %}
+    action="https://api.web3forms.com/submit"
+    {% endif %}
+  >
+    {% if not booking.apiUrl %}
     <input type="hidden" name="access_key" value="9f803485-d262-43e1-9d97-967612f625a8" />
+    <input type="hidden" name="from_name" value="AA Residency Tirupati Website" />
+    <input type="hidden" name="subject" id="bookingSubject" value="New Booking Enquiry - AA Residency Tirupati" />
+    <input type="hidden" name="replyto" id="bookingReplyTo" value="" />
+    <input type="hidden" name="booking_reference" id="bookingReference" value="" />
+    <input type="hidden" name="booking_summary" id="bookingSummary" value="" />
+    <input type="hidden" name="source_page" value="https://aaresidency.com/Booking.html" />
+    <input type="hidden" name="redirect" value="https://aaresidency.com/Confirmation.html" />
+    {% endif %}
+
+    {% if booking.apiUrl %}
+    <p class="booking-honeypot" aria-hidden="true">
+      <label for="bookingWebsite">Company website</label>
+      <input type="text" id="bookingWebsite" name="website" tabindex="-1" autocomplete="off" value="" />
+    </p>
+    {% endif %}
 
     <label for="guestName">Full Name</label>
     <input type="text" id="guestName" name="name" placeholder="Your full name" required />
@@ -47,72 +76,196 @@ adsConversionLabel: Booking Page Visit
     <textarea id="notes" name="notes" placeholder="Any special requests or accessibility needs?"></textarea>
 
     <button type="submit" data-track-action="booking_submit_click">Confirm Booking</button>
-    <input type="hidden" name="redirect" value="https://aaresidency.com/Confirmation.html" />
   </form>
+  <p class="booking-note">
+    {% if booking.apiUrl %}
+    After you submit, we send a booking acknowledgement to your email and notify our team. Please check spam if you do not see it within a few minutes.
+    {% else %}
+    You will receive a booking acknowledgement by email after submission (if autoresponder is enabled in your form settings).
+    {% endif %}
+  </p>
 </div>
 
 <script>
-  document.getElementById("bookingForm").addEventListener("submit", function (e) {
-    const name = document.getElementById("guestName").value.trim();
-    if (!name) {
-      alert("Full Name is required.");
-      document.getElementById("guestName").focus();
-      e.preventDefault();
-      return;
-    }
-    const email = document.getElementById("guestEmail").value.trim();
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email) {
-      alert("Email is required.");
-      document.getElementById("guestEmail").focus();
-      e.preventDefault();
-      return;
-    }
-    if (!emailPattern.test(email)) {
-      alert("Please enter a valid email address.");
-      document.getElementById("guestEmail").focus();
-      e.preventDefault();
-      return;
-    }
-    const phone = document.getElementById("guestPhone").value.trim();
-    const phonePattern = /^[0-9]{10}$/;
-    if (!phone) {
-      alert("Phone number is required.");
-      document.getElementById("guestPhone").focus();
-      e.preventDefault();
-      return;
-    }
-    if (!phonePattern.test(phone)) {
-      alert("Please enter a valid 10-digit phone number.");
-      document.getElementById("guestPhone").focus();
-      e.preventDefault();
-      return;
-    }
-    const arrival = document.getElementById("arrivalDate").value;
-    if (!arrival) {
-      alert("Arrival date is required.");
-      document.getElementById("arrivalDate").focus();
-      e.preventDefault();
-      return;
-    }
-    const departure = document.getElementById("departureDate").value;
-    if (!departure) {
-      alert("Departure date is required.");
-      document.getElementById("departureDate").focus();
-      e.preventDefault();
-      return;
-    }
-  });
+  (function () {
+    const form = document.getElementById("bookingForm");
+    const container = document.querySelector(".booking-container");
+    const bookingApiUrl = (container && container.dataset.bookingApi ? container.dataset.bookingApi : "").trim();
 
-  const roomType = document.getElementById("roomType");
-  const priceLabel = document.getElementById("priceLabel");
-  roomType.addEventListener("change", function () {
-    if (roomType.value === "A/C Deluxe") {
-      priceLabel.textContent = "Price: ₹1700 (incl. all taxes)";
-    } else if (roomType.value === "Non-A/C Deluxe") {
-      priceLabel.textContent = "Price: ₹1200 (incl. all taxes)";
-    } else {
-      priceLabel.textContent = "";
+    function generateBookingReference() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, "0");
+      const d = String(now.getDate()).padStart(2, "0");
+      const h = String(now.getHours()).padStart(2, "0");
+      const min = String(now.getMinutes()).padStart(2, "0");
+      const random = Math.floor(100 + Math.random() * 900);
+      return "AAR-" + y + m + d + "-" + h + min + "-" + random;
     }
-  });
+
+    function validateBookingFields() {
+      const name = document.getElementById("guestName").value.trim();
+      if (!name) {
+        alert("Full Name is required.");
+        document.getElementById("guestName").focus();
+        return false;
+      }
+      const email = document.getElementById("guestEmail").value.trim();
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email) {
+        alert("Email is required.");
+        document.getElementById("guestEmail").focus();
+        return false;
+      }
+      if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        document.getElementById("guestEmail").focus();
+        return false;
+      }
+      const phone = document.getElementById("guestPhone").value.trim();
+      const phonePattern = /^[0-9]{10}$/;
+      if (!phone) {
+        alert("Phone number is required.");
+        document.getElementById("guestPhone").focus();
+        return false;
+      }
+      if (!phonePattern.test(phone)) {
+        alert("Please enter a valid 10-digit phone number.");
+        document.getElementById("guestPhone").focus();
+        return false;
+      }
+      const arrival = document.getElementById("arrivalDate").value;
+      if (!arrival) {
+        alert("Arrival date is required.");
+        document.getElementById("arrivalDate").focus();
+        return false;
+      }
+      const departure = document.getElementById("departureDate").value;
+      if (!departure) {
+        alert("Departure date is required.");
+        document.getElementById("departureDate").focus();
+        return false;
+      }
+      return true;
+    }
+
+    const roomTypeEl = document.getElementById("roomType");
+    const priceLabel = document.getElementById("priceLabel");
+    roomTypeEl.addEventListener("change", function () {
+      if (roomTypeEl.value === "A/C Deluxe") {
+        priceLabel.textContent = "Price: ₹1700 (incl. all taxes)";
+      } else if (roomTypeEl.value === "Non-A/C Deluxe") {
+        priceLabel.textContent = "Price: ₹1200 (incl. all taxes)";
+      } else {
+        priceLabel.textContent = "";
+      }
+    });
+
+    if (bookingApiUrl) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!validateBookingFields()) return;
+
+        const roomTypeValue = document.getElementById("roomType").value;
+        if (!roomTypeValue) {
+          alert("Please select a room type.");
+          document.getElementById("roomType").focus();
+          return;
+        }
+
+        const adultsValue = document.getElementById("adults").value;
+        const childrenValue = document.getElementById("children").value;
+        const notesValue = document.getElementById("notes").value.trim();
+        const honey = document.getElementById("bookingWebsite");
+        const website = honey ? honey.value : "";
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const prevText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending…";
+
+        fetch(bookingApiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            website: website,
+            name: document.getElementById("guestName").value.trim(),
+            email: document.getElementById("guestEmail").value.trim(),
+            phone: document.getElementById("guestPhone").value.trim(),
+            arrival_date: document.getElementById("arrivalDate").value,
+            departure_date: document.getElementById("departureDate").value,
+            room_type: roomTypeValue,
+            adults: adultsValue,
+            children: childrenValue,
+            notes: notesValue,
+          }),
+        })
+          .then(function (res) {
+            return res.json().then(function (data) {
+              return { res: res, data: data };
+            });
+          })
+          .then(function (out) {
+            if (!out.res.ok || !out.data || !out.data.ok) {
+              const msg =
+                (out.data && out.data.error) ||
+                "We could not send your booking just now. Please call +91 99929 99961 or try again shortly.";
+              alert(msg);
+              return;
+            }
+            const ref = out.data.bookingRef || "";
+            window.location.href = "/Confirmation.html?ref=" + encodeURIComponent(ref);
+          })
+          .catch(function () {
+            alert("Network error. Please check your connection or call +91 99929 99961.");
+          })
+          .finally(function () {
+            submitBtn.disabled = false;
+            submitBtn.textContent = prevText;
+          });
+      });
+    } else {
+      form.addEventListener("submit", function (e) {
+        if (!validateBookingFields()) {
+          e.preventDefault();
+          return;
+        }
+        const name = document.getElementById("guestName").value.trim();
+        const email = document.getElementById("guestEmail").value.trim();
+        const phone = document.getElementById("guestPhone").value.trim();
+        const arrival = document.getElementById("arrivalDate").value;
+        const departure = document.getElementById("departureDate").value;
+        const roomTypeValue = document.getElementById("roomType").value;
+        const adultsValue = document.getElementById("adults").value;
+        const childrenValue = document.getElementById("children").value;
+        const notesValue = document.getElementById("notes").value.trim() || "N/A";
+        const bookingRef = generateBookingReference();
+
+        document.getElementById("bookingReference").value = bookingRef;
+        document.getElementById("bookingReplyTo").value = email;
+        document.getElementById("bookingSubject").value = "New Booking Enquiry [" + bookingRef + "] - " + name;
+        document.getElementById("bookingSummary").value =
+          "Booking Ref: " +
+          bookingRef +
+          " | Guest: " +
+          name +
+          " | Phone: " +
+          phone +
+          " | Email: " +
+          email +
+          " | Arrival: " +
+          arrival +
+          " | Departure: " +
+          departure +
+          " | Room: " +
+          roomTypeValue +
+          " | Adults: " +
+          adultsValue +
+          " | Children: " +
+          childrenValue +
+          " | Notes: " +
+          notesValue;
+      });
+    }
+  })();
 </script>

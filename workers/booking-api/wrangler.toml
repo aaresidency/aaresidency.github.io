@@ -1,0 +1,19 @@
+name = "aaresidency-booking-api"
+main = "src/index.js"
+compatibility_date = "2024-07-01"
+
+# Public configuration (adjust after you know your Worker URL / domains).
+[vars]
+ADMIN_EMAIL = "info@aaresidency.com"
+
+# comma-separated origins allowed to POST from browser (production + GitHub Pages if used)
+ALLOWED_ORIGINS = "https://aaresidency.com,https://www.aaresidency.com,https://aaresidency.github.io,http://localhost:8080"
+
+# Verified sender identity in Resend (set after DNS verification). Fallback can be onboarding@resend.dev for sandbox tests.
+FROM_EMAIL_RESEND = "AA Residency <booking@aaresidency.com>"
+
+# Optional: WhatsApp prefilled redirect for staff acknowledgement (shown in admin HTML email footer)
+ADMIN_WHATSAPP_E164 = "919992999961"
+
+# Secrets via CLI (do NOT commit secrets):
+#   npx wrangler secret put RESEND_API_KEY

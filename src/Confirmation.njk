@@ -21,6 +21,19 @@ adsConversionLabel: Confirmation Page Visit
   <p>
     For any urgent queries, please call us at <a href="tel:+919992999961">+91 99929 99961</a>.
   </p>
+  <p id="confirmationRefBlock" class="confirmation-ref" hidden></p>
   <a href="index.html" class="confirmation-back">Back to Home</a>
 </div>
 </main>
+
+<script>
+  (function () {
+    var block = document.getElementById("confirmationRefBlock");
+    if (!block) return;
+    var params = new URLSearchParams(window.location.search);
+    var ref = params.get("ref");
+    if (!ref || !/^[A-Za-z0-9\-]+$/.test(ref)) return;
+    block.textContent = "Your booking reference: " + ref;
+    block.hidden = false;
+  })();
+</script>

@@ -928,6 +928,24 @@ footer.site-footer a {
   background-color: var(--gold-600);
 }
 
+.booking-note {
+  margin: 14px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-700);
+  text-align: center;
+}
+
+.booking-honeypot {
+  position: absolute !important;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
 .price-label {
   font-weight: bold;
   margin-bottom: 18px;
@@ -1185,6 +1203,12 @@ body.page-about {
   font-weight: 600;
   color: var(--navy-900);
   margin: 0 0 16px;
+}
+
+.confirmation-container .confirmation-ref {
+  font-weight: 600;
+  color: var(--navy-900);
+  letter-spacing: 0.02em;
 }
 
 .confirmation-container img {
