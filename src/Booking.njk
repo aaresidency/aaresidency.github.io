@@ -149,6 +149,22 @@ adsConversionLabel: Booking Page Visit
       return true;
     }
 
+    function getApiErrorMessage(data) {
+      if (!data) return "";
+      if (typeof data.error === "string" && data.error.trim()) return data.error.trim();
+      if (typeof data.message === "string" && data.message.trim()) return data.message.trim();
+
+      const customerDetail = data.customer && data.customer.detail;
+      const adminDetail = data.admin && data.admin.detail;
+      const detail = customerDetail || adminDetail;
+      if (typeof detail === "string" && detail.trim()) return detail.trim();
+      if (detail && typeof detail === "object") {
+        if (typeof detail.message === "string" && detail.message.trim()) return detail.message.trim();
+        if (typeof detail.error === "string" && detail.error.trim()) return detail.error.trim();
+      }
+      return "";
+    }
+
     const roomTypeEl = document.getElementById("roomType");
     const priceLabel = document.getElementById("priceLabel");
     roomTypeEl.addEventListener("change", function () {
@@ -201,15 +217,21 @@ adsConversionLabel: Booking Page Visit
           }),
         })
           .then(function (res) {
-            return res.json().then(function (data) {
-              return { res: res, data: data };
-            });
+            return res
+              .json()
+              .catch(function () {
+                return null;
+              })
+              .then(function (data) {
+                return { res: res, data: data };
+              });
           })
           .then(function (out) {
             if (!out.res.ok || !out.data || !out.data.ok) {
-              const msg =
-                (out.data && out.data.error) ||
-                "We could not send your booking just now. Please call +91 99929 99961 or try again shortly.";
+              const apiReason = getApiErrorMessage(out.data);
+              const msg = apiReason
+                ? "Booking request failed: " + apiReason
+                : "We could not send your booking just now. Please call +91 99929 99961 or try again shortly.";
               alert(msg);
               return;
             }
