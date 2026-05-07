@@ -10,7 +10,7 @@ ADMIN_EMAIL = "info@aaresidency.com"
 ALLOWED_ORIGINS = "https://aaresidency.com,https://www.aaresidency.com,https://aaresidency.github.io,http://localhost:8080"
 
 # Verified sender identity in Resend (set after DNS verification). Fallback can be onboarding@resend.dev for sandbox tests.
-FROM_EMAIL_RESEND = "AA Residency <onboarding@resend.dev>"
+FROM_EMAIL_RESEND = "AA Residency <info@aaresidency.com>"
 
 # Optional: WhatsApp prefilled redirect for staff acknowledgement (shown in admin HTML email footer)
 ADMIN_WHATSAPP_E164 = "919992999961"
