@@ -17,6 +17,11 @@ Edit **`[vars]`** in `wrangler.toml`:
 - **`FROM_EMAIL_RESEND`** — verified identity in Resend, e.g. `AA Residency <booking@mail.aaresidency.com>`.
 - **`ADMIN_WHATSAPP_E164`** — digits only (`919992999961`); used in acknowledgement email and admin WhatsApp link.
 
+> [!IMPORTANT]
+> `FROM_EMAIL_RESEND` must be a sender/domain that Resend accepts for your account.
+> If you use `AA Residency <info@aaresidency.com>` before verifying the domain in Resend, booking requests can fail with `email_delivery_failed`.
+> For temporary testing, use a Resend onboarding sender allowed by your account (for example `AA Residency <onboarding@resend.dev>`), then switch back after domain verification.
+
 ## 3. Secrets
 
 From this directory:

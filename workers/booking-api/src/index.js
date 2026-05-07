@@ -384,11 +384,11 @@ export default {
       }),
     ]);
 
-    // If either fails (domain verification/resend onboarding), bubble up minimally for debugging inside worker logs too.
-    if (!customerSent.ok || !adminSent.ok) {
+    // Admin email is mandatory; customer email can fail in sandbox/non-verified sender setups.
+    if (!adminSent.ok) {
       const customerMsg = extractResendMessage(customerSent);
       const adminMsg = extractResendMessage(adminSent);
-      const message = customerMsg || adminMsg || "Unable to deliver email. Please verify Resend sender/domain setup.";
+      const message = adminMsg || customerMsg || "Unable to deliver email. Please verify Resend sender/domain setup.";
       return new Response(
         JSON.stringify({
           ok: false,
@@ -405,7 +405,9 @@ export default {
       );
     }
 
-    return new Response(JSON.stringify({ ok: true, bookingRef }), {
+    const customerWarning = !customerSent.ok ? extractResendMessage(customerSent) || "Guest acknowledgement email was not delivered." : "";
+
+    return new Response(JSON.stringify({ ok: true, bookingRef, customerWarning }), {
       status: 200,
       headers: { "Content-Type": "application/json", ...cors },
     });
