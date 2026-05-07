@@ -151,8 +151,8 @@ adsConversionLabel: Booking Page Visit
 
     function getApiErrorMessage(data) {
       if (!data) return "";
-      if (typeof data.error === "string" && data.error.trim()) return data.error.trim();
       if (typeof data.message === "string" && data.message.trim()) return data.message.trim();
+      if (typeof data.error === "string" && data.error.trim()) return data.error.trim();
 
       const customerDetail = data.customer && data.customer.detail;
       const adminDetail = data.admin && data.admin.detail;
