@@ -19,6 +19,25 @@ npm run build
 
 Output is written to `_site/`.
 
+## Analytics, experiments, and operations copy
+
+Build-time values live in `src/_data/siteContext.js` and are baked into HTML at compile time (change env → rebuild to apply).
+
+| Variable | Where to set (CI) | Purpose |
+|----------|---------------------|---------|
+| `GA_MEASUREMENT_ID` | GitHub Actions **secret** | Optional GA4 property ID (`G-XXXXXXXX`). When set, `gtag('config', …)` runs and homepage fires `experiment_exposure` for the hero test. |
+| `HERO_VARIANT` | GitHub Actions **variable** `HERO_VARIANT` | `a` (default) or `b` — switches homepage hero headline and supporting copy. |
+| `RATES_EFFECTIVE_ISO` | GitHub Actions **variable** | ISO date for `<time datetime>` (e.g. `2026-05-01`). Defaults if empty. |
+| `RATES_EFFECTIVE_LABEL` | GitHub Actions **variable** | Human label shown next to rates notes (e.g. `May 2026`). Defaults if empty. |
+
+Locally:
+
+```bash
+GA_MEASUREMENT_ID=G-XXXX HERO_VARIANT=b RATES_EFFECTIVE_ISO=2026-05-01 RATES_EFFECTIVE_LABEL="May 2026" npm run build
+```
+
+Engagement tracking: elements with `data-track-action` and forms with `data-track-form` report to `gtag` where loaded; form submits also emit `generate_lead`. On the homepage only, manual hero slider actions (dots, arrows, keyboard, swipe) emit `hero_slide_engagement`.
+
 ## GitHub Pages
 
 The repository no longer contains hand-written HTML at the root: the live site is the **Eleventy build output** (`_site/`). You must deploy with Actions (or build locally and upload the built files somewhere).

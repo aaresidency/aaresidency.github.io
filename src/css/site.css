@@ -152,6 +152,20 @@ footer.site-footer .footer-left {
   font-size: 1.1em;
 }
 
+footer.site-footer .footer-rates-note {
+  margin: 10px 0 0;
+  max-width: 280px;
+  font-weight: 400;
+  font-size: 0.78em;
+  line-height: 1.45;
+  color: rgba(209, 213, 219, 0.78);
+}
+
+footer.site-footer .footer-rates-note time {
+  font-weight: 600;
+  color: #fde2b6;
+}
+
 footer.site-footer .footer-right {
   flex: 2 1 400px;
   display: flex;
@@ -930,6 +944,17 @@ footer.site-footer a {
   line-height: 1.7;
 }
 
+.home-faq .home-card a {
+  color: var(--navy-800);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.home-faq .home-card a:hover {
+  color: var(--navy-900);
+}
+
 /* --- Legal pages (privacy, guest info) --- */
 .legal-page__inner {
   max-width: 720px;
@@ -1028,6 +1053,18 @@ footer.site-footer a {
   margin-top: 8px;
 }
 
+.legal-page__rates-inline {
+  margin: 12px 0 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-600);
+}
+
+.legal-page__rates-inline time {
+  font-weight: 600;
+  color: var(--navy-900);
+}
+
 .legal-page__footnote {
   margin: 36px 0 0;
   padding-top: 20px;
@@ -1112,6 +1149,21 @@ footer.site-footer a {
 .booking-trust-link a {
   color: var(--navy-800);
   font-weight: 600;
+}
+
+.booking-rates-meta {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--stone-200);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--text-600);
+  text-align: center;
+}
+
+.booking-rates-meta time {
+  font-weight: 600;
+  color: var(--navy-900);
 }
 
 .booking-note a {

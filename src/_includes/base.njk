@@ -94,7 +94,7 @@
     <title>{{ title }}</title>
     <link rel="stylesheet" href="css/site.css" />
   </head>
-  <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+  <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %} data-hero-variant="{{ siteContext.heroVariant }}">
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <div class="top-contact-bar">
       Call us: <a href="tel:+919992999961">+91 99929 99961</a>
@@ -173,7 +173,12 @@
     {% endif %}
 
     <footer class="site-footer">
-      <div class="footer-left">AA Residency Tirupati</div>
+      <div class="footer-left">
+        <div>AA Residency Tirupati</div>
+        <p class="footer-rates-note">
+          Indicative rates on our booking page reviewed <time datetime="{{ siteContext.ratesEffectiveISO }}">{{ siteContext.ratesEffectiveLabel }}</time>.
+        </p>
+      </div>
       <div class="footer-right">
         <div>
           <h4>Popular Pages</h4>
@@ -223,9 +228,20 @@
       }
       gtag("js", new Date());
       gtag("config", "AW-17283929589");
+      {% if siteContext.gaMeasurementId %}
+      gtag("config", "{{ siteContext.gaMeasurementId }}");
+      {% endif %}
       {% if adsConversionLabel %}
       gtag("event", "ads_conversion_Contact_1", {
         en: "{{ adsConversionLabel }}",
+      });
+      {% endif %}
+      {% if siteContext.gaMeasurementId and bodyClass == "page-home" %}
+      gtag("event", "experiment_exposure", {
+        experiment_id: "home_hero",
+        variant_id: "{{ siteContext.heroVariant }}",
+        page_location: window.location.href,
+        page_path: window.location.pathname,
       });
       {% endif %}
     </script>
@@ -233,6 +249,8 @@
       (function () {
         const trackedActions = document.querySelectorAll("[data-track-action]");
         if (!trackedActions.length) return;
+
+        const heroVariant = document.body.getAttribute("data-hero-variant") || "a";
 
         trackedActions.forEach(function (element) {
           element.addEventListener("click", function () {
@@ -242,6 +260,7 @@
             window.gtag("event", actionName, {
               event_category: "engagement",
               event_label: window.location.pathname,
+              hero_variant: heroVariant,
               transport_type: "beacon",
             });
           });
@@ -256,6 +275,14 @@
             window.gtag("event", formActionName, {
               event_category: "lead",
               event_label: window.location.pathname,
+              hero_variant: heroVariant,
+              transport_type: "beacon",
+            });
+            window.gtag("event", "generate_lead", {
+              form_name: formActionName,
+              page_location: window.location.href,
+              page_path: window.location.pathname,
+              hero_variant: heroVariant,
               transport_type: "beacon",
             });
           });

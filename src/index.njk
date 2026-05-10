@@ -85,6 +85,19 @@ bodyClass: page-home
 
   <div class="home-hero__overlay"></div>
   <div class="home-hero__content">
+    {% if siteContext.heroVariant == "b" %}
+    <h1>Comfortable Stay Near Tirupati Temple — Book Direct With the Hotel</h1>
+    <span class="home-hero__accent" aria-hidden="true"></span>
+    <ul class="home-trust-bar">
+      <li>Renigunta Road · easy temple access</li>
+      <li>Direct booking — clear next steps</li>
+      <li>Free Wi‑Fi</li>
+      <li>24/7 front desk</li>
+    </ul>
+    <p>
+      Visiting Tirupati for darshan or passing through the city? AA Residency keeps booking simple: enquire online or message us, get availability for your dates, and receive confirmed rates before you travel — no surprise checkout math.
+    </p>
+    {% else %}
     <h1>Trusted Hotel in Tirupati for Families, Pilgrims, and Business Travelers</h1>
     <span class="home-hero__accent" aria-hidden="true"></span>
     <ul class="home-trust-bar">
@@ -96,6 +109,7 @@ bodyClass: page-home
     <p>
       If you are searching for hotels in Tirupati or rooms in Tirupati, AA Residency offers clean rooms, reliable service, and a convenient location for temple visits, transit stays, and city travel.
     </p>
+    {% endif %}
     <div class="home-hero__actions">
       <a href="Booking.html" class="cta-btn" data-track-action="hero_book_now_click">Check Availability</a>
       <a href="ContactUs.html" class="cta-btn cta-btn--secondary" data-track-action="hero_contact_click">Enquire by Contact Form</a>
@@ -266,6 +280,26 @@ bodyClass: page-home
         <h3>Is your hotel suitable for temple visitors?</h3>
         <p>Yes, many of our guests visit Tirupati for pilgrimage and prefer our location and service support.</p>
       </article>
+      <article class="home-card">
+        <h3>How do I reach AA Residency from the railway station or airport?</h3>
+        <p>
+          We are on Renigunta Road in Tirupati — open our location in
+          <a href="https://maps.app.goo.gl/9AdeCWiaTHM4nEQW8" target="_blank" rel="noopener noreferrer">Google Maps</a>
+          for driving directions. If you are arriving late or by cab, call us and we will help with nearby landmarks.
+        </p>
+      </article>
+      <article class="home-card">
+        <h3>What ID do I need at check-in?</h3>
+        <p>
+          Expect to present valid government photo ID per local requirements (for example Aadhaar or passport for Indian nationals where applicable). Foreign travellers should carry passport and visa arrangements per current norms.
+        </p>
+      </article>
+      <article class="home-card">
+        <h3>Are weekends or festival dates priced differently?</h3>
+        <p>
+          Demand around weekends, holidays, and major festivals can affect availability and tariffs versus our indicative rates. Your final amount is always confirmed with you before your stay is treated as locked in.
+        </p>
+      </article>
     </div>
   </div>
 </section>
@@ -289,7 +323,7 @@ bodyClass: page-home
       dot.className = "slider-dot" + (index === 0 ? " is-active" : "");
       dot.setAttribute("aria-label", "View image " + (index + 1));
       dot.addEventListener("click", function () {
-        showSlide(index);
+        showSlide(index, "dot");
         resetAuto();
       });
       dotsWrap.appendChild(dot);
@@ -297,12 +331,21 @@ bodyClass: page-home
 
     const dots = dotsWrap.querySelectorAll(".slider-dot");
 
-    function showSlide(index) {
+    function showSlide(index, interactionSource) {
       slides[currentIndex].classList.remove("is-active");
       dots[currentIndex].classList.remove("is-active");
       currentIndex = (index + slides.length) % slides.length;
       slides[currentIndex].classList.add("is-active");
       dots[currentIndex].classList.add("is-active");
+      if (interactionSource && typeof window.gtag === "function") {
+        window.gtag("event", "hero_slide_engagement", {
+          slide_index: currentIndex,
+          hero_interaction: interactionSource,
+          hero_variant: document.body.getAttribute("data-hero-variant") || "a",
+          page_path: window.location.pathname,
+          transport_type: "beacon",
+        });
+      }
     }
 
     function startAuto() {
@@ -317,12 +360,12 @@ bodyClass: page-home
     }
 
     prevBtn.addEventListener("click", function () {
-      showSlide(currentIndex - 1);
+      showSlide(currentIndex - 1, "prev");
       resetAuto();
     });
 
     nextBtn.addEventListener("click", function () {
-      showSlide(currentIndex + 1);
+      showSlide(currentIndex + 1, "next");
       resetAuto();
     });
 
@@ -332,10 +375,10 @@ bodyClass: page-home
         return;
       }
       if (event.key === "ArrowLeft") {
-        showSlide(currentIndex - 1);
+        showSlide(currentIndex - 1, "keyboard");
         resetAuto();
       } else if (event.key === "ArrowRight") {
-        showSlide(currentIndex + 1);
+        showSlide(currentIndex + 1, "keyboard");
         resetAuto();
       }
     });
@@ -349,9 +392,9 @@ bodyClass: page-home
       const delta = touchEndX - touchStartX;
       if (Math.abs(delta) < 40) return;
       if (delta > 0) {
-        showSlide(currentIndex - 1);
+        showSlide(currentIndex - 1, "swipe");
       } else {
-        showSlide(currentIndex + 1);
+        showSlide(currentIndex + 1, "swipe");
       }
       resetAuto();
     });
