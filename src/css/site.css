@@ -1211,11 +1211,6 @@ footer.site-footer a {
   outline-offset: 3px;
 }
 
-.booking-container .form-consent label {
-  margin-bottom: 0;
-  font-weight: 400;
-}
-
 .contact-form .form-consent label {
   display: inline;
   margin-bottom: 0;
@@ -1234,7 +1229,7 @@ footer.site-footer a {
   color: var(--text-900);
 }
 
-.booking-container form input,
+.booking-container form input:not([type="checkbox"]):not([type="hidden"]),
 .booking-container form select,
 .booking-container form textarea {
   width: 100%;
@@ -1250,18 +1245,50 @@ footer.site-footer a {
   transition: border 0.2s;
 }
 
-.booking-container form input:focus,
+.booking-container form input:not([type="checkbox"]):not([type="hidden"]):focus,
 .booking-container form select:focus,
 .booking-container form textarea:focus {
   border: 1.5px solid var(--navy-800);
   background: #fff;
 }
 
-.booking-container form input:focus-visible,
+.booking-container form input:not([type="checkbox"]):not([type="hidden"]):focus-visible,
 .booking-container form select:focus-visible,
 .booking-container form textarea:focus-visible {
   outline: 2px solid var(--navy-900);
   outline-offset: 2px;
+}
+
+.booking-container .form-consent input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 4px;
+  margin-bottom: 0;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  accent-color: var(--navy-800);
+  align-self: flex-start;
+}
+
+.booking-container .form-consent input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--navy-900);
+  outline-offset: 3px;
+}
+
+.booking-container .form-consent {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+}
+
+.booking-container .form-consent label {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-bottom: 0;
+  font-weight: 400;
 }
 
 .booking-container form textarea {
