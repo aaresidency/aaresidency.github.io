@@ -96,17 +96,83 @@
   </head>
   <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %} data-hero-variant="{{ siteContext.heroVariant }}">
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <div class="top-contact-bar">
-      Call us: <a href="tel:+919992999961">+91 99929 99961</a>
+
+    {# Hospitality-style utility strip: trust message + reachable contact shortcuts #}
+    <div class="site-topbar" aria-label="Contact shortcuts and booking reassurance">
+      <div class="site-topbar__inner">
+        <p class="site-topbar__trust">
+          <span class="site-topbar__trust-badge">Book direct</span>
+          <span class="site-topbar__trust-dash" aria-hidden="true">•</span>
+          <span>Renigunta Road, Tirupati · 24/7 reception</span>
+        </p>
+        <div class="site-topbar__actions">
+          <a class="site-topbar__link site-topbar__link--email" href="mailto:info@aaresidency.com" data-track-action="topbar_email_click">
+            <svg class="site-topbar__icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+              />
+            </svg>
+            <span class="site-topbar__link-text">info@aaresidency.com</span>
+          </a>
+          <a class="site-topbar__link site-topbar__link--phone" href="tel:+919992999961" data-track-action="topbar_phone_click">
+            <svg class="site-topbar__icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.608-1.288.608-.705 0-1.258-.379-2.036-.764A18.934 18.934 0 016.72 15.53a18.651 18.651 0 01-3.441-3.441 18.934 18.934 0 01-1.676-5.395c0-.545.214-1.067.586-1.452l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
+              />
+            </svg>
+            <span class="site-topbar__link-text">+91 99929 99961</span>
+          </a>
+          <a
+            class="site-topbar__link site-topbar__link--whatsapp"
+            href="https://wa.me/919992999961?text=Hello%20AA%20Residency%2C%20I%20would%20like%20help%20with%20a%20stay."
+            target="_blank"
+            rel="noopener noreferrer"
+            data-track-action="topbar_whatsapp_click"
+          >
+            <svg class="site-topbar__icon site-topbar__icon--whatsapp" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+              />
+            </svg>
+            <span class="site-topbar__link-text">WhatsApp</span>
+          </a>
+        </div>
+      </div>
     </div>
-    <header>
-      <a href="/">AA Residency Tirupati</a>
-      <nav aria-label="Primary">
-        <a href="about.html">About</a>
-        <a href="ContactUs.html">Contact Us</a>
-        <a href="Booking.html">Book Now</a>
-        <a href="privacy-policy.html">Privacy</a>
-      </nav>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-brand" href="/" data-track-action="header_logo_click">
+          <span class="site-brand__name">AA Residency</span>
+          <span class="site-brand__line" aria-hidden="true"></span>
+          <span class="site-brand__subtitle">Hotel in Tirupati</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <a class="site-nav__link" href="about.html" {% if page.url == "/about.html" %}aria-current="page"{% endif %}>About</a>
+          <a class="site-nav__link" href="ContactUs.html" {% if page.url == "/ContactUs.html" %}aria-current="page"{% endif %}>Contact</a>
+          <a class="site-nav__link" href="guest-information.html" {% if page.url == "/guest-information.html" %}aria-current="page"{% endif %}>Guest info</a>
+          <a class="site-nav__link" href="privacy-policy.html" {% if page.url == "/privacy-policy.html" %}aria-current="page"{% endif %}>Privacy</a>
+          <a class="site-nav__book" href="Booking.html" {% if page.url == "/Booking.html" %}aria-current="page"{% endif %} data-track-action="header_book_now_click">
+            Book now
+          </a>
+        </nav>
+      </div>
     </header>
 
     <main id="main-content" tabindex="-1">

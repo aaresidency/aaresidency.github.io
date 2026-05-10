@@ -85,43 +85,45 @@ bodyClass: page-home
 
   <div class="home-hero__overlay"></div>
   <div class="home-hero__content">
-    {% if siteContext.heroVariant == "b" %}
-    <h1>Comfortable Stay Near Tirupati Temple — Book Direct With the Hotel</h1>
-    <span class="home-hero__accent" aria-hidden="true"></span>
-    <ul class="home-trust-bar">
-      <li>Renigunta Road · easy temple access</li>
-      <li>Direct booking — clear next steps</li>
-      <li>Free Wi‑Fi</li>
-      <li>24/7 front desk</li>
-    </ul>
-    <p>
-      Visiting Tirupati for darshan or passing through the city? AA Residency keeps booking simple: enquire online or message us, get availability for your dates, and receive confirmed rates before you travel — no surprise checkout math.
-    </p>
-    {% else %}
-    <h1>Trusted Hotel in Tirupati for Families, Pilgrims, and Business Travelers</h1>
-    <span class="home-hero__accent" aria-hidden="true"></span>
-    <ul class="home-trust-bar">
-      <li>Book direct — best support</li>
-      <li>Free Wi‑Fi</li>
-      <li>24/7 front desk</li>
-      <li>Renigunta Road · Tirupati</li>
-    </ul>
-    <p>
-      If you are searching for hotels in Tirupati or rooms in Tirupati, AA Residency offers clean rooms, reliable service, and a convenient location for temple visits, transit stays, and city travel.
-    </p>
-    {% endif %}
-    <div class="home-hero__actions">
-      <a href="Booking.html" class="cta-btn" data-track-action="hero_book_now_click">Check Availability</a>
-      <a href="ContactUs.html" class="cta-btn cta-btn--secondary" data-track-action="hero_contact_click">Enquire by Contact Form</a>
-      <a
-        href="https://wa.me/919992999961?text=Hello%20AA%20Residency%2C%20I%20want%20to%20book%20a%20room."
-        class="cta-btn cta-btn--outline-light"
-        target="_blank"
-        rel="noopener noreferrer"
-        data-track-action="hero_whatsapp_click"
-      >
-        WhatsApp Us
-      </a>
+    <div class="home-hero__content-inner">
+      {% if siteContext.heroVariant == "b" %}
+      <h1>Comfortable Stay Near Tirupati Temple — Book Direct With the Hotel</h1>
+      <span class="home-hero__accent" aria-hidden="true"></span>
+      <ul class="home-trust-bar">
+        <li>Renigunta Road · easy temple access</li>
+        <li>Direct booking — clear next steps</li>
+        <li>Free Wi‑Fi</li>
+        <li>24/7 front desk</li>
+      </ul>
+      <p>
+        Visiting Tirupati for darshan or passing through the city? AA Residency keeps booking simple: enquire online or message us, get availability for your dates, and receive confirmed rates before you travel — no surprise checkout math.
+      </p>
+      {% else %}
+      <h1>Trusted Hotel in Tirupati for Families, Pilgrims, and Business Travelers</h1>
+      <span class="home-hero__accent" aria-hidden="true"></span>
+      <ul class="home-trust-bar">
+        <li>Book direct — best support</li>
+        <li>Free Wi‑Fi</li>
+        <li>24/7 front desk</li>
+        <li>Renigunta Road · Tirupati</li>
+      </ul>
+      <p>
+        If you are searching for hotels in Tirupati or rooms in Tirupati, AA Residency offers clean rooms, reliable service, and a convenient location for temple visits, transit stays, and city travel.
+      </p>
+      {% endif %}
+      <div class="home-hero__actions">
+        <a href="Booking.html" class="cta-btn" data-track-action="hero_book_now_click">Check Availability</a>
+        <a href="ContactUs.html" class="cta-btn cta-btn--secondary" data-track-action="hero_contact_click">Enquire by Contact Form</a>
+        <a
+          href="https://wa.me/919992999961?text=Hello%20AA%20Residency%2C%20I%20want%20to%20book%20a%20room."
+          class="cta-btn cta-btn--outline-light"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-track-action="hero_whatsapp_click"
+        >
+          WhatsApp Us
+        </a>
+      </div>
     </div>
   </div>
 
@@ -321,7 +323,8 @@ bodyClass: page-home
       const dot = document.createElement("button");
       dot.type = "button";
       dot.className = "slider-dot" + (index === 0 ? " is-active" : "");
-      dot.setAttribute("aria-label", "View image " + (index + 1));
+      dot.setAttribute("aria-label", "View hero image " + (index + 1) + " of " + slides.length);
+      dot.setAttribute("aria-current", index === 0 ? "true" : "false");
       dot.addEventListener("click", function () {
         showSlide(index, "dot");
         resetAuto();
@@ -334,9 +337,11 @@ bodyClass: page-home
     function showSlide(index, interactionSource) {
       slides[currentIndex].classList.remove("is-active");
       dots[currentIndex].classList.remove("is-active");
+      dots[currentIndex].setAttribute("aria-current", "false");
       currentIndex = (index + slides.length) % slides.length;
       slides[currentIndex].classList.add("is-active");
       dots[currentIndex].classList.add("is-active");
+      dots[currentIndex].setAttribute("aria-current", "true");
       if (interactionSource && typeof window.gtag === "function") {
         window.gtag("event", "hero_slide_engagement", {
           slide_index: currentIndex,
