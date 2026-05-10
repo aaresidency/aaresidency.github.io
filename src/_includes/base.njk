@@ -72,6 +72,25 @@
         ]
       }
     </script>
+    {% if breadcrumb %}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {% for item in breadcrumb %}
+          {
+            "@type": "ListItem",
+            "position": {{ loop.index }},
+            "name": {{ item.name | dump | safe }},
+            "item": "https://aaresidency.com{{ item.url }}"
+          }{% if not loop.last %},{% endif %}
+
+          {% endfor %}
+        ]
+      }
+    </script>
+    {% endif %}
     <title>{{ title }}</title>
     <link rel="stylesheet" href="css/site.css" />
   </head>
@@ -86,6 +105,7 @@
         <a href="about.html">About</a>
         <a href="ContactUs.html">Contact Us</a>
         <a href="Booking.html">Book Now</a>
+        <a href="privacy-policy.html">Privacy</a>
       </nav>
     </header>
 
@@ -174,7 +194,7 @@
               aria-label="Open AA Residency Tirupati in Google Maps"
             >
               22-11-246/1, Gollavani Gunta<br />
-              Renigunta Road, Tirupathi 517501
+              Renigunta Road, Tirupati 517501
             </a>
           </address>
         </div>
@@ -183,6 +203,13 @@
           <p>
             Phone: <a href="tel:+919992999961">+91 99929 99961</a><br />
             Email: <a href="mailto:info@aaresidency.com">info@aaresidency.com</a>
+          </p>
+        </div>
+        <div>
+          <h4>Guest care &amp; legal</h4>
+          <p>
+            <a href="guest-information.html">Booking &amp; stay information</a><br />
+            <a href="privacy-policy.html">Privacy policy</a>
           </p>
         </div>
       </div>

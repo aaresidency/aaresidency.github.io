@@ -20,6 +20,22 @@ function generateBookingReference() {
   return `AAR-${y}${m}${d}-${h}${min}-${random}`;
 }
 
+/** Headers on every booking API response (defense-in-depth; browser reads CORS subset). */
+function apiSecurityHeaders() {
+  return {
+    "X-Content-Type-Options": "nosniff",
+    "Cache-Control": "no-store, max-age=0",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+  };
+}
+
+/** Merge security headers + CORS (+ optional Content-Type for JSON). */
+function responseHeaders(cors, opts = {}) {
+  const base = { ...apiSecurityHeaders(), ...cors };
+  if (opts.json) base["Content-Type"] = "application/json";
+  return base;
+}
+
 function corsHeaders(env, origin) {
   /** @type {Record<string,string>} */
   const h = {
@@ -245,27 +261,87 @@ function extractResendMessage(result) {
   return "";
 }
 
+/**
+ * When `TURNSTILE_SECRET_KEY` is set, requires `turnstile_token` in JSON body and verifies with Cloudflare.
+ * @param {Record<string,unknown>} body
+ * @param {Record<string,string>} cors
+ * @returns {Promise<Response | null>} Error response or null if OK / skipped.
+ */
+async function verifyTurnstileIfConfigured(env, request, body, cors) {
+  const secret = env.TURNSTILE_SECRET_KEY;
+  if (!secret) return null;
+
+  const token = String(body?.turnstile_token ?? body?.["cf-turnstile-response"] ?? "").trim();
+  if (!token) {
+    return new Response(
+      JSON.stringify({
+        ok: false,
+        error: "turnstile_required",
+        message: "Complete the security check before submitting.",
+      }),
+      { status: 400, headers: responseHeaders(cors, { json: true }) },
+    );
+  }
+
+  const remoteip =
+    request.headers.get("CF-Connecting-IP") ||
+    request.headers.get("X-Forwarded-For")?.split(",")[0]?.trim() ||
+    "";
+
+  const params = new URLSearchParams();
+  params.set("secret", secret);
+  params.set("response", token);
+  if (remoteip) params.set("remoteip", remoteip);
+
+  const vr = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: params.toString(),
+  });
+  const data = await vr.json().catch(() => ({}));
+  if (!data.success) {
+    const codes = Array.isArray(data["error-codes"]) ? data["error-codes"].join(", ") : "verification failed";
+    return new Response(JSON.stringify({ ok: false, error: "turnstile_failed", message: codes }), {
+      status: 400,
+      headers: responseHeaders(cors, { json: true }),
+    });
+  }
+  return null;
+}
+
 export default {
   async fetch(request, env) {
     const originHeader = request.headers.get("Origin") || "";
     const cors = corsHeaders(env, originHeader);
 
     if (request.method === "OPTIONS") {
-      return new Response("", { headers: cors });
+      return new Response("", { headers: responseHeaders(cors) });
     }
 
     if (request.method !== "POST") {
-      return new Response("method not allowed", { status: 405, headers: cors });
+      return new Response("method not allowed", {
+        status: 405,
+        headers: responseHeaders(cors, { json: false }),
+      });
     }
 
     if (!cors["Access-Control-Allow-Origin"]) {
-      return new Response("Forbidden", { status: 403 });
+      return new Response("Forbidden", { status: 403, headers: responseHeaders({}) });
+    }
+
+    const maxBytes = 32768;
+    const contentLength = request.headers.get("Content-Length");
+    if (contentLength != null && Number(contentLength) > maxBytes) {
+      return new Response(JSON.stringify({ ok: false, error: "payload too large" }), {
+        status: 413,
+        headers: responseHeaders(cors, { json: true }),
+      });
     }
 
     if (!env.RESEND_API_KEY) {
       return new Response(JSON.stringify({ ok: false, error: "RESEND_API_KEY is not configured" }), {
         status: 500,
-        headers: { "Content-Type": "application/json", ...cors },
+        headers: responseHeaders(cors, { json: true }),
       });
     }
 
@@ -275,15 +351,18 @@ export default {
     } catch {
       return new Response(JSON.stringify({ ok: false, error: "invalid json" }), {
         status: 400,
-        headers: { "Content-Type": "application/json", ...cors },
+        headers: responseHeaders(cors, { json: true }),
       });
     }
 
     // Honeypot (bots commonly fill hidden fields).
     const hp = body?.website || body?.website_url || "";
     if (typeof hp === "string" && hp.trim().length > 0) {
-      return new Response(JSON.stringify({ ok: true }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
+      return new Response(JSON.stringify({ ok: true }), { status: 200, headers: responseHeaders(cors, { json: true }) });
     }
+
+    const turnstileErr = await verifyTurnstileIfConfigured(env, request, body, cors);
+    if (turnstileErr) return turnstileErr;
 
     /** @type {string} */
     const name = String(body?.name ?? "").trim();
@@ -400,7 +479,7 @@ export default {
         }),
         {
           status: 502,
-          headers: { "Content-Type": "application/json", ...cors },
+          headers: responseHeaders(cors, { json: true }),
         },
       );
     }
@@ -409,14 +488,14 @@ export default {
 
     return new Response(JSON.stringify({ ok: true, bookingRef, customerWarning }), {
       status: 200,
-      headers: { "Content-Type": "application/json", ...cors },
+      headers: responseHeaders(cors, { json: true }),
     });
   },
 };
 
 /** @param {Record<string,string>} cors @param {{error:string}} body */
 function badRequest(cors, body) {
-  return new Response(JSON.stringify(body), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
+  return new Response(JSON.stringify(body), { status: 400, headers: responseHeaders(cors, { json: true }) });
 }
 
 function isIsoDate(s) {

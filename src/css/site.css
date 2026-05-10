@@ -427,10 +427,36 @@ footer.site-footer a {
 }
 
 .home-quick-booking {
+  /* Pull card slightly over hero edge on large layouts only — short/narrow windows use margin 0 below */
   margin-top: -54px;
   position: relative;
   z-index: 5;
   padding: 0 18px;
+}
+
+/* Less overlap on medium-width desktops (wrapped hero CTAs need more vertical room). */
+@media (max-width: 960px) and (min-height: 721px) {
+  .home-quick-booking {
+    margin-top: -28px;
+  }
+}
+
+/* Short viewport: never overlap — card stacks fully below hero (fixes minimized Chrome window). */
+@media (max-height: 720px) {
+  .home-quick-booking {
+    margin-top: 0;
+    padding-top: 16px;
+  }
+
+  .home-hero__content {
+    padding-top: 92px;
+    padding-bottom: 56px;
+  }
+
+  .home-hero {
+    min-height: 420px;
+    max-height: min(760px, 88vh);
+  }
 }
 
 .mobile-sticky-actions {
@@ -904,6 +930,138 @@ footer.site-footer a {
   line-height: 1.7;
 }
 
+/* --- Legal pages (privacy, guest info) --- */
+.legal-page__inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.legal-page__breadcrumbs {
+  margin: 0 0 20px;
+}
+
+.legal-page__breadcrumbs-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.88rem;
+  color: var(--text-700);
+}
+
+.legal-page__breadcrumbs-item a {
+  color: var(--navy-800);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.legal-page__breadcrumbs-item a:hover {
+  text-decoration: underline;
+}
+
+.legal-page__breadcrumbs-item span[aria-current="page"] {
+  color: var(--text-900);
+  font-weight: 700;
+}
+
+.legal-page__breadcrumbs-item:not(:last-child)::after {
+  content: "/";
+  margin-left: 10px;
+  color: var(--stone-200);
+  font-weight: 500;
+  pointer-events: none;
+}
+
+.legal-page__title-wrap .home-kicker {
+  margin-bottom: 10px;
+}
+
+.legal-page__title-wrap h1 {
+  margin: 0 0 12px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  color: var(--navy-900);
+}
+
+.legal-page__updated {
+  margin: 0 0 22px;
+  font-size: 0.92rem;
+  color: var(--text-700);
+}
+
+.legal-page__lede {
+  margin: 0 0 28px;
+  font-size: 1.06rem;
+  line-height: 1.65;
+  color: var(--text-700);
+}
+
+.legal-page__block {
+  margin-bottom: 28px;
+}
+
+.legal-page__block h2 {
+  margin: 0 0 10px;
+  font-size: 1.28rem;
+  font-family: "Cormorant Garamond", serif;
+  color: var(--navy-900);
+}
+
+.legal-page__block p {
+  margin: 0 0 12px;
+  line-height: 1.68;
+  color: var(--text-700);
+  font-size: 1rem;
+}
+
+.legal-page__list {
+  margin: 10px 0 0;
+  padding-left: 22px;
+  line-height: 1.68;
+  color: var(--text-700);
+}
+
+.legal-page__list li + li {
+  margin-top: 8px;
+}
+
+.legal-page__footnote {
+  margin: 36px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--stone-200);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-700);
+}
+
+.legal-page__footnote a {
+  color: var(--navy-800);
+  font-weight: 600;
+}
+
+.legal-page__cta-wrap {
+  margin: 32px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cta-btn.legal-page__cta-second {
+  background: transparent;
+  color: var(--navy-900);
+  border: 2px solid var(--navy-800);
+  box-shadow: none;
+}
+
+.cta-btn.legal-page__cta-second:hover {
+  background: rgba(15, 23, 42, 0.06);
+}
+
 /* --- Booking --- */
 .booking-container {
   max-width: 600px;
@@ -922,6 +1080,99 @@ footer.site-footer a {
   font-family: "Cormorant Garamond", serif;
   letter-spacing: 1px;
   text-align: center;
+}
+
+.booking-trust-strip {
+  margin: 0 0 22px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(248, 246, 242, 0.98);
+  border: 1px solid var(--stone-200);
+  text-align: left;
+}
+
+.booking-trust-list {
+  margin: 0;
+  padding-left: 22px;
+  color: var(--text-700);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.booking-trust-list li strong {
+  color: var(--navy-900);
+}
+
+.booking-trust-link {
+  margin: 12px 0 0;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.booking-trust-link a {
+  color: var(--navy-800);
+  font-weight: 600;
+}
+
+.booking-note a {
+  color: var(--navy-800);
+  font-weight: 600;
+}
+
+.booking-turnstile-wrap {
+  margin: 12px 0 20px;
+}
+
+.booking-turnstile-label {
+  margin: 0 0 10px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-900);
+}
+
+.booking-turnstile-mount {
+  display: flex;
+  justify-content: center;
+  min-height: 68px;
+}
+
+.form-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 6px 0 20px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-700);
+}
+
+.form-consent input[type="checkbox"] {
+  margin-top: 4px;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--navy-800);
+}
+
+.form-consent input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--navy-900);
+  outline-offset: 3px;
+}
+
+.booking-container .form-consent label {
+  margin-bottom: 0;
+  font-weight: 400;
+}
+
+.contact-form .form-consent label {
+  display: inline;
+  margin-bottom: 0;
+  font-weight: 400;
+}
+
+.form-consent a {
+  color: var(--navy-800);
+  font-weight: 600;
 }
 
 .booking-container form label {
@@ -1405,7 +1656,8 @@ body.page-inner {
   }
 
   .home-quick-booking {
-    margin-top: -35px;
+    margin-top: 0;
+    padding-top: 12px;
   }
 
   .home-quick-booking__card {

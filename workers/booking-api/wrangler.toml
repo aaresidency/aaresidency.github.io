@@ -17,3 +17,6 @@ ADMIN_WHATSAPP_E164 = "919992999961"
 
 # Secrets via CLI (do NOT commit secrets):
 #   npx wrangler secret put RESEND_API_KEY
+# Optional Turnstile (recommended when Worker booking API is live):
+#   npx wrangler secret put TURNSTILE_SECRET_KEY
+#   Build site with env TURNSTILE_SITE_KEY (Turnstile dashboard → widget → Site Key).

@@ -1,0 +1,15 @@
+{% if breadcrumb %}
+<nav class="legal-page__breadcrumbs" aria-label="Breadcrumb">
+  <ol class="legal-page__breadcrumbs-list">
+    {% for item in breadcrumb %}
+      <li class="legal-page__breadcrumbs-item">
+        {% if loop.last %}
+          <span aria-current="page">{{ item.name }}</span>
+        {% else %}
+          <a href="{{ item.url }}">{{ item.name }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+</nav>
+{% endif %}

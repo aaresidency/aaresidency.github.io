@@ -29,6 +29,14 @@ bodyClass: page-contact
       <label for="message">Message</label>
       <textarea id="message" name="message" placeholder="Type your message..." required></textarea>
 
+      <div class="form-consent contact-consent">
+        <input type="checkbox" id="contactPrivacyConsent" name="privacy_consent" value="yes" required />
+        <label for="contactPrivacyConsent">
+          I agree that AA Residency may use my details to reply to this message, as described in the
+          <a href="privacy-policy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+        </label>
+      </div>
+
       <button type="submit" data-track-action="contact_submit_click">Send Message</button>
     </form>
   </div>
