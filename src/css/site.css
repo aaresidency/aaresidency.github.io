@@ -711,6 +711,13 @@ footer.site-footer a {
   font-weight: 600;
 }
 
+/* Guest reviews strip: desktop / large tablet only (keeps homepage shorter on phones). */
+@media (max-width: 768px) {
+  .home-google-reviews {
+    display: none;
+  }
+}
+
 .home-section {
   padding: 70px 20px;
 }
@@ -1530,7 +1537,8 @@ body.page-inner {
     margin-bottom: 0;
   }
 
+  /* Reviews block is hidden on small viewports; restore comfortable gap before Hotel Highlights. */
   .home-google-reviews + .home-section {
-    padding-top: 18px;
+    padding-top: 44px;
   }
 }
