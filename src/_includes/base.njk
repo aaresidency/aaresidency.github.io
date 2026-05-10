@@ -1,21 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17283929589"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "AW-17283929589");
-      {% if adsConversionLabel %}
-      gtag("event", "ads_conversion_Contact_1", {
-        en: "{{ adsConversionLabel }}",
-      });
-      {% endif %}
-    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0f172a" />
@@ -28,9 +13,26 @@
     <meta name="robots" content="index, follow" />
     <meta name="author" content="AA Residency Tirupati" />
     <link rel="canonical" href="https://aaresidency.com{{ page.url }}" />
+    {% if page.url == "/" %}
+    {# LCP hint: first hero slide (WebP preferred by <picture>); matches images/home-slide-1.webp #}
+    <link rel="preload" as="image" href="images/home-slide-1.webp" type="image/webp" />
+    {% endif %}
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    {# Non-blocking fonts — avoids render-blocking CSS from Google Fonts #}
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
     <meta property="og:type" content="website" />
     <meta property="og:title" content="{{ title }}" />
     {% if description %}
@@ -182,6 +184,21 @@
         </div>
       </div>
     </footer>
+    <!-- Google tag (gtag.js) — end of body so first paint is not blocked -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17283929589"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "AW-17283929589");
+      {% if adsConversionLabel %}
+      gtag("event", "ads_conversion_Contact_1", {
+        en: "{{ adsConversionLabel }}",
+      });
+      {% endif %}
+    </script>
     <script>
       (function () {
         const trackedActions = document.querySelectorAll("[data-track-action]");
