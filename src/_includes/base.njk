@@ -298,8 +298,8 @@
       gtag('config', '{{ siteContext.gaMeasurementId }}');
       {% endif %}
       {% if adsConversionLabel %}
-      gtag('event', 'ads_conversion_Contact_1', {
-        en: '{{ adsConversionLabel }}',
+      gtag('event', 'conversion', {
+        send_to: 'AW-17283929589/{{ adsConversionLabel }}',
       });
       {% endif %}
       {% if siteContext.gaMeasurementId and bodyClass == "page-home" %}
