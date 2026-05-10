@@ -10,7 +10,7 @@
     {% if keywords %}
     <meta name="keywords" content="{{ keywords }}" />
     {% endif %}
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="{% if noindex %}noindex, follow{% else %}index, follow{% endif %}" />
     <meta name="author" content="AA Residency Tirupati" />
     <link rel="canonical" href="https://aaresidency.com{{ page.url }}" />
     {% if page.url == "/" %}
@@ -40,13 +40,13 @@
     {% endif %}
     <meta property="og:url" content="https://aaresidency.com{{ page.url }}" />
     <meta property="og:site_name" content="AA Residency Tirupati" />
-    <meta property="og:image" content="https://aaresidency.com/images/home-slide-1.jpg" />
+    <meta property="og:image" content="https://aaresidency.com{% if ogImage %}{{ ogImage }}{% else %}images/home-slide-1.jpg{% endif %}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ title }}" />
     {% if description %}
     <meta name="twitter:description" content="{{ description }}" />
     {% endif %}
-    <meta name="twitter:image" content="https://aaresidency.com/images/home-slide-1.jpg" />
+    <meta name="twitter:image" content="https://aaresidency.com{% if ogImage %}{{ ogImage }}{% else %}images/home-slide-1.jpg{% endif %}" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -76,19 +76,22 @@
     <link rel="stylesheet" href="css/site.css" />
   </head>
   <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <div class="top-contact-bar">
       Call us: <a href="tel:+919992999961">+91 99929 99961</a>
     </div>
     <header>
-      <a href="index.html">AA Residency Tirupati</a>
-      <nav>
+      <a href="/">AA Residency Tirupati</a>
+      <nav aria-label="Primary">
         <a href="about.html">About</a>
         <a href="ContactUs.html">Contact Us</a>
         <a href="Booking.html">Book Now</a>
       </nav>
     </header>
 
-    {{ content | safe }}
+    <main id="main-content" tabindex="-1">
+      {{ content | safe }}
+    </main>
 
     {% if bodyClass != "page-confirmation" %}
     <div class="desktop-sticky-actions" aria-label="Desktop quick contact actions">

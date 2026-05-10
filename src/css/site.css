@@ -11,6 +11,50 @@
   --white: #ffffff;
 }
 
+/* --- Accessibility: skip link & visible focus (WCAG 2.4.1, 2.4.7) --- */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 10000;
+  padding: 10px 16px;
+  background: var(--navy-900);
+  color: #fefce8;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.skip-link:focus {
+  left: 12px;
+}
+
+.skip-link:focus-visible {
+  outline: 3px solid var(--gold-500);
+  outline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible,
+.cta-btn:focus-visible,
+.desktop-sticky-action:focus-visible,
+.mobile-sticky-action:focus-visible {
+  outline: 3px solid var(--navy-800);
+  outline-offset: 2px;
+}
+
+.home-hero .cta-btn:focus-visible,
+.cta-btn--outline-light:focus-visible {
+  outline-color: #f8d9a4;
+}
+
+.slider-nav:focus-visible,
+.slider-dot:focus-visible {
+  outline: 3px solid #f8d9a4;
+  outline-offset: 3px;
+}
+
 body {
   font-family: Inter, Arial, sans-serif;
   background-color: var(--stone-100);
@@ -907,8 +951,14 @@ footer.site-footer a {
 .booking-container form select:focus,
 .booking-container form textarea:focus {
   border: 1.5px solid var(--navy-800);
-  outline: none;
   background: #fff;
+}
+
+.booking-container form input:focus-visible,
+.booking-container form select:focus-visible,
+.booking-container form textarea:focus-visible {
+  outline: 2px solid var(--navy-900);
+  outline-offset: 2px;
 }
 
 .booking-container form textarea {
@@ -933,6 +983,11 @@ footer.site-footer a {
 
 .booking-container button:hover {
   background-color: var(--gold-600);
+}
+
+.booking-container button:focus-visible {
+  outline: 3px solid var(--navy-900);
+  outline-offset: 3px;
 }
 
 .booking-note {
@@ -1039,8 +1094,13 @@ footer.site-footer a {
 .contact-form input:focus,
 .contact-form textarea:focus {
   border: 1.5px solid var(--navy-800);
-  outline: none;
   background: #fff;
+}
+
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible {
+  outline: 2px solid var(--navy-900);
+  outline-offset: 2px;
 }
 
 .contact-form textarea {
@@ -1064,6 +1124,11 @@ footer.site-footer a {
 
 .contact-form button:hover {
   background-color: var(--gold-600);
+}
+
+.contact-form button:focus-visible {
+  outline: 3px solid var(--navy-900);
+  outline-offset: 3px;
 }
 
 .image-column {
