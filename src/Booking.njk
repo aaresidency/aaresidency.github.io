@@ -1,8 +1,8 @@
 ---
 layout: base.njk
 title: Book Your Stay | AA Residency Tirupati
-description: Book your stay at AA Residency Tirupati. Choose from A/C Deluxe and Non-A/C Deluxe rooms. Enjoy free cancellation, family-friendly rooms, and the best rates near Tirupati Temple.
-keywords: AA Residency Tirupati booking, Tirupati hotel booking, A/C Deluxe, Non-A/C Deluxe, family hotels Tirupati, free cancellation, best hotels near Tirupati temple
+description: Book your stay at AA Residency Tirupati. Submit a booking request for A/C or Non-A/C Deluxe rooms. Our team confirms availability, rates for your dates, and cancellation terms before your stay is finalised.
+keywords: AA Residency Tirupati booking, Tirupati hotel booking, A/C Deluxe, Non-A/C Deluxe, family hotels Tirupati, direct hotel booking Tirupati, hotels near Tirupati temple
 permalink: /Booking.html
 bodyClass: page-booking
 adsConversionLabel: Booking Page Visit
@@ -11,8 +11,24 @@ adsConversionLabel: Booking Page Visit
 <div class="booking-container"
   {% if booking.apiUrl %}
   data-booking-api="{{ booking.apiUrl | escape }}"
+  {% endif %}
+  {% if booking.apiUrl and turnstile.siteKey %}
+  data-turnstile-site="{{ turnstile.siteKey | escape }}"
   {% endif %}>
   <h1>Book Your Stay</h1>
+  <div class="booking-trust-strip" aria-label="Booking on this website">
+    <ul class="booking-trust-list">
+      <li><strong>Direct with the hotel</strong> — we confirm availability personally.</li>
+      <li><strong>No card needed</strong> in this form; payment instructions come after confirmation.</li>
+      <li><strong>Cancellations</strong> — terms are shared when your reservation is confirmed.</li>
+    </ul>
+    <p class="booking-trust-link">
+      <a href="guest-information.html">How enquiries &amp; confirmations work →</a>
+    </p>
+    <p class="booking-rates-meta">
+      Indicative ₹ amounts below were reviewed <time datetime="{{ siteContext.ratesEffectiveISO }}">{{ siteContext.ratesEffectiveLabel }}</time>; final rates are confirmed for your dates before your stay is finalised.
+    </p>
+  </div>
   <form
     method="POST"
     id="bookingForm"
@@ -75,6 +91,22 @@ adsConversionLabel: Booking Page Visit
     <label for="notes">Notes or Requests (e.g., accessibility)</label>
     <textarea id="notes" name="notes" placeholder="Any special requests or accessibility needs?"></textarea>
 
+    <div class="form-consent booking-consent">
+      <input type="checkbox" id="bookingPrivacyConsent" name="privacy_consent" value="yes" required />
+      <label for="bookingPrivacyConsent">
+        I agree that AA Residency may use my details to respond to this booking enquiry, as described in the
+        <a href="privacy-policy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+      </label>
+    </div>
+
+    {% if booking.apiUrl and turnstile.siteKey %}
+    <div class="booking-turnstile-wrap">
+      <p class="booking-turnstile-label">Security check</p>
+      <div id="bookingTurnstileMount" class="booking-turnstile-mount"></div>
+      <input type="hidden" id="bookingTurnstileToken" value="" autocomplete="off" />
+    </div>
+    {% endif %}
+
     <button type="submit" data-track-action="booking_submit_click">Confirm Booking</button>
   </form>
   <p class="booking-note">
@@ -83,14 +115,49 @@ adsConversionLabel: Booking Page Visit
     {% else %}
     You will receive a booking acknowledgement by email after submission (if autoresponder is enabled in your form settings).
     {% endif %}
+    <br /><br />
+    By submitting this form you are making a reservation request — not completing payment on this website.
+    See <a href="guest-information.html">guest &amp; booking information</a> for how confirmations work.
   </p>
 </div>
+
+{% if booking.apiUrl and turnstile.siteKey %}
+<script>
+  (function () {
+    window.__aarBookingTsWidget = null;
+    window.aarTurnstileReady = function () {
+      var siteEl = document.querySelector(".booking-container");
+      var site = siteEl && siteEl.dataset.turnstileSite ? siteEl.dataset.turnstileSite.trim() : "";
+      if (!site || typeof turnstile === "undefined") return;
+      var mount = document.getElementById("bookingTurnstileMount");
+      if (!mount) return;
+      window.__aarBookingTsWidget = turnstile.render(mount, {
+        sitekey: site,
+        callback: function (token) {
+          var el = document.getElementById("bookingTurnstileToken");
+          if (el) el.value = token;
+        },
+        "expired-callback": function () {
+          var el = document.getElementById("bookingTurnstileToken");
+          if (el) el.value = "";
+        },
+        "error-callback": function () {
+          var el = document.getElementById("bookingTurnstileToken");
+          if (el) el.value = "";
+        },
+      });
+    };
+  })();
+</script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=aarTurnstileReady" defer></script>
+{% endif %}
 
 <script>
   (function () {
     const form = document.getElementById("bookingForm");
     const container = document.querySelector(".booking-container");
     const bookingApiUrl = (container && container.dataset.bookingApi ? container.dataset.bookingApi : "").trim();
+    const turnstileSite = (container && container.dataset.turnstileSite ? container.dataset.turnstileSite : "").trim();
 
     function generateBookingReference() {
       const now = new Date();
@@ -146,6 +213,21 @@ adsConversionLabel: Booking Page Visit
         document.getElementById("departureDate").focus();
         return false;
       }
+      const consent = document.getElementById("bookingPrivacyConsent");
+      if (!consent || !consent.checked) {
+        alert("Please agree to the privacy notice to submit your enquiry.");
+        if (consent) consent.focus();
+        return false;
+      }
+      if (turnstileSite) {
+        const tsTok = document.getElementById("bookingTurnstileToken");
+        if (!tsTok || !tsTok.value.trim()) {
+          alert("Please complete the security check above.");
+          const mount = document.getElementById("bookingTurnstileMount");
+          if (mount) mount.scrollIntoView({ behavior: "smooth", block: "center" });
+          return false;
+        }
+      }
       return true;
     }
 
@@ -200,21 +282,25 @@ adsConversionLabel: Booking Page Visit
         submitBtn.disabled = true;
         submitBtn.textContent = "Sending…";
 
+        const payload = {
+          website: website,
+          name: document.getElementById("guestName").value.trim(),
+          email: document.getElementById("guestEmail").value.trim(),
+          phone: document.getElementById("guestPhone").value.trim(),
+          arrival_date: document.getElementById("arrivalDate").value,
+          departure_date: document.getElementById("departureDate").value,
+          room_type: roomTypeValue,
+          adults: adultsValue,
+          children: childrenValue,
+          notes: notesValue,
+        };
+        const tsTokEl = document.getElementById("bookingTurnstileToken");
+        if (tsTokEl && tsTokEl.value.trim()) payload.turnstile_token = tsTokEl.value.trim();
+
         fetch(bookingApiUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            website: website,
-            name: document.getElementById("guestName").value.trim(),
-            email: document.getElementById("guestEmail").value.trim(),
-            phone: document.getElementById("guestPhone").value.trim(),
-            arrival_date: document.getElementById("arrivalDate").value,
-            departure_date: document.getElementById("departureDate").value,
-            room_type: roomTypeValue,
-            adults: adultsValue,
-            children: childrenValue,
-            notes: notesValue,
-          }),
+          body: JSON.stringify(payload),
         })
           .then(function (res) {
             return res
@@ -233,6 +319,13 @@ adsConversionLabel: Booking Page Visit
                 ? "Booking request failed: " + apiReason
                 : "We could not send your booking just now. Please call +91 99929 99961 or try again shortly.";
               alert(msg);
+              if (typeof window.turnstile !== "undefined" && window.__aarBookingTsWidget != null) {
+                try {
+                  window.turnstile.reset(window.__aarBookingTsWidget);
+                } catch (err) {}
+              }
+              var tsIn = document.getElementById("bookingTurnstileToken");
+              if (tsIn) tsIn.value = "";
               return;
             }
             const ref = out.data.bookingRef || "";

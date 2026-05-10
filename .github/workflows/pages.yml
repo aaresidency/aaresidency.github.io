@@ -29,6 +29,11 @@ jobs:
           GBP_PLACE_ID: ${{ secrets.GBP_PLACE_ID }}
           GOOGLE_MAPS_PLACES_KEY: ${{ secrets.GOOGLE_MAPS_PLACES_KEY }}
           BOOKING_API_URL: ${{ secrets.BOOKING_API_URL }}
+          TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
+          GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID }}
+          HERO_VARIANT: ${{ vars.HERO_VARIANT }}
+          RATES_EFFECTIVE_ISO: ${{ vars.RATES_EFFECTIVE_ISO }}
+          RATES_EFFECTIVE_LABEL: ${{ vars.RATES_EFFECTIVE_LABEL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
