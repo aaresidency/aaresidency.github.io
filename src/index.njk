@@ -8,6 +8,7 @@ bodyClass: page-home
 ---
 
 <section class="home-hero">
+  <div class="home-hero__media">
   <div class="home-hero__slider" id="heroSlider">
     <picture class="home-hero__slide is-active">
       <source srcset="images/home-slide-1.webp" type="image/webp" />
@@ -84,6 +85,8 @@ bodyClass: page-home
   </div>
 
   <div class="home-hero__overlay"></div>
+  </div>
+
   <div class="home-hero__content">
     <div class="home-hero__content-inner">
       {% if siteContext.heroVariant == "b" %}
@@ -309,7 +312,8 @@ bodyClass: page-home
 <script>
   (function () {
     const slider = document.getElementById("heroSlider");
-    if (!slider) return;
+    const heroMedia = slider ? slider.closest(".home-hero__media") : null;
+    if (!slider || !heroMedia) return;
     const slides = slider.querySelectorAll(".home-hero__slide");
     const prevBtn = document.querySelector(".slider-nav--prev");
     const nextBtn = document.querySelector(".slider-nav--next");
@@ -388,11 +392,16 @@ bodyClass: page-home
       }
     });
 
-    slider.addEventListener("touchstart", function (event) {
-      touchStartX = event.changedTouches[0].screenX;
-    });
+    heroMedia.addEventListener(
+      "touchstart",
+      function (event) {
+        touchStartX = event.changedTouches[0].screenX;
+      },
+      { passive: true }
+    );
 
-    slider.addEventListener("touchend", function (event) {
+    heroMedia.addEventListener("touchend", function (event) {
+      if (event.target.closest("a, button")) return;
       touchEndX = event.changedTouches[0].screenX;
       const delta = touchEndX - touchStartX;
       if (Math.abs(delta) < 40) return;

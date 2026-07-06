@@ -444,11 +444,21 @@ footer.site-footer a {
 
 /* --- Home --- */
 .home-hero {
+  --hero-media-height: clamp(340px, 56vh, 540px);
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  min-height: clamp(420px, 76vh, 800px);
-  overflow: hidden;
+  overflow: visible;
   background: var(--navy-900);
+}
+
+.home-hero__media {
+  position: relative;
+  flex: none;
+  width: 100%;
+  height: var(--hero-media-height);
+  overflow: hidden;
 }
 
 .home-hero__slider {
@@ -484,25 +494,23 @@ footer.site-footer a {
   inset: 0;
   z-index: 2;
   background: linear-gradient(
-    165deg,
-    rgba(15, 23, 42, 0.55) 0%,
-    rgba(15, 23, 42, 0.38) 42%,
-    rgba(15, 23, 42, 0.82) 100%
+    180deg,
+    rgba(15, 23, 42, 0.1) 0%,
+    rgba(15, 23, 42, 0.42) 100%
   );
   pointer-events: none;
 }
 
 .home-hero__content {
   position: relative;
+  flex: none;
   z-index: 3;
   color: #fff;
   text-align: center;
   width: 100%;
   max-width: min(920px, 100%);
   margin: 0 auto;
-  padding: clamp(5.5rem, 12vw, 7rem) clamp(1rem, 4vw, 1.75rem) clamp(6.25rem, 18vw, 7.5rem);
-  padding-bottom: max(clamp(6.25rem, 18vw, 7.5rem), calc(env(safe-area-inset-bottom, 0px) + 5.5rem));
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+  padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1rem, 4vw, 1.75rem) clamp(1.75rem, 3vw, 2.5rem);
   box-sizing: border-box;
 }
 
@@ -687,7 +695,7 @@ footer.site-footer a {
 
 .slider-nav {
   position: absolute;
-  top: 50%;
+  top: calc(var(--hero-media-height) * 0.5);
   transform: translateY(-50%);
   z-index: 4;
   width: 46px;
@@ -727,7 +735,8 @@ footer.site-footer a {
 .slider-dots {
   position: absolute;
   left: 50%;
-  bottom: max(14px, env(safe-area-inset-bottom, 0px));
+  top: calc(var(--hero-media-height) - 3.25rem);
+  bottom: auto;
   transform: translateX(-50%);
   z-index: 4;
   display: flex;
@@ -831,36 +840,10 @@ footer.site-footer a {
 }
 
 .home-quick-booking {
-  /* Pull card slightly over hero edge on large layouts only — short/narrow windows use margin 0 below */
-  margin-top: -54px;
+  margin-top: 0;
   position: relative;
   z-index: 5;
-  padding: 0 18px;
-}
-
-/* Less overlap on medium-width desktops (wrapped hero CTAs need more vertical room). */
-@media (max-width: 960px) and (min-height: 721px) {
-  .home-quick-booking {
-    margin-top: -28px;
-  }
-}
-
-/* Short viewport: never overlap — card stacks fully below hero (fixes minimized Chrome window). */
-@media (max-height: 720px) {
-  .home-quick-booking {
-    margin-top: 0;
-    padding-top: 16px;
-  }
-
-  .home-hero__content {
-    padding-top: clamp(4.25rem, 10vh, 5.5rem);
-    padding-bottom: max(calc(env(safe-area-inset-bottom, 0px) + 4.5rem), 4.75rem);
-  }
-
-  .home-hero {
-    min-height: min(420px, 72vh);
-    max-height: none;
-  }
+  padding: clamp(12px, 2vw, 24px) 18px 0;
 }
 
 .mobile-sticky-actions {
@@ -2087,7 +2070,16 @@ body.page-inner {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .home-hero {
+    --hero-media-height: clamp(280px, 52vh, 420px);
+  }
+
+  .home-hero__content {
+    padding: 1.25rem max(0.75rem, env(safe-area-inset-left, 0px)) 1.5rem;
+    padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+  }
+
   .home-hero__content-inner {
     padding: 1.05rem 0.9rem 1.15rem;
     border-radius: 18px;
@@ -2098,14 +2090,12 @@ body.page-inner {
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
   }
 
-  .home-hero__content {
-    padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
-    padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+  .slider-dots {
+    top: calc(var(--hero-media-height) - 3rem);
   }
+}
 
-  .home-hero {
-    min-height: clamp(400px, 82vh, 680px);
-  }
+@media (max-width: 600px) {
 
   .home-quick-booking {
     margin-top: 0;
