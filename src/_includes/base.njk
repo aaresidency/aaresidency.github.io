@@ -287,7 +287,7 @@
     </footer>
     {# Google tag at end of body so first paint is not blocked #}
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17283929589"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={% if siteContext.gaMeasurementId %}{{ siteContext.gaMeasurementId }}{% else %}AW-17283929589{% endif %}"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
