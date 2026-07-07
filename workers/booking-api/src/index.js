@@ -9,6 +9,7 @@ function escapeHtml(unsafe) {
   return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
+
 function generateBookingReference() {
   const now = new Date();
   const y = now.getFullYear();
