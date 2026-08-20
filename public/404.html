@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AA Residency</title>
+    <script>
+      // GitHub Pages has no server-side rewrites for SPA routes. This encodes the
+      // requested deep-link path into a query string and redirects to the real
+      // index.html, which decodes it back via the script in index.html.
+      // https://github.com/rafgraph/spa-github-pages
+      var l = window.location
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1).join('/') + '/?p=/' +
+        l.pathname.slice(1).replace(/&/g, '~and~') +
+        (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
+      )
+    </script>
+  </head>
+  <body></body>
+</html>

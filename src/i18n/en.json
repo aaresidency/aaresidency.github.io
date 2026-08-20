@@ -1,0 +1,260 @@
+{
+  "nav": {
+    "home": "Home",
+    "rooms": "Rooms",
+    "about": "About",
+    "gallery": "Gallery",
+    "b2b": "B2B",
+    "events": "Events",
+    "reviews": "Reviews",
+    "nearby": "Nearby",
+    "facilities": "Facilities",
+    "contact": "Contact"
+  },
+  "header": {
+    "tagline": "Hotel & Suites"
+  },
+  "hero": {
+    "slides": {
+      "exterior": "Exterior View",
+      "reception": "Reception",
+      "deluxe": "Deluxe Room",
+      "ac": "AC Room",
+      "nonAc": "Non-AC Room",
+      "family": "Family Room"
+    },
+    "title": "AA Residency",
+    "subtitle": "Comfort • Luxury • Hospitality"
+  },
+  "booking": {
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "rooms": "Rooms",
+    "guests": "Guests",
+    "bookNow": "Book Now",
+    "completeBooking": "Complete Booking",
+    "sentViaWhatsapp": "Details will be sent via WhatsApp",
+    "summary": {
+      "checkIn": "Check-in",
+      "checkOut": "Check-out",
+      "rooms": "Rooms",
+      "guests": "Guests"
+    },
+    "form": {
+      "name": "Full Name",
+      "namePlaceholder": "John Doe",
+      "mobile": "Mobile Number",
+      "mobilePlaceholder": "9876543210",
+      "email": "Email (optional)",
+      "emailPlaceholder": "john@example.com",
+      "submit": "Send via WhatsApp"
+    },
+    "validation": {
+      "nameRequired": "Required",
+      "mobileRequired": "Required",
+      "mobileInvalid": "Enter valid 10-digit number",
+      "emailInvalid": "Invalid email"
+    }
+  },
+  "home": {
+    "aboutTitle": "About Us",
+    "aboutHeading": "Welcome to AA Residency",
+    "aboutDesc": "Experience comfortable and affordable accommodation with modern amenities, spacious rooms, excellent hospitality, and easy access to nearby attractions.",
+    "learnMore": "Learn More",
+    "reviewsTitle": "What Our Guests Say",
+    "reviewsSubtitle": "Trusted by 200+ satisfied guests across India",
+    "images": {
+      "receptionLobby": "Reception Lobby",
+      "deluxeRoom": "Deluxe Room",
+      "familyRoom": "Family Room",
+      "facilities": "Facilities"
+    }
+  },
+  "about": {
+    "heroTitle": "About Us",
+    "heroSubtitle": "Learn about AA Residency",
+    "badge": "About A A Residency",
+    "subheading": "Comfort, Convenience & Genuine Hospitality in Tirupati",
+    "intro1": "Welcome to <b>A A Residency</b>, a modern and comfortable hotel in Tirupati, thoughtfully designed to provide a peaceful and convenient stay for pilgrims, families, business travellers, and guests visiting the city.",
+    "intro2": "Located on <b>Renigunta Road in Auto Nagar, Tirupati</b>, A A Residency offers easy access to the city's key travel routes and is ideally suited for guests visiting Tirumala and other important destinations in and around Tirupati.",
+    "intro3": "At A A Residency, we believe that a good stay is about more than just a comfortable room. It is about <b>cleanliness, thoughtful service, convenience, and making every guest feel welcome</b>. Our well-maintained rooms are designed to give you a relaxing space to unwind after a day of temple visits, travel, or work.",
+    "section1Title": "Designed for Every Kind of Stay",
+    "section1Para1": "Whether you are travelling with family for a pilgrimage, visiting Tirupati with a group, travelling for business, or simply looking for a comfortable overnight stay, our range of rooms provides practical options to suit different needs.",
+    "section1Para2": "Our facilities include <b>air-conditioned rooms, family-friendly accommodation, complimentary Wi-Fi, television, hot water, essential toiletries, elevator access, parking, and 24-hour front-desk assistance</b>.",
+    "section2Title": "A Peaceful Stay with Personal Service",
+    "section2Para1": "We understand that many of our guests visit Tirupati for an important spiritual journey. Our team is committed to making your stay as smooth and comfortable as possible, from check-in to check-out. With a focus on cleanliness, responsive service, and a welcoming atmosphere, we aim to make A A Residency a place where guests can relax and feel at home.",
+    "section2Para2": "Our commitment to guest experience is reflected in the feedback we receive, with guests particularly appreciating <b>our cleanliness, comfortable rooms, friendly staff, and value for money</b>.",
+    "section3Title": "Your Comfortable Stay in Tirupati",
+    "section3Para1": "At A A Residency, our goal is simple — <b>to provide a clean, comfortable, and dependable stay at a value that makes sense</b>.",
+    "section3Para2": "Whether you're here for the blessings of Tirumala, a family trip, a business visit, or simply passing through Tirupati, we look forward to welcoming you and making your stay a pleasant one.",
+    "tagline": "A A Residency — Your comfortable stay in Tirupati!",
+    "nearbyTitle": "Nearby Attractions",
+    "nearbySubtitle": "Explore popular destinations close to AA Residency",
+    "facilitiesTitle": "Our Facilities",
+    "galleryTitle": "Hotel Gallery",
+    "findUs": "Find Us",
+    "reviewsTitle": "Customer Reviews",
+    "images": {
+      "receptionLobby": "Reception Lobby",
+      "restaurant": "Banquet Hall",
+      "parking": "Elevator"
+    }
+  },
+  "facilities": {
+    "wifi": "Free WiFi",
+    "ac": "Air Conditioning",
+    "parking": "Parking",
+    "reception": "24/7 Reception",
+    "housekeeping": "Housekeeping",
+    "cctv": "CCTV Security",
+    "hotWater": "Hot Water",
+    "powerBackup": "Power Backup",
+    "elevator": "Elevator",
+    "tv": "LED TV"
+  },
+  "rooms": {
+    "heroTitle": "Our Rooms",
+    "heroSubtitle": "Comfort for every traveller",
+    "available": "Available",
+    "booked": "Booked",
+    "bookRoom": "Book This Room",
+    "whatsappEnquiry": "WhatsApp Enquiry",
+    "helpTitle": "Need Help Choosing?",
+    "callUs": "📞 Call Us",
+    "whatsapp": "💬 WhatsApp",
+    "reviewsTitle": "Guest Reviews",
+    "types": {
+      "ac": "AC Room",
+      "nonAc": "Non-AC Room",
+      "deluxe": "Deluxe Room",
+      "studio": "Studio Room",
+      "family": "Family Room"
+    },
+    "features": {
+      "ac": "Air Conditioning",
+      "wifi": "Wi-Fi",
+      "tv": "LED TV",
+      "bathroom": "Attached Bathroom",
+      "hotWater": "Hot Water",
+      "powerBackup": "Power Backup",
+      "fan": "Ceiling Fan",
+      "fridge": "Mini Fridge",
+      "tvDouble": "2x LED TV",
+      "seating": "Seating Area"
+    }
+  },
+  "gallery": {
+    "heroTitle": "Gallery",
+    "heroSubtitle": "A visual tour of AA Residency",
+    "reviewsTitle": "Guest Reviews",
+    "categories": {
+      "all": "All",
+      "reception": "Reception",
+      "acRooms": "AC Rooms",
+      "nonAcRooms": "Non-AC Rooms",
+      "washrooms": "Washrooms",
+      "exterior": "Exterior",
+      "events": "Events & Banquet",
+      "amenities": "Amenities"
+    },
+    "images": {
+      "receptionLobby": "Reception Lobby",
+      "frontDesk": "Front Desk",
+      "receptionSeating": "Reception Seating",
+      "acRoom101": "AC Room",
+      "acRoom102": "AC Room View",
+      "acRoomDetail": "AC Room Detail",
+      "standardRoom": "Standard Room",
+      "familyRoom1": "Family Room",
+      "familyRoom2": "Family Room View",
+      "deluxeBathroom": "Deluxe Bathroom",
+      "standardBathroom": "Standard Bathroom",
+      "showerRoom": "Shower Room",
+      "frontView": "Hotel Front View",
+      "buildingExterior": "Building Signage",
+      "eventHall": "Event Hall",
+      "eventStage1": "Banquet Stage",
+      "eventStage2": "Birthday Setup",
+      "eventStage3": "Birthday Celebration",
+      "elevator": "Lift / Elevator",
+      "familyAcRoom": "Family AC Room"
+    }
+  },
+  "b2b": {
+    "badge": "Coming Soon",
+    "heroTitle": "B2B Business",
+    "heroSubtitle": "Partnership opportunities for companies, travel agencies, and tour operators.",
+    "sectionLabel": "Business Partnerships",
+    "heading": "Partner With AA Residency",
+    "desc": "We are building exclusive business partnership programs for corporate clients, travel agencies, and tour operators. Full details coming soon — register your interest below and we'll be in touch.",
+    "partners": {
+      "corporate": {
+        "label": "Corporate Offices",
+        "desc": "Exclusive corporate rates and extended stay packages for business teams."
+      },
+      "travel": {
+        "label": "Travel Agencies",
+        "desc": "Competitive commission structures and dedicated support for travel partners."
+      },
+      "tour": {
+        "label": "Tour Operators",
+        "desc": "Group booking solutions and custom itinerary packages for tour groups."
+      }
+    },
+    "interestTitle": "Register Your Interest",
+    "interestDesc": "We'll reach out once the B2B programme launches.",
+    "interestBtn": "Express Interest via WhatsApp"
+  },
+  "footer": {
+    "tagline": "Experience comfortable and affordable accommodation with modern amenities and excellent hospitality.",
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "location": "Location",
+    "viewMap": "View on Google Maps",
+    "copyright": "© {{year}} AA Residency. All rights reserved.",
+    "links": {
+      "home": "Home",
+      "rooms": "Rooms",
+      "about": "About Us",
+      "gallery": "Gallery",
+      "b2b": "B2B",
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions",
+      "events": "Events",
+      "reviews": "Reviews",
+      "facilities": "Facilities",
+      "nearby": "Nearby",
+      "contact": "Contact"
+    },
+    "whatsappUs": "WhatsApp Us"
+  },
+  "reviews": {
+    "sectionLabel": "Guest Testimonials",
+    "verifiedGuest": "Verified Guest",
+    "overallRating": "Overall Rating",
+    "happyGuests": "Happy Guests",
+    "verifiedReviews": "Verified Reviews",
+    "viewAll": "View All Reviews",
+    "page": {
+      "heroTitle": "Guest Reviews",
+      "heroSubtitle": "Real experiences from our valued guests at AA Residency",
+      "ratingsTitle": "What Guests Rate Us",
+      "cleanlinessLabel": "Cleanliness",
+      "hospitalityLabel": "Hospitality",
+      "valueLabel": "Value for Money",
+      "locationLabel": "Location",
+      "ctaTitle": "Ready to Experience It Yourself?",
+      "ctaDesc": "Join hundreds of happy guests who chose AA Residency for their stay in Tirupati.",
+      "ctaBtn": "Book Your Stay"
+    },
+    "nithesh": {
+      "review": "Nice rooms and at good prices . I recommend these hotel. Parking facility available. I will visit again to this aa residency."
+    },
+    "praveen": {
+      "review": "ULYIMATE FAMILY EXPERIENCE AND HOMELY ATMOSPHERE,KIND STAFF."
+    },
+    "himateja": {
+      "review": "Clean, comfort, spacious and near to busstand."
+    }
+  }
+}

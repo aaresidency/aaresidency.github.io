@@ -391,18 +391,21 @@ export default {
 
     if (!/^[0-9]{10}$/.test(phoneDigits)) return badRequest(cors, { error: "invalid phone" });
 
-    if (!roomType || (roomType !== "A/C Deluxe" && roomType !== "Non-A/C Deluxe")) {
-      return badRequest(cors, { error: "invalid room type" });
-    }
+    if (!roomType || roomType.length > 80) return badRequest(cors, { error: "invalid room type" });
 
     const a = Number(adults);
     const c = Number(children);
     if (!(a >= 1 && a <= 10) || !(c >= 0 && c <= 10)) return badRequest(cors, { error: "invalid guest counts" });
 
-    if (!isIsoDate(arrivalDate) || !isIsoDate(departureDate)) return badRequest(cors, { error: "invalid dates" });
-    const ar = parseIsoDateUtc(arrivalDate);
-    const de = parseIsoDateUtc(departureDate);
-    if (!ar || !de || de <= ar) return badRequest(cors, { error: "invalid stay range" });
+    if (arrivalDate && !isIsoDate(arrivalDate)) return badRequest(cors, { error: "invalid dates" });
+    if (departureDate && !isIsoDate(departureDate)) return badRequest(cors, { error: "invalid dates" });
+    if (arrivalDate && departureDate) {
+      const ar = parseIsoDateUtc(arrivalDate);
+      const de = parseIsoDateUtc(departureDate);
+      if (!ar || !de || de <= ar) return badRequest(cors, { error: "invalid stay range" });
+    }
+    const arrivalLabel = arrivalDate || "Not specified";
+    const departureLabel = departureDate || "Not specified";
 
     const bookingRef = generateBookingReference();
     const priceLabel = roomPrice(roomType);
@@ -413,8 +416,8 @@ export default {
       name,
       email,
       phone: phoneDigits,
-      arrivalDate,
-      departureDate,
+      arrivalDate: arrivalLabel,
+      departureDate: departureLabel,
       roomType,
       adults: String(adults),
       children: String(children),
@@ -430,7 +433,7 @@ export default {
         `New booking (${bookingRef})`,
         `Guest: ${name}`,
         `Phone: +91 ${phoneDigits}`,
-        `Dates: ${arrivalDate} → ${departureDate}`,
+        `Dates: ${arrivalLabel} → ${departureLabel}`,
         `Room: ${roomType}`,
         `Guests: A${adults}/C${children}`,
         "",
