@@ -1,0 +1,105 @@
+﻿@import "tailwindcss";
+
+@theme {
+  --color-gold:        #c9a84c;
+  --color-gold-light:  #e8d5a3;
+  --color-dark:        #1a0e00;
+  --color-dark-card:   #251508;
+  --color-dark-border: #251005;
+  --color-cream:       #f5e6c8;
+  --color-warm:        #c8b89a;
+  --color-warm-muted:  #a89070;
+}
+
+@layer base {
+  body {
+    background-color: #1a0e00;
+    color: #c8b89a;
+  }
+}
+
+@layer components {
+  .gold-link {
+    color: #a89070;
+    transition: color 0.2s;
+  }
+  .gold-link:hover {
+    color: #c9a84c;
+  }
+}
+
+/* â”€â”€ Marquee (auto-scroll strips) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* â”€â”€ General motion â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€  */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.93); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@layer utilities {
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+    width: max-content;
+    display: flex;
+  }
+
+  .animate-marquee-reverse {
+    animation: marquee-reverse 40s linear infinite;
+    width: max-content;
+    display: flex;
+  }
+
+  .animate-marquee-fast {
+    animation: marquee 25s linear infinite;
+    width: max-content;
+    display: flex;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.65s ease both;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease both;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s ease both;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.5s ease both;
+  }
+}
+
+/* Pause marquee on hover for the containing wrapper */
+.marquee-wrapper:hover .animate-marquee,
+.marquee-wrapper:hover .animate-marquee-reverse,
+.marquee-wrapper:hover .animate-marquee-fast {
+  animation-play-state: paused;
+}
+

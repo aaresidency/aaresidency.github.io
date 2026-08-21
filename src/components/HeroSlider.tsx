@@ -1,0 +1,245 @@
+import { useState, useEffect } from 'react'
+import _PhoneInput from 'react-phone-input-2'
+import type { PhoneInputProps } from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+
+const PhoneInput = ((_PhoneInput as any).default ?? _PhoneInput) as React.ComponentType<PhoneInputProps>
+
+const SLIDES = [
+  { src: '/images/hero-slide-room.jpg',     alt: 'Deluxe AC Room' },
+  { src: '/images/hero-slide-exterior.jpg', alt: 'AA Residency Building' },
+  { src: '/images/hero-slide-banquet.jpg',  alt: 'Banquet & Event Hall' },
+]
+
+const WHATSAPP_NUMBER = '918790057559'
+
+export function HeroSlider() {
+  const [current, setCurrent] = useState(0)
+  const [form, setForm] = useState({ guestName: '', numPeople: '1', checkIn: '', contact: '' })
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrent((p) => (p + 1) % SLIDES.length), 4500)
+    return () => clearInterval(timer)
+  }, [])
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const msg = [
+      `*New Booking Request*`,
+      `Guest Name: ${form.guestName}`,
+      `No. of People: ${form.numPeople}`,
+      `Check-in Date: ${form.checkIn}`,
+      `Contact: ${form.contact}`,
+    ].join('\n')
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank')
+  }
+
+  return (
+    <div>
+      {/* ── Hero Carousel ── */}
+      <div className="relative w-full h-screen overflow-hidden">
+        {/* Gold top border */}
+        <div className="absolute top-0 inset-x-0 z-20 h-[3px] bg-gradient-to-r from-transparent via-yellow-400 to-transparent" />
+
+        {/* Gold bottom border */}
+        <div className="absolute bottom-0 inset-x-0 z-20 h-[3px] bg-gradient-to-r from-transparent via-yellow-400 to-transparent" />
+
+        {/* Images with fade transition */}
+        {SLIDES.map((slide, i) => (
+          <div
+            key={slide.src}
+            className="absolute inset-0 transition-opacity duration-1000 ease-in-out bg-black"
+            style={{ opacity: i === current ? 1 : 0 }}
+          >
+            <img
+              src={slide.src}
+              alt={slide.alt}
+              className="absolute inset-0 w-full h-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
+          </div>
+        ))}
+
+        {/* Centered hotel name + tagline overlay */}
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-4 pointer-events-none">
+          <div className="flex items-center gap-4 mb-5">
+            <div className="w-16 h-px bg-yellow-400/70" />
+            <div className="w-2 h-2 rotate-45 bg-yellow-400" />
+            <div className="w-16 h-px bg-yellow-400/70" />
+          </div>
+
+          <p className="text-yellow-400 text-xs font-bold tracking-[0.35em] uppercase mb-3 animate-fade-in-up">
+            Welcome to
+          </p>
+          <h1
+            className="text-5xl md:text-7xl font-bold text-white mb-3 tracking-wide drop-shadow-2xl animate-fade-in-up"
+            style={{ animationDelay: '0.1s' }}
+          >
+            AA Residency
+          </h1>
+          <p
+            className="text-white/80 text-base md:text-lg tracking-[0.25em] uppercase font-light animate-fade-in-up"
+            style={{ animationDelay: '0.2s' }}
+          >
+            Comfort &nbsp;•&nbsp; Luxury &nbsp;•&nbsp; Hospitality
+          </p>
+
+          <div className="flex items-center gap-4 mt-5 mb-8">
+            <div className="w-16 h-px bg-yellow-400/70" />
+            <div className="w-2 h-2 rotate-45 bg-yellow-400" />
+            <div className="w-16 h-px bg-yellow-400/70" />
+          </div>
+
+          <a
+            href="#book-now"
+            className="pointer-events-auto animate-fade-in-up bg-yellow-400 hover:bg-yellow-300 active:scale-95 text-gray-900 font-bold px-8 py-3.5 rounded-lg text-sm tracking-widest uppercase transition-all duration-200 shadow-lg shadow-black/30"
+            style={{ animationDelay: '0.3s' }}
+          >
+            Book Your Stay
+          </a>
+        </div>
+
+        {/* Prev button */}
+        <button
+          onClick={() => setCurrent((p) => (p - 1 + SLIDES.length) % SLIDES.length)}
+          aria-label="Previous slide"
+          className="absolute left-5 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-yellow-400 text-white hover:text-gray-900 rounded-full p-3 transition-all duration-200 border border-white/20 hover:border-yellow-400 backdrop-blur-sm"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        {/* Next button */}
+        <button
+          onClick={() => setCurrent((p) => (p + 1) % SLIDES.length)}
+          aria-label="Next slide"
+          className="absolute right-5 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-yellow-400 text-white hover:text-gray-900 rounded-full p-3 transition-all duration-200 border border-white/20 hover:border-yellow-400 backdrop-blur-sm"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        {/* Dot indicators */}
+        <div className="absolute bottom-7 left-1/2 -translate-x-1/2 z-20 flex gap-2.5">
+          {SLIDES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              aria-label={`Slide ${i + 1}`}
+              className={`rounded-full transition-all duration-300 ${
+                i === current
+                  ? 'w-8 h-2.5 bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.7)]'
+                  : 'w-2.5 h-2.5 bg-white/40 hover:bg-white/70'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* ── Book Now Section ── */}
+      <section id="book-now" className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-14 px-4">
+        <div className="max-w-5xl mx-auto">
+          {/* Heading */}
+          <div className="text-center mb-10">
+            <p className="text-yellow-400 text-xs font-bold tracking-[0.3em] uppercase mb-2">
+              Reserve Your Stay
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">Book Now</h2>
+            <div className="flex items-center justify-center gap-3 mt-3">
+              <div className="w-8 h-px bg-yellow-400/50" />
+              <div className="w-2 h-2 rotate-45 bg-yellow-400" />
+              <div className="w-8 h-px bg-yellow-400/50" />
+            </div>
+          </div>
+
+          {/* Form card */}
+          <div className="relative border border-yellow-400/30 rounded-2xl p-1 bg-gradient-to-r from-yellow-400/10 via-transparent to-yellow-400/10">
+            <form
+              onSubmit={handleSubmit}
+              className="bg-white/5 backdrop-blur-sm rounded-xl px-6 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 items-end"
+            >
+              {/* Guest Name */}
+              <div className="flex flex-col gap-2 lg:col-span-1">
+                <label className="text-yellow-300 text-[11px] font-bold uppercase tracking-widest">
+                  Guest Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Your full name"
+                  value={form.guestName}
+                  onChange={(e) => setForm({ ...form, guestName: e.target.value })}
+                  className="px-4 py-3 rounded-lg bg-white text-gray-800 text-sm placeholder-gray-400 focus:ring-2 focus:ring-yellow-400 outline-none transition"
+                />
+              </div>
+
+              {/* No. of People */}
+              <div className="flex flex-col gap-2 lg:col-span-1">
+                <label className="text-yellow-300 text-[11px] font-bold uppercase tracking-widest">
+                  No. of People
+                </label>
+                <select
+                  value={form.numPeople}
+                  onChange={(e) => setForm({ ...form, numPeople: e.target.value })}
+                  className="px-4 py-3 rounded-lg bg-white text-gray-800 text-sm focus:ring-2 focus:ring-yellow-400 outline-none transition"
+                >
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+                    <option key={n} value={n}>
+                      {n} {n === 1 ? 'Person' : 'People'}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Check-in Date */}
+              <div className="flex flex-col gap-2 lg:col-span-1">
+                <label className="text-yellow-300 text-[11px] font-bold uppercase tracking-widest">
+                  Check-in Date
+                </label>
+                <input
+                  type="date"
+                  required
+                  value={form.checkIn}
+                  onChange={(e) => setForm({ ...form, checkIn: e.target.value })}
+                  className="px-4 py-3 rounded-lg bg-white text-gray-800 text-sm focus:ring-2 focus:ring-yellow-400 outline-none transition"
+                />
+              </div>
+
+              {/* Contact Number */}
+              <div className="flex flex-col gap-2 lg:col-span-1">
+                <label className="text-yellow-300 text-[11px] font-bold uppercase tracking-widest">
+                  Contact Number
+                </label>
+                <PhoneInput
+                  country="in"
+                  value={form.contact}
+                  onChange={(phone) => setForm({ ...form, contact: phone })}
+                  inputClass="!w-full !h-[46px] !text-sm !border-gray-300 !rounded-md focus:!border-yellow-400 focus:!ring-2 focus:!ring-yellow-300"
+                  containerClass="!w-full"
+                  buttonClass="!border-gray-300 !rounded-l-md"
+                />
+              </div>
+
+              {/* Submit */}
+              <button
+                type="submit"
+                className="lg:col-span-1 bg-yellow-400 hover:bg-yellow-300 active:scale-95 text-gray-900 font-bold py-3 px-4 rounded-lg transition-all duration-200 shadow-lg shadow-yellow-400/20 flex items-center justify-center gap-2 text-sm"
+              >
+                <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                </svg>
+                Book Now
+              </button>
+            </form>
+          </div>
+
+          <p className="text-center text-gray-400 text-xs mt-4">
+            Your request will be sent via WhatsApp. We'll confirm within minutes.
+          </p>
+        </div>
+      </section>
+    </div>
+  )
+}
