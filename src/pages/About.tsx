@@ -1,17 +1,18 @@
 import { useTranslation, Trans } from 'react-i18next'
 import { ReviewCard, GUEST_REVIEWS } from '../components/ReviewCard'
 import { Seo } from '../components/Seo'
+import { hotelSchema } from '../lib/schema'
 
 const NEARBY = [
   { icon: '🏛️', name: 'Sri Venkateswara Museum', dist: '1.2 km' },
   { icon: '🏰', name: 'Chandragiri Fort', dist: '14 km' },
-  { icon: '⛪', name: 'Tirumala Temple', dist: '20 km' },
-  { icon: '🕌', name: 'Govindaraja Swamy Temple', dist: '0.8 km' },
+  { icon: '⛪', name: 'Tirumala Temple', dist: '22 km' },
+  { icon: '🕌', name: 'Govindaraja Swamy Temple', dist: '5 km' },
 ]
 
 const STATS = [
   { value: '30+', label: 'Rooms' },
-  { value: '1000+', label: 'Happy Guests' },
+  { value: '437', label: 'Google Reviews' },
   { value: '4.8★', label: 'Rating' },
   { value: '24/7', label: 'Service' },
 ]
@@ -27,7 +28,7 @@ export function About() {
 
   return (
     <div>
-      <Seo title="About Us" description="Learn about AA Residency Tirupati — your comfortable stay near Sri Venkateswara Temple." path="/about" />
+      <Seo title="About Us" description="AA Residency is a family-friendly hotel in Tirupati for pilgrims, families and business travellers. Learn our story and book direct for the best rates." path="/about" jsonLd={[hotelSchema()]} />
       {/* Hero */}
       <div className="h-72 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/exterior-front.jpg)' }}>
         <div className="absolute inset-0 bg-black/50" />

@@ -16,8 +16,8 @@ const IMAGES: { categoryKey: Exclude<CategoryKey, 'all'>; imgKey: ImageKey; src:
   { categoryKey: 'acRooms',    imgKey: 'acRoom102',          src: '/images/room-ac-2.jpg' },
   { categoryKey: 'acRooms',    imgKey: 'acRoomDetail',       src: '/images/room-ac-3.jpg' },
   { categoryKey: 'nonAcRooms', imgKey: 'standardRoom',       src: '/images/room-nonac-1.jpg' },
-  { categoryKey: 'nonAcRooms', imgKey: 'familyRoom1',        src: '/images/room-family-1.jpg' },
-  { categoryKey: 'nonAcRooms', imgKey: 'familyRoom2',        src: '/images/room-family-2.jpg' },
+  { categoryKey: 'acRooms',    imgKey: 'familyRoom1',        src: '/images/room-family-1.jpg' },
+  { categoryKey: 'acRooms',    imgKey: 'familyRoom2',        src: '/images/room-family-2.jpg' },
   { categoryKey: 'exterior',   imgKey: 'frontView',          src: '/images/exterior-front.jpg' },
   { categoryKey: 'exterior',   imgKey: 'buildingExterior',   src: '/images/exterior-signage.jpg' },
   { categoryKey: 'events',     imgKey: 'eventHall',          src: '/images/banquet-event-1.jpg' },
@@ -63,7 +63,7 @@ export function Gallery() {
 
   return (
     <div>
-      <Seo title="Gallery" description="Browse photos of AA Residency Tirupati's rooms, reception, exteriors and event spaces." path="/gallery" />
+      <Seo title="Gallery" description="See photos of AA Residency Tirupati: clean AC and Non-AC rooms, reception, exteriors and banquet spaces. Browse the gallery, then book your stay direct." path="/gallery" />
       {/* Hero */}
       <div className="h-72 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/exterior-front.jpg)' }}>
         <div className="absolute inset-0 bg-black/50" />
@@ -75,7 +75,7 @@ export function Gallery() {
 
       {/* Marquee strips */}
       <div className="py-4 space-y-3 overflow-hidden" style={{ backgroundColor: '#0f0700' }}>
-        <div className="overflow-hidden marquee-wrapper">
+        <div className="overflow-hidden marquee-wrapper" aria-hidden="true">
           <div className="animate-marquee gap-3 flex">
             {MARQUEE_ROW1.map((img, i) => (
               <div key={i} className="h-28 w-44 shrink-0 rounded-xl overflow-hidden" style={{ border: '1px solid #c9a84c' }}>
@@ -84,7 +84,7 @@ export function Gallery() {
             ))}
           </div>
         </div>
-        <div className="overflow-hidden marquee-wrapper">
+        <div className="overflow-hidden marquee-wrapper" aria-hidden="true">
           <div className="animate-marquee-reverse gap-3 flex">
             {MARQUEE_ROW2.map((img, i) => (
               <div key={i} className="h-28 w-44 shrink-0 rounded-xl overflow-hidden" style={{ border: '1px solid #c9a84c' }}>

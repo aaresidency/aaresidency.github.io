@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { HeroSlider } from '../components/HeroSlider'
 import { ReviewCard, GUEST_REVIEWS } from '../components/ReviewCard'
 import { Seo } from '../components/Seo'
+import { hotelSchema } from '../lib/schema'
 
 const ABOUT_IMG_KEYS = ['receptionLobby', 'deluxeRoom', 'familyRoom', 'facilities'] as const
 const ABOUT_IMGS = [
@@ -30,12 +31,12 @@ export function Home() {
 
   return (
     <div>
-      <Seo title="Home" description="AA Residency Tirupati — comfortable AC and Non-AC rooms near Renigunta Road, Tirupati. Book direct for the best rates." path="/" />
+      <Seo title="Hotel in Tirupati Near Temple" description="Stay at AA Residency, a hotel in Tirupati on Renigunta Road. AC and Non-AC family rooms, free Wi-Fi, parking and 24/7 front desk. Book direct for best rates." path="/" jsonLd={[hotelSchema()]} />
       <HeroSlider />
 
       {/* Scrolling image strip */}
       <div className="py-5 overflow-hidden" style={{ backgroundColor: '#0f0700' }}>
-        <div className="marquee-wrapper overflow-hidden">
+        <div className="marquee-wrapper overflow-hidden" aria-hidden="true">
           <div className="animate-marquee gap-4 flex">
             {[...MARQUEE_IMGS, ...MARQUEE_IMGS].map((src, i) => (
               <div key={i} className="h-32 w-48 shrink-0 rounded-xl overflow-hidden" style={{ border: '1px solid #c9a84c' }}>
@@ -63,13 +64,8 @@ export function Home() {
               </div>
               <div className="hidden md:block h-12 w-px" style={{ backgroundColor: '#251005' }}></div>
               <div className="text-center">
-                <p className="text-3xl font-bold" style={{ color: '#c9a84c' }}>200+</p>
+                <p className="text-3xl font-bold" style={{ color: '#c9a84c' }}>437</p>
                 <p className="text-xs" style={{ color: '#a89070' }}>{t('reviews.happyGuests')}</p>
-              </div>
-              <div className="hidden md:block h-12 w-px" style={{ backgroundColor: '#251005' }}></div>
-              <div className="text-center">
-                <p className="text-3xl font-bold" style={{ color: '#c9a84c' }}>100%</p>
-                <p className="text-xs" style={{ color: '#a89070' }}>{t('reviews.verifiedReviews')}</p>
               </div>
             </div>
           </div>
@@ -111,6 +107,18 @@ export function Home() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Popular searches */}
+      <section className="max-w-7xl mx-auto px-4 pb-16 text-center">
+        <p className="text-sm" style={{ color: '#a89070' }}>
+          Popular:{' '}
+          <Link to="/hotels-in-tirupati" className="underline" style={{ color: '#c9a84c' }}>Hotels in Tirupati</Link>
+          {' · '}
+          <Link to="/rooms-in-tirupati" className="underline" style={{ color: '#c9a84c' }}>Rooms in Tirupati</Link>
+          {' · '}
+          <Link to="/hotels-near-tirupati-temple" className="underline" style={{ color: '#c9a84c' }}>Hotels Near Tirupati Temple</Link>
+        </p>
       </section>
     </div>
   )

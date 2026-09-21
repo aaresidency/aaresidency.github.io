@@ -1,13 +1,14 @@
 import { Seo } from '../components/Seo'
+import { hotelSchema } from '../lib/schema'
 const HOTEL_ORIGIN = '22-11-246/1+Gollavani+Gunta+Renigunta+Rd+AutoNagar+Tirupati'
 
 const ATTRACTIONS = [
   { name: 'Tirumala Temple', desc: 'Sri Venkateswara Swamy', distance: '~22 km', query: 'Tirumala+Temple+Tirupati' },
   { name: 'Sri Govindaraja Swamy Temple', desc: 'Heart of the city', distance: '~5 km', query: 'Sri+Govindaraja+Swamy+Temple+Tirupati' },
   { name: 'ISKCON Tirupati', desc: 'Peaceful darshan', distance: '~7 km', query: 'ISKCON+Tirupati' },
-  { name: 'Tirupati Railway Station', desc: 'Main junction', distance: '~5 km', query: 'Tirupati+Railway+Station' },
-  { name: 'APSRTC Bus Stand', desc: 'Central bus terminal', distance: '~5 km', query: 'APSRTC+Bus+Stand+Tirupati' },
-  { name: 'Tiruchanur Padmavathi Temple', desc: 'Ammavari temple', distance: '~8 km', query: 'Tiruchanur+Padmavathi+Temple' },
+  { name: 'Tirupati Railway Station', desc: 'Main junction', distance: '3 km', query: 'Tirupati+Railway+Station' },
+  { name: 'Tirupati Bus Stand', desc: 'Central bus terminal', distance: '2 km', query: 'APSRTC+Bus+Stand+Tirupati' },
+  { name: 'Tiruchanur Padmavathi Temple', desc: 'Ammavari temple', distance: '3 km', query: 'Tiruchanur+Padmavathi+Temple' },
   { name: 'Kapila Theertham', desc: 'Waterfall shrine', distance: '~9 km', query: 'Kapila+Theertham+Tirupati' },
   { name: 'Srikalahasti Temple', desc: 'Famous Shiva temple', distance: '~36 km', query: 'Srikalahasti+Temple' },
   { name: 'Kanipakam Temple', desc: 'Sri Vinayaka Swamy', distance: '~70 km', query: 'Kanipakam+Vinayaka+Temple' },
@@ -17,7 +18,7 @@ const ATTRACTIONS = [
 export function Nearby() {
   return (
     <div>
-      <Seo title="Nearby Attractions" description="Explore temples, transport hubs and attractions near AA Residency Tirupati." path="/nearby" />
+      <Seo title="Nearby Attractions" description="Temples, transport hubs and attractions near AA Residency Tirupati on Renigunta Road. Plan your Tirupati trip and darshan visit, then book your room direct." path="/nearby" jsonLd={[hotelSchema()]} />
       {/* Hero */}
       <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/exterior-front.jpg)' }}>
         <div className="absolute inset-0 bg-black/50" />
