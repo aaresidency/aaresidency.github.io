@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import _PhoneInput from 'react-phone-input-2'
 import type { PhoneInputProps } from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import { fireBookingConversion } from '../lib/analytics'
+import { submitBooking } from '../lib/booking'
+import { Turnstile } from './Turnstile'
 
 const PhoneInput = ((_PhoneInput as any).default ?? _PhoneInput) as React.ComponentType<PhoneInputProps>
 
@@ -15,7 +18,10 @@ const WHATSAPP_NUMBER = '918790057559'
 
 export function HeroSlider() {
   const [current, setCurrent] = useState(0)
-  const [form, setForm] = useState({ guestName: '', numPeople: '1', checkIn: '', contact: '' })
+  const [form, setForm] = useState({ guestName: '', numPeople: '1', checkIn: '', contact: '', email: '' })
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [resetSignal, setResetSignal] = useState(0)
+  const [status, setStatus] = useState<{ kind: 'info' | 'error'; text: string } | null>(null)
 
   useEffect(() => {
     const timer = setInterval(() => setCurrent((p) => (p + 1) % SLIDES.length), 4500)
@@ -24,14 +30,39 @@ export function HeroSlider() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    if (form.contact.replace(/\D/g, '').length < 10) {
+      setStatus({ kind: 'error', text: 'Please enter a valid contact number.' })
+      return
+    }
     const msg = [
       `*New Booking Request*`,
       `Guest Name: ${form.guestName}`,
       `No. of People: ${form.numPeople}`,
       `Check-in Date: ${form.checkIn}`,
-      `Contact: ${form.contact}`,
+      `Contact: +${form.contact.replace(/\D/g, '')}`,
+      `Email: ${form.email}`,
     ].join('\n')
+    // Open WhatsApp first, synchronously, so the browser treats it as part of the click.
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank')
+
+    fireBookingConversion()
+    setStatus({ kind: 'info', text: 'Request opened in WhatsApp. Sending your confirmation email…' })
+    void submitBooking({
+      name: form.guestName,
+      email: form.email,
+      phone: form.contact,
+      checkIn: form.checkIn,
+      guests: form.numPeople,
+      turnstileToken,
+    }).then((sent) => {
+      setStatus({
+        kind: sent ? 'info' : 'error',
+        text: sent
+          ? `Confirmation email sent to ${form.email}. Please also tap Send in WhatsApp to reach us instantly.`
+          : "We couldn't send the confirmation email. Please tap Send in WhatsApp — that reaches us directly.",
+      })
+    })
+    setResetSignal((n) => n + 1)
   }
 
   return (
@@ -158,7 +189,7 @@ export function HeroSlider() {
           <div className="relative border border-yellow-400/30 rounded-2xl p-1 bg-gradient-to-r from-yellow-400/10 via-transparent to-yellow-400/10">
             <form
               onSubmit={handleSubmit}
-              className="bg-white/5 backdrop-blur-sm rounded-xl px-6 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 items-end"
+              className="bg-white/5 backdrop-blur-sm rounded-xl px-6 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-end"
             >
               {/* Guest Name */}
               <div className="flex flex-col gap-2 lg:col-span-1">
@@ -222,6 +253,21 @@ export function HeroSlider() {
                 />
               </div>
 
+              {/* Email (for the confirmation copy) */}
+              <div className="flex flex-col gap-2 sm:col-span-2 lg:col-span-3">
+                <label className="text-yellow-300 text-[11px] font-bold uppercase tracking-widest">
+                  Email (for your confirmation)
+                </label>
+                <input
+                  type="email"
+                  required
+                  placeholder="you@example.com"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className="px-4 py-3 rounded-lg bg-white text-gray-800 text-sm placeholder-gray-400 focus:ring-2 focus:ring-yellow-400 outline-none transition"
+                />
+              </div>
+
               {/* Submit */}
               <button
                 type="submit"
@@ -232,11 +278,20 @@ export function HeroSlider() {
                 </svg>
                 Book Now
               </button>
+
+              <div className="sm:col-span-2 lg:col-span-4 flex flex-col gap-2 items-start">
+                <Turnstile onToken={setTurnstileToken} resetSignal={resetSignal} />
+                {status && (
+                  <p role="status" className={`text-xs ${status.kind === 'error' ? 'text-red-300' : 'text-green-300'}`}>
+                    {status.text}
+                  </p>
+                )}
+              </div>
             </form>
           </div>
 
           <p className="text-center text-gray-400 text-xs mt-4">
-            Your request will be sent via WhatsApp. We'll confirm within minutes.
+            Your request opens in WhatsApp and a confirmation is emailed to you. We'll confirm within minutes.
           </p>
         </div>
       </section>
