@@ -2,21 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>AA Residency</title>
-    <script>
-      // GitHub Pages has no server-side rewrites for SPA routes. This encodes the
-      // requested deep-link path into a query string and redirects to the real
-      // index.html, which decodes it back via the script in index.html.
-      // https://github.com/rafgraph/spa-github-pages
-      var l = window.location
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1).join('/') + '/?p=/' +
-        l.pathname.slice(1).replace(/&/g, '~and~') +
-        (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      )
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <title>Page not found | AA Residency Tirupati</title>
+    <style>
+      body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+        background: #1a0e00; color: #c8b89a; font-family: system-ui, sans-serif; text-align: center; padding: 1rem; }
+      h1 { color: #f5e6c8; font-size: 2rem; margin: 1rem 0 0.5rem; }
+      a { color: #c9a84c; }
+      .btn { display: inline-block; margin: 0.4rem; padding: 0.6rem 1.4rem; border-radius: 0.5rem;
+        background: #c9a84c; color: #1a0e00; text-decoration: none; font-weight: 600; }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <main>
+      <img src="/logo.png" alt="AA Residency" height="48" />
+      <h1>Page not found</h1>
+      <p>The page you are looking for doesn't exist or has moved.</p>
+      <p>
+        <a class="btn" href="/">Go to Home</a>
+        <a class="btn" href="/rooms">View Rooms</a>
+        <a class="btn" href="/contact">Contact Us</a>
+      </p>
+    </main>
+  </body>
 </html>
