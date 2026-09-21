@@ -2,20 +2,25 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { ReviewCard, GUEST_REVIEWS } from '../components/ReviewCard'
 import { Seo } from '../components/Seo'
+import { reviewsSchema } from '../lib/schema'
+import en from '../i18n/en.json'
 
-const RATING_BREAKDOWN = [
-  { labelKey: 'reviews.page.cleanlinessLabel', score: '4.9' },
-  { labelKey: 'reviews.page.hospitalityLabel', score: '4.8' },
-  { labelKey: 'reviews.page.valueLabel',       score: '4.7' },
-  { labelKey: 'reviews.page.locationLabel',    score: '4.8' },
-]
+// Opens the hotel's Google Maps listing, where all reviews live.
+const GOOGLE_REVIEWS_URL = 'https://maps.app.goo.gl/9AdeCWiaTHM4nEQW8'
+
+// Schema is English-only, so read the source strings rather than the active i18n language.
+const SCHEMA_REVIEWS = GUEST_REVIEWS.map((r) => ({
+  author: r.name,
+  rating: r.rating,
+  text: (en.reviews as unknown as Record<string, { review: string }>)[r.reviewKey.split('.')[1]].review,
+}))
 
 export function Reviews() {
   const { t } = useTranslation()
 
   return (
     <div>
-      <Seo title="Guest Reviews" description="Read verified guest reviews of AA Residency Tirupati." path="/reviews" />
+      <Seo title="Guest Reviews" description="Read guest reviews of AA Residency Tirupati: what families and pilgrims say about our clean rooms, friendly staff and location. Then book your stay direct." path="/reviews" jsonLd={[reviewsSchema(SCHEMA_REVIEWS)]} />
       {/* Hero */}
       <section className="py-20 px-4" style={{ background: 'linear-gradient(135deg, #0f0700 0%, #251508 50%, #0f0700 100%)' }}>
         <div className="max-w-4xl mx-auto text-center">
@@ -32,7 +37,7 @@ export function Reviews() {
             <div className="w-full sm:w-px h-px sm:h-16" style={{ backgroundColor: '#251005' }}></div>
             <div className="text-center sm:text-left space-y-2">
               <div>
-                <span className="text-2xl font-bold" style={{ color: '#f5e6c8' }}>200+</span>
+                <span className="text-2xl font-bold" style={{ color: '#f5e6c8' }}>437</span>
                 <span className="ml-2 text-sm" style={{ color: '#a89070' }}>{t('reviews.happyGuests')}</span>
               </div>
               <div className="flex items-center gap-2 justify-center sm:justify-start">
@@ -46,27 +51,18 @@ export function Reviews() {
         </div>
       </section>
 
-      {/* Rating breakdown */}
-      <section className="py-10 px-4" style={{ backgroundColor: '#1e0d00', borderBottom: '1px solid #251005' }}>
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-base font-semibold uppercase tracking-widest text-center mb-8" style={{ color: '#a89070' }}>{t('reviews.page.ratingsTitle')}</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {RATING_BREAKDOWN.map(({ labelKey, score }) => (
-              <div key={labelKey} className="text-center">
-                <p className="text-4xl font-bold leading-none mb-1" style={{ color: '#c9a84c' }}>{score}</p>
-                <div className="flex justify-center text-amber-400 text-sm mb-1">★★★★★</div>
-                <p className="text-xs" style={{ color: '#a89070' }}>{t(labelKey)}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* All reviews */}
       <section className="py-16 px-4" style={{ backgroundColor: '#1a0e00' }}>
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
             {GUEST_REVIEWS.map((r) => <ReviewCard key={r.name} {...r} />)}
+          </div>
+          <div className="text-center mt-10">
+            <a href={GOOGLE_REVIEWS_URL} target="_blank" rel="noreferrer"
+              className="inline-block px-6 py-2.5 rounded-lg font-medium transition-colors"
+              style={{ border: '1px solid #c9a84c', color: '#c9a84c' }}>
+              {t('reviews.readMore')}
+            </a>
           </div>
         </div>
       </section>

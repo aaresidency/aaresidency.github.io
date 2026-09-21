@@ -45,22 +45,18 @@ const EVENT_TYPES = [
 
 const PACKAGES = [
   {
-    title: 'Engagement & Reception',
-    price: 'Starting ₹25,000',
+    title: 'Occasional Functions',
+    price: '₹30,000',
     image: '/images/banquet-stage-1.jpg',
-    features: ['Floral stage decor', 'Seating up to 200 guests', 'Photography-ready lighting'],
-  },
-  {
-    title: 'Birthday Celebrations',
-    price: 'Starting ₹9,999',
-    image: '/images/banquet-event-1.jpg',
-    features: ['Themed balloon decor', 'Cake & catering assistance', 'Music and games setup'],
+    includes: 'Electricity Charges, Parking Security & Cleaning Charges',
+    idealFor: '200 members',
   },
   {
     title: 'Corporate Meetings',
-    price: 'Starting ₹15,000',
+    price: '₹25,000',
     image: '/images/banquet-stage-3.jpg',
-    features: ['Projector & screen', 'Round-table or theatre layout', 'Tea, snacks & lunch packages'],
+    includes: 'Electricity Charges & Cleaning Charges',
+    idealFor: '200 members',
   },
 ]
 
@@ -100,7 +96,7 @@ export function Events() {
 
   return (
     <div>
-      <Seo title="Events & Banquets" description="Host weddings, conferences and celebrations at AA Residency Tirupati's banquet hall." path="/events" />
+      <Seo title="Events & Banquets" description="Host weddings, conferences and celebrations in the banquet hall at AA Residency Tirupati. Flexible event spaces and on-site rooms. Enquire on WhatsApp now." path="/events" />
       {/* Hero */}
       <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/banquet-event-1.jpg)' }}>
         <div className="absolute inset-0 bg-black/50" />
@@ -116,11 +112,11 @@ export function Events() {
           <p className="font-semibold uppercase tracking-widest text-sm mb-2" style={{ color: '#c9a84c' }}>What We Host</p>
           <h2 className="text-3xl font-bold" style={{ color: '#f5e6c8' }}>Event Packages</h2>
           <p className="text-sm mt-3 max-w-xl mx-auto" style={{ color: '#a89070' }}>
-            Decor, catering and parking taken care of — you just celebrate.
+            Simple, transparent hall packages for functions and meetings.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {PACKAGES.map((pkg) => (
             <div key={pkg.title} className="rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1 transition-transform"
               style={{ backgroundColor: '#251508', border: '1px solid #c9a84c' }}>
@@ -133,7 +129,7 @@ export function Events() {
                   <p className="font-semibold text-sm mt-0.5" style={{ color: '#c9a84c' }}>{pkg.price}</p>
                 </div>
                 <ul className="flex flex-col gap-2 flex-1">
-                  {pkg.features.map((f) => (
+                  {[`Includes: ${pkg.includes}`, `Ideal for: ${pkg.idealFor}`].map((f) => (
                     <li key={f} className="flex items-center gap-2 text-sm" style={{ color: '#c8b89a' }}>
                       <CheckIcon />
                       {f}

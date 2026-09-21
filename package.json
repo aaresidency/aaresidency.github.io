@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "build:production": "tsc -b && vite build",
+    "build": "tsc -b && vite build && vite build --ssr src/entry-server.ts --outDir dist-server && node scripts/prerender.mjs",
+    "build:production": "tsc -b && vite build && vite build --ssr src/entry-server.ts --outDir dist-server && node scripts/prerender.mjs",
     "lint": "eslint .",
     "lint:check": "eslint . --max-warnings 0",
     "format": "prettier --write .",

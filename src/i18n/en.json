@@ -62,7 +62,7 @@
     "aboutDesc": "Experience comfortable and affordable accommodation with modern amenities, spacious rooms, excellent hospitality, and easy access to nearby attractions.",
     "learnMore": "Learn More",
     "reviewsTitle": "What Our Guests Say",
-    "reviewsSubtitle": "Trusted by 200+ satisfied guests across India",
+    "reviewsSubtitle": "Rated 4.8 from 437 Google reviews",
     "images": {
       "receptionLobby": "Reception Lobby",
       "deluxeRoom": "Deluxe Room",
@@ -138,8 +138,6 @@
       "hotWater": "Hot Water",
       "powerBackup": "Power Backup",
       "fan": "Ceiling Fan",
-      "fridge": "Mini Fridge",
-      "tvDouble": "2x LED TV",
       "seating": "Seating Area"
     }
   },
@@ -232,17 +230,13 @@
     "sectionLabel": "Guest Testimonials",
     "verifiedGuest": "Verified Guest",
     "overallRating": "Overall Rating",
-    "happyGuests": "Happy Guests",
+    "happyGuests": "Google Reviews",
     "verifiedReviews": "Verified Reviews",
     "viewAll": "View All Reviews",
+    "readMore": "Read More Reviews",
     "page": {
       "heroTitle": "Guest Reviews",
       "heroSubtitle": "Real experiences from our valued guests at AA Residency",
-      "ratingsTitle": "What Guests Rate Us",
-      "cleanlinessLabel": "Cleanliness",
-      "hospitalityLabel": "Hospitality",
-      "valueLabel": "Value for Money",
-      "locationLabel": "Location",
       "ctaTitle": "Ready to Experience It Yourself?",
       "ctaDesc": "Join hundreds of happy guests who chose AA Residency for their stay in Tirupati.",
       "ctaBtn": "Book Your Stay"

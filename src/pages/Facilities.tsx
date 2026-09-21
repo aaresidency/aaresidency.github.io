@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Seo } from '../components/Seo'
+import { hotelSchema } from '../lib/schema'
 
 const FACILITIES = [
   { icon: '📶', key: 'wifi',         desc: 'High-speed internet throughout the property.' },
@@ -26,7 +27,7 @@ export function Facilities() {
 
   return (
     <div>
-      <Seo title="Facilities & Amenities" description="Wi-Fi, AC, parking, housekeeping and more amenities at AA Residency Tirupati." path="/facilities" />
+      <Seo title="Facilities & Amenities" description="Free Wi-Fi, AC rooms, parking, housekeeping and a 24/7 front desk at AA Residency Tirupati. See all hotel amenities and book your comfortable stay direct." path="/facilities" jsonLd={[hotelSchema()]} />
       {/* Hero */}
       <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/reception-desk-1.jpg)' }}>
         <div className="absolute inset-0 bg-black/50" />

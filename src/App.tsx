@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { Home } from './pages/Home'
@@ -13,11 +13,14 @@ import { Facilities } from './pages/Facilities'
 import { Contact } from './pages/Contact'
 import { Privacy } from './pages/Privacy'
 import { Terms } from './pages/Terms'
+import { HotelsInTirupati } from './pages/HotelsInTirupati'
+import { RoomsInTirupati } from './pages/RoomsInTirupati'
+import { HotelsNearTirupatiTemple } from './pages/HotelsNearTirupatiTemple'
 import './App.css'
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Header />
       <main>
         <Routes>
@@ -31,12 +34,15 @@ function App() {
           <Route path="/nearby" element={<Nearby />} />
           <Route path="/facilities" element={<Facilities />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/hotels-in-tirupati" element={<HotelsInTirupati />} />
+          <Route path="/rooms-in-tirupati" element={<RoomsInTirupati />} />
+          <Route path="/hotels-near-tirupati-temple" element={<HotelsNearTirupatiTemple />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
         </Routes>
       </main>
       <Footer />
-    </BrowserRouter>
+    </>
   )
 }
 

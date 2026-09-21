@@ -3,12 +3,13 @@ import { useTranslation } from 'react-i18next'
 import { ReviewCard, GUEST_REVIEWS } from '../components/ReviewCard'
 import { BookingModal } from '../components/BookingModal'
 import { Seo } from '../components/Seo'
+import { roomsSchema } from '../lib/schema'
 
 const WHATSAPP = '918790057559'
 const ADDRESS = '22-11-246/1, Gollavani Gunta, Renigunta Rd, AutoNagar, Tirupati, Andhra Pradesh 517501'
 
 type RoomTypeKey = 'ac' | 'nonAc' | 'deluxe' | 'studio' | 'family'
-type FeatureKey = 'ac' | 'wifi' | 'tv' | 'bathroom' | 'hotWater' | 'powerBackup' | 'fan' | 'fridge' | 'tvDouble' | 'seating'
+type FeatureKey = 'ac' | 'wifi' | 'tv' | 'bathroom' | 'hotWater' | 'powerBackup' | 'fan' | 'seating'
 
 const ROOMS: { typeKey: RoomTypeKey; price: string; capacity: string; size: string; desc: string; images: string[]; featureKeys: FeatureKey[]; available: boolean }[] = [
   {
@@ -25,7 +26,7 @@ const ROOMS: { typeKey: RoomTypeKey; price: string; capacity: string; size: stri
     typeKey: 'studio',
     price: '₹1,800',
     capacity: '2 Adults',
-    size: '260 sq ft',
+    size: '220 sq ft',
     desc: 'Premium air-conditioned room with elegant décor and all modern amenities for a refined stay.',
     images: ['/images/room-ac-2.jpg', '/images/room-ac-3.jpg'],
     featureKeys: ['ac', 'wifi', 'tv', 'bathroom', 'hotWater', 'powerBackup'],
@@ -33,12 +34,12 @@ const ROOMS: { typeKey: RoomTypeKey; price: string; capacity: string; size: stri
   },
   {
     typeKey: 'family',
-    price: '₹2,500',
+    price: '₹2,200',
     capacity: '4 Adults',
-    size: '380 sq ft',
+    size: '220 sq ft',
     desc: 'Spacious air-conditioned family suite with multiple beds, seating area and all the comforts of home.',
     images: ['/images/room-family-ac-1.jpg', '/images/room-family-1.jpg', '/images/room-family-2.jpg'],
-    featureKeys: ['ac', 'wifi', 'tvDouble', 'bathroom', 'hotWater', 'fridge', 'powerBackup', 'seating'],
+    featureKeys: ['ac', 'wifi', 'tv', 'bathroom', 'hotWater', 'powerBackup', 'seating'],
     available: true,
   },
 ]
@@ -53,7 +54,7 @@ export function Rooms() {
 
   return (
     <div>
-      <Seo title="Rooms & Rates" description="Explore AC and Non-AC deluxe, studio and family rooms at AA Residency Tirupati with transparent pricing." path="/rooms" />
+      <Seo title="Rooms & Rates" description="Book AC and Non-AC deluxe, studio and family rooms in Tirupati at AA Residency. Clear pricing, free Wi-Fi and parking. Check availability and reserve direct." path="/rooms" jsonLd={[roomsSchema()]} />
       {/* Hero */}
       <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/room-ac-1.jpg)' }}>
         <div className="absolute inset-0 bg-black/50" />
@@ -170,7 +171,7 @@ export function Rooms() {
 
       <section className="py-10 px-4" style={{ backgroundColor: '#1e0d00' }}>
         <div className="max-w-xl mx-auto text-center">
-          <h3 className="font-bold text-lg mb-2" style={{ color: '#f5e6c8' }}>{t('rooms.helpTitle')}</h3>
+          <h2 className="font-bold text-lg mb-2" style={{ color: '#f5e6c8' }}>{t('rooms.helpTitle')}</h2>
           <p className="text-sm mb-4" style={{ color: '#a89070' }}>{ADDRESS}</p>
           <div className="flex justify-center gap-4 flex-wrap">
             <a href="tel:+918790057559" className="px-5 py-2 rounded-lg text-sm font-medium"
