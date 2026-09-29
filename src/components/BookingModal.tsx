@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Formik, Form } from 'formik'
 import { useTranslation } from 'react-i18next'
 import _PhoneInput from 'react-phone-input-2'
@@ -9,6 +9,8 @@ import 'react-phone-input-2/lib/style.css'
 const PhoneInput = ((_PhoneInput as any).default ?? _PhoneInput) as React.ComponentType<PhoneInputProps>
 import { FormField } from '../lib/input'
 import { fireBookingConversion } from '../lib/analytics'
+import { submitBooking } from '../lib/booking'
+import { Turnstile } from './Turnstile'
 
 interface BookingData {
   checkIn: string
@@ -32,6 +34,7 @@ const WHATSAPP_NUMBER = '918790057559'
 
 export function BookingModal({ bookingData, onClose }: BookingModalProps) {
   const { t } = useTranslation()
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
 
   const validate = (values: GuestForm) => {
     const errors: Partial<GuestForm> = {}
@@ -41,26 +44,7 @@ export function BookingModal({ bookingData, onClose }: BookingModalProps) {
   }
 
   const handleSubmit = (values: GuestForm) => {
-    const apiUrl = import.meta.env.VITE_BOOKING_API_URL
-    if (apiUrl) {
-      fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: values.name,
-          email: values.email,
-          phone: `+${values.mobile}`,
-          arrival_date: bookingData.checkIn,
-          departure_date: bookingData.checkOut,
-          room_type: bookingData.rooms,
-          adults: bookingData.guests,
-          children: '0',
-        }),
-      }).catch(() => {})
-    }
-
-    fireBookingConversion()
-
+    // Open WhatsApp first, synchronously, so the browser treats it as part of the click.
     const msg = [
       `*New Booking Request*`,
       `Name: ${values.name}`,
@@ -71,8 +55,19 @@ export function BookingModal({ bookingData, onClose }: BookingModalProps) {
       `Rooms: ${bookingData.rooms}`,
       `Guests: ${bookingData.guests}`,
     ].join('\n')
-
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank')
+
+    fireBookingConversion()
+    void submitBooking({
+      name: values.name,
+      email: values.email,
+      phone: values.mobile,
+      checkIn: bookingData.checkIn,
+      checkOut: bookingData.checkOut,
+      roomType: bookingData.rooms,
+      guests: bookingData.guests,
+      turnstileToken,
+    })
     onClose()
   }
 
@@ -111,6 +106,7 @@ export function BookingModal({ bookingData, onClose }: BookingModalProps) {
               )}
             </div>
             <FormField name="email" label={t('booking.form.email')} type="email" placeholder={t('booking.form.emailPlaceholder')} />
+            <Turnstile onToken={setTurnstileToken} />
             <button
               type="submit"
               className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-xl flex items-center justify-center gap-2 transition-colors"

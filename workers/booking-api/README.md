@@ -12,10 +12,10 @@ This Worker accepts JSON booking submissions from the static site, generates a s
 
 Edit **`[vars]`** in `wrangler.toml`:
 
-- **`ADMIN_EMAIL`** — address that receives enquiries (Resend sends admin mail here; customer mail uses `reply_to` of this email).
+- **`ADMIN_EMAIL`** — comma-separated addresses that receive every booking alert (currently `info@aaresidency.com,aaresidency5@gmail.com`). Customer mail uses the first address as `reply_to`.
 - **`ALLOWED_ORIGINS`** — comma-separated list of origins allowed for browser `fetch` CORS **without spaces** around commas. Include every place the site runs, for example production `https://aaresidency.com`, `https://www.aaresidency.com`, GitHub Pages origin if applicable, and `http://localhost:8080` (or whatever you use locally with Eleventy).
 - **`FROM_EMAIL_RESEND`** — verified identity in Resend, e.g. `AA Residency <booking@mail.aaresidency.com>`.
-- **`ADMIN_WHATSAPP_E164`** — digits only (`919992999961`); used in acknowledgement email and admin WhatsApp link.
+- **`ADMIN_WHATSAPP_E164`** — digits only (`918790057559`); used in acknowledgement email and admin WhatsApp link.
 
 > [!IMPORTANT]
 > `FROM_EMAIL_RESEND` must be a sender/domain that Resend accepts for your account.
@@ -44,15 +44,9 @@ After deploy, note the Worker URL Cloudflare prints (something like `https://aar
 
 HTTP **POST** the JSON body **to this Worker URL** (no trailing path segment is required—the handler accepts POST on `/`).
 
-## 5. Wire the Eleventy site
+## 5. Wire the site
 
-Set **`BOOKING_API_URL`** during `npm run build` to that Worker URL exactly (matching what the browser will call). Example GitHub Actions: add repo secret **`BOOKING_API_URL`** and pass it into the build step `env`:
-
-```yaml
-BOOKING_API_URL: ${{ secrets.BOOKING_API_URL }}
-```
-
-Rebuild and deploy the site after the Worker is live.
+The React site reads **`VITE_BOOKING_API_URL`** (and **`VITE_TURNSTILE_SITE_KEY`** when Turnstile is on) at build time. `.github/workflows/pages.yml` maps them from the repo secrets **`BOOKING_API_URL`** and **`TURNSTILE_SITE_KEY`**.
 
 ### Local preview
 

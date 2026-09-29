@@ -72,9 +72,15 @@ function normalizeAllowedOrigins(raw) {
  * Rough room price hints for email context (mirror website copy).
  */
 function roomPrice(roomType) {
-  if (roomType === "A/C Deluxe") return "₹1,700 (incl. all taxes)";
-  if (roomType === "Non-A/C Deluxe") return "₹1,200 (incl. all taxes)";
+  if (roomType === "Deluxe Room") return "₹1,200 per night";
+  if (roomType === "Studio Room") return "₹1,800 per night";
+  if (roomType === "Family Room") return "₹2,200 per night";
   return "—";
+}
+
+/** Display form of a validated phone: bare 10 digits are Indian, anything longer already carries a country code. */
+function formatPhoneDisplay(digits) {
+  return digits.length === 10 ? `+91 ${digits}` : `+${digits}`;
 }
 
 /** Ten-digit tail after optional country code 91 → "+91 xx xxx xxxxx" grouping for display only. */
@@ -147,7 +153,7 @@ function customerBookingEmailHtml(bookingRef, fields) {
                 </tr>
                 <tr>
                   <td style="padding:12px;color:#64748b;font-size:13px;"><b style="color:#0f172a;">Phone provided</b></td>
-                  <td style="padding:12px;"><b>+91 ${phone}</b></td>
+                  <td style="padding:12px;"><b>${phone}</b></td>
                 </tr>
               </table>
 
@@ -177,8 +183,8 @@ function adminBookingEmailHtml(bookingRef, fields) {
   const rows = [
     ["Booking reference", bookingRef],
     ["Guest name", fields.name],
-    ["Email", fields.email],
-    ["Phone", "+91 " + fields.phone],
+    ["Email", fields.email || "(not provided)"],
+    ["Phone", fields.phone],
     ["Arrival", fields.arrivalDate],
     ["Departure", fields.departureDate],
     ["Room type", fields.roomType],
@@ -369,13 +375,13 @@ export default {
     /** @type {string} */
     const email = String(body?.email ?? "").trim().toLowerCase();
     /** @type {string} */
-    const phoneDigits = String(body?.phone ?? "").replace(/\s+/g, "");
+    const phoneDigits = String(body?.phone ?? "").replace(/[\s+\-()]/g, "");
     /** @type {string} */
     const arrivalDate = String(body?.arrival_date ?? "").trim();
     /** @type {string} */
     const departureDate = String(body?.departure_date ?? "").trim();
     /** @type {string} */
-    const roomType = String(body?.room_type ?? "").trim();
+    const roomType = String(body?.room_type ?? "").trim() || "Not specified";
     /** @type {string} */
     const adults = String(body?.adults ?? "").trim();
     /** @type {string} */
@@ -387,11 +393,14 @@ export default {
     if (!name || name.length > 160) return badRequest(cors, { error: "invalid name" });
 
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!email || !emailOk || email.length > 254) return badRequest(cors, { error: "invalid email" });
+    // Guest email is optional: without it only the hotel is notified.
+    if (email && (!emailOk || email.length > 254)) return badRequest(cors, { error: "invalid email" });
 
-    if (!/^[0-9]{10}$/.test(phoneDigits)) return badRequest(cors, { error: "invalid phone" });
+    // 10 digits (Indian mobile) or up to 15 including a country code, e.g. 918790057559.
+    if (!/^[0-9]{10,15}$/.test(phoneDigits)) return badRequest(cors, { error: "invalid phone" });
+    const phoneDisplay = formatPhoneDisplay(phoneDigits);
 
-    if (!roomType || roomType.length > 80) return badRequest(cors, { error: "invalid room type" });
+    if (roomType.length > 80) return badRequest(cors, { error: "invalid room type" });
 
     const a = Number(adults);
     const c = Number(children);
@@ -411,11 +420,11 @@ export default {
     const priceLabel = roomPrice(roomType);
 
     /** @type {{name:string;email:string;phone:string;arrivalDate:string;departureDate:string;roomType:string;adults:string;children:string;notes:string;priceLabel:string;whatsappDigits:string;hotelWhatsAppLabel:string;adminWhatsAppLink:string}} */
-    const waDigits = String(env.ADMIN_WHATSAPP_E164 ?? "919992999961").replace(/[^\d]/g, "");
+    const waDigits = String(env.ADMIN_WHATSAPP_E164 ?? "918790057559").replace(/[^\d]/g, "");
     const fields = {
       name,
       email,
-      phone: phoneDigits,
+      phone: phoneDisplay,
       arrivalDate: arrivalLabel,
       departureDate: departureLabel,
       roomType,
@@ -432,7 +441,7 @@ export default {
       [
         `New booking (${bookingRef})`,
         `Guest: ${name}`,
-        `Phone: +91 ${phoneDigits}`,
+        `Phone: ${phoneDisplay}`,
         `Dates: ${arrivalLabel} → ${departureLabel}`,
         `Room: ${roomType}`,
         `Guests: A${adults}/C${children}`,
@@ -442,7 +451,12 @@ export default {
     );
     fields.adminWhatsAppLink = `https://wa.me/${fields.whatsappDigits}?text=${msgTxt}`;
 
-    const adminTo = env.ADMIN_EMAIL || "info@aaresidency.com";
+    // ADMIN_EMAIL may list several comma-separated addresses; all of them get the booking alert.
+    const adminRecipients = String(env.ADMIN_EMAIL || "info@aaresidency.com,aaresidency5@gmail.com")
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const adminTo = adminRecipients[0];
 
     const from = env.FROM_EMAIL_RESEND || "AA Residency <onboarding@resend.dev>";
 
@@ -450,17 +464,19 @@ export default {
     const adminHtml = adminBookingEmailHtml(bookingRef, fields);
 
     const [customerSent, adminSent] = await Promise.all([
+      email
+        ? sendResendMail(env, {
+            from,
+            to: [email],
+            reply_to: adminTo,
+            subject: `${bookingRef} — We received your booking request`,
+            html: customerHtml,
+          })
+        : Promise.resolve({ ok: true, skipped: true }),
       sendResendMail(env, {
         from,
-        to: [email],
-        reply_to: adminTo,
-        subject: `${bookingRef} — We received your booking request`,
-        html: customerHtml,
-      }),
-      sendResendMail(env, {
-        from,
-        to: [adminTo],
-        reply_to: email,
+        to: adminRecipients,
+        ...(email ? { reply_to: email } : {}),
         subject: `New Booking Enquiry [${bookingRef}] — ${name}`,
         html: adminHtml,
       }),

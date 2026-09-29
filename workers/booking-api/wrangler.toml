@@ -4,7 +4,8 @@ compatibility_date = "2024-07-01"
 
 # Public configuration (adjust after you know your Worker URL / domains).
 [vars]
-ADMIN_EMAIL = "info@aaresidency.com"
+# Comma-separated; every address receives the booking alert (the first is the guest's reply-to).
+ADMIN_EMAIL = "info@aaresidency.com,aaresidency5@gmail.com"
 
 # comma-separated origins allowed to POST from browser (production + GitHub Pages if used)
 ALLOWED_ORIGINS = "https://aaresidency.com,https://www.aaresidency.com,https://aaresidency.github.io,http://localhost:8080"
@@ -13,7 +14,7 @@ ALLOWED_ORIGINS = "https://aaresidency.com,https://www.aaresidency.com,https://a
 FROM_EMAIL_RESEND = "AA Residency <info@aaresidency.com>"
 
 # Optional: WhatsApp prefilled redirect for staff acknowledgement (shown in admin HTML email footer)
-ADMIN_WHATSAPP_E164 = "919992999961"
+ADMIN_WHATSAPP_E164 = "918790057559"
 
 # Secrets via CLI (do NOT commit secrets):
 #   npx wrangler secret put RESEND_API_KEY
