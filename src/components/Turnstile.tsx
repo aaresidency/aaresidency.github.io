@@ -12,7 +12,8 @@ declare global {
   }
 }
 
-const SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined
+// Trimmed: a trailing newline pasted into the repo secret makes Cloudflare reject the key and no token is ever issued.
+const SITE_KEY = (import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined)?.trim() || undefined
 const SCRIPT_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
 
 let scriptPromise: Promise<void> | null = null
