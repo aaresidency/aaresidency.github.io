@@ -12,7 +12,7 @@ export interface BookingRequest {
 }
 
 /**
- * Posts the booking to the Cloudflare Worker, which emails the guest (if an email was given) and info@aaresidency.com.
+ * Posts the booking to the Cloudflare Worker, which emails the guest (if an email was given) and the hotel (info@aaresidency.com, aaresidency5@gmail.com).
  * Resolves true only when the Worker confirms success; never throws, so callers can rely on WhatsApp as the fallback.
  */
 export async function submitBooking(req: BookingRequest): Promise<boolean> {

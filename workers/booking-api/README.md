@@ -12,7 +12,7 @@ This Worker accepts JSON booking submissions from the static site, generates a s
 
 Edit **`[vars]`** in `wrangler.toml`:
 
-- **`ADMIN_EMAIL`** — address that receives enquiries (Resend sends admin mail here; customer mail uses `reply_to` of this email).
+- **`ADMIN_EMAIL`** — comma-separated addresses that receive every booking alert (currently `info@aaresidency.com,aaresidency5@gmail.com`). Customer mail uses the first address as `reply_to`.
 - **`ALLOWED_ORIGINS`** — comma-separated list of origins allowed for browser `fetch` CORS **without spaces** around commas. Include every place the site runs, for example production `https://aaresidency.com`, `https://www.aaresidency.com`, GitHub Pages origin if applicable, and `http://localhost:8080` (or whatever you use locally with Eleventy).
 - **`FROM_EMAIL_RESEND`** — verified identity in Resend, e.g. `AA Residency <booking@mail.aaresidency.com>`.
 - **`ADMIN_WHATSAPP_E164`** — digits only (`918790057559`); used in acknowledgement email and admin WhatsApp link.

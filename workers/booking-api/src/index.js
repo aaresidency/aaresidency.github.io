@@ -451,7 +451,12 @@ export default {
     );
     fields.adminWhatsAppLink = `https://wa.me/${fields.whatsappDigits}?text=${msgTxt}`;
 
-    const adminTo = env.ADMIN_EMAIL || "info@aaresidency.com";
+    // ADMIN_EMAIL may list several comma-separated addresses; all of them get the booking alert.
+    const adminRecipients = String(env.ADMIN_EMAIL || "info@aaresidency.com,aaresidency5@gmail.com")
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const adminTo = adminRecipients[0];
 
     const from = env.FROM_EMAIL_RESEND || "AA Residency <onboarding@resend.dev>";
 
@@ -470,7 +475,7 @@ export default {
         : Promise.resolve({ ok: true, skipped: true }),
       sendResendMail(env, {
         from,
-        to: [adminTo],
+        to: adminRecipients,
         ...(email ? { reply_to: email } : {}),
         subject: `New Booking Enquiry [${bookingRef}] — ${name}`,
         html: adminHtml,
