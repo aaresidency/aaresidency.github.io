@@ -11,6 +11,7 @@ import { FormField } from '../lib/input'
 import { fireBookingConversion } from '../lib/analytics'
 import { submitBooking } from '../lib/booking'
 import { Turnstile } from './Turnstile'
+import { turnstileRequired, TURNSTILE_PROMPT } from '../lib/turnstile'
 
 interface BookingData {
   checkIn: string
@@ -35,6 +36,7 @@ const WHATSAPP_NUMBER = '918790057559'
 export function BookingModal({ bookingData, onClose }: BookingModalProps) {
   const { t } = useTranslation()
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [turnstileError, setTurnstileError] = useState(false)
 
   const validate = (values: GuestForm) => {
     const errors: Partial<GuestForm> = {}
@@ -44,6 +46,11 @@ export function BookingModal({ bookingData, onClose }: BookingModalProps) {
   }
 
   const handleSubmit = (values: GuestForm) => {
+    // Without a token the Worker rejects the booking, so keep the modal open until the check is done.
+    if (turnstileRequired && !turnstileToken) {
+      setTurnstileError(true)
+      return
+    }
     // Open WhatsApp first, synchronously, so the browser treats it as part of the click.
     const msg = [
       `*New Booking Request*`,
@@ -106,7 +113,13 @@ export function BookingModal({ bookingData, onClose }: BookingModalProps) {
               )}
             </div>
             <FormField name="email" label={t('booking.form.email')} type="email" placeholder={t('booking.form.emailPlaceholder')} />
-            <Turnstile onToken={setTurnstileToken} />
+            <Turnstile
+              onToken={(token) => {
+                setTurnstileToken(token)
+                if (token) setTurnstileError(false)
+              }}
+            />
+            {turnstileError && <p className="text-xs text-red-500">{TURNSTILE_PROMPT}</p>}
             <button
               type="submit"
               className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-xl flex items-center justify-center gap-2 transition-colors"
