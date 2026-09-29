@@ -5,6 +5,7 @@ import 'react-phone-input-2/lib/style.css'
 import { fireBookingConversion } from '../lib/analytics'
 import { submitBooking } from '../lib/booking'
 import { Turnstile } from './Turnstile'
+import { turnstileRequired, TURNSTILE_PROMPT } from '../lib/turnstile'
 
 const PhoneInput = ((_PhoneInput as any).default ?? _PhoneInput) as React.ComponentType<PhoneInputProps>
 
@@ -32,6 +33,11 @@ export function HeroSlider() {
     e.preventDefault()
     if (form.contact.replace(/\D/g, '').length < 10) {
       setStatus({ kind: 'error', text: 'Please enter a valid contact number.' })
+      return
+    }
+    // Without a token the Worker rejects the booking, so stop here before WhatsApp opens.
+    if (turnstileRequired && !turnstileToken) {
+      setStatus({ kind: 'error', text: TURNSTILE_PROMPT })
       return
     }
     const msg = [
@@ -280,7 +286,13 @@ export function HeroSlider() {
               </button>
 
               <div className="sm:col-span-2 lg:col-span-4 flex flex-col gap-2 items-start">
-                <Turnstile onToken={setTurnstileToken} resetSignal={resetSignal} />
+                <Turnstile
+                  onToken={(token) => {
+                    setTurnstileToken(token)
+                    if (token) setStatus((s) => (s?.text === TURNSTILE_PROMPT ? null : s))
+                  }}
+                  resetSignal={resetSignal}
+                />
                 {status && (
                   <p role="status" className={`text-xs ${status.kind === 'error' ? 'text-red-300' : 'text-green-300'}`}>
                     {status.text}
