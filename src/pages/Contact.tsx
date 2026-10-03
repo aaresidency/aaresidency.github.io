@@ -9,7 +9,7 @@ const MAPS_SEARCH = 'https://www.google.com/maps/search/AA+Residency+Tirupati'
 export function Contact() {
   return (
     <div>
-      <Seo title="Contact Us" description="Call, WhatsApp or visit AA Residency on Renigunta Road, Tirupati. Our front desk is open 24/7 to help with rooms, rates and availability. Get in touch today." path="/contact" jsonLd={[hotelSchema()]} />
+      <Seo title="Contact Us - Hotel in Tirupati" description="Call, WhatsApp or visit AA Residency on Renigunta Road, Tirupati. Our front desk is open 24/7 to help with rooms, rates and availability. Get in touch today." path="/contact" jsonLd={[hotelSchema()]} />
       {/* Hero */}
       <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/reception-entrance.jpg)' }}>
         <div className="absolute inset-0 bg-black/50" />

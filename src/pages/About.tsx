@@ -28,7 +28,7 @@ export function About() {
 
   return (
     <div>
-      <Seo title="About Us" description="AA Residency is a family-friendly hotel in Tirupati for pilgrims, families and business travellers. Learn our story and book direct for the best rates." path="/about" jsonLd={[hotelSchema()]} />
+      <Seo title="About Our Hotel in Tirupati" description="AA Residency is a family-friendly hotel in Tirupati for pilgrims, families and business travellers. Learn our story and book direct for the best rates." path="/about" jsonLd={[hotelSchema()]} />
       {/* Hero */}
       <div className="h-72 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/exterior-front.jpg)' }}>
         <div className="absolute inset-0 bg-black/50" />

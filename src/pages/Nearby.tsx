@@ -18,7 +18,7 @@ const ATTRACTIONS = [
 export function Nearby() {
   return (
     <div>
-      <Seo title="Nearby Attractions" description="Temples, transport hubs and attractions near AA Residency Tirupati on Renigunta Road. Plan your Tirupati trip and darshan visit, then book your room direct." path="/nearby" jsonLd={[hotelSchema()]} />
+      <Seo title="Nearby Attractions in Tirupati" description="Temples, transport hubs and attractions near AA Residency Tirupati on Renigunta Road. Plan your Tirupati trip and darshan visit, then book your room direct." path="/nearby" jsonLd={[hotelSchema()]} />
       {/* Hero */}
       <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/exterior-front.jpg)' }}>
         <div className="absolute inset-0 bg-black/50" />
