@@ -16,8 +16,19 @@ FROM_EMAIL_RESEND = "AA Residency <info@aaresidency.com>"
 # Optional: WhatsApp prefilled redirect for staff acknowledgement (shown in admin HTML email footer)
 ADMIN_WHATSAPP_E164 = "918790057559"
 
+# Admin dashboard: OAuth Client ID from Google Cloud Console (public value; also set as VITE_GOOGLE_CLIENT_ID for the site build).
+GOOGLE_CLIENT_ID = "29759857832-0pv24jdpmrrv9239hlnqqinttdjo5j5u.apps.googleusercontent.com"
+
+# Bookings + admin notes live in Cloudflare D1. Create it once with `npx wrangler d1 create aaresidency-bookings`,
+# paste the printed database_id below, then run `npm run db:migrate`.
+[[d1_databases]]
+binding = "DB"
+database_name = "aaresidency-bookings"
+database_id = "c4ac8f7e-c1a6-4e0f-8205-7bd760136af8"
+
 # Secrets via CLI (do NOT commit secrets):
 #   npx wrangler secret put RESEND_API_KEY
+#   npx wrangler secret put ADMIN_LOGIN_EMAILS   (comma-separated Google accounts allowed into /admin)
 # Optional Turnstile (recommended when Worker booking API is live):
 #   npx wrangler secret put TURNSTILE_SECRET_KEY
 #   Build site with env TURNSTILE_SITE_KEY (Turnstile dashboard → widget → Site Key).

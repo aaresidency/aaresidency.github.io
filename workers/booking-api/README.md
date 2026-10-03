@@ -168,3 +168,48 @@ If abuse comes from specific regions only, add `(ip.geoip.country eq "XX")` caut
 Prefer **Managed Challenge** over hard block when unsure.
 
 Monitor **Security → Events** after enabling rules.
+
+## 11. Admin dashboard (`/admin`)
+
+Staff sign in at `https://aaresidency.com/admin` with Google and can view today's / upcoming / past bookings, a calendar, search (name, email, phone), add private notes and set a status (new / confirmed / cancelled). "Today" = guests arriving today plus guests currently staying (IST).
+
+Bookings are stored in **Cloudflare D1** (free tier). Every website booking is saved before the emails go out; a storage failure never blocks the booking.
+
+### One-time setup
+
+1. **Database**
+   ```bash
+   cd workers/booking-api
+   npx wrangler d1 create aaresidency-bookings      # prints a database_id
+   ```
+   Paste the `database_id` into `wrangler.toml` (`[[d1_databases]]`), then:
+   ```bash
+   npm run db:migrate
+   ```
+2. **Google sign-in** — [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → Credentials → *Create credentials → OAuth client ID* → type **Web application**.
+   - Authorized JavaScript origins: `https://aaresidency.com`, `https://www.aaresidency.com` (and `http://localhost:8080` for local testing).
+   - No redirect URI is needed. If asked to configure the consent screen, choose **Internal** (Workspace) or External + add yourself as a test user.
+   - Copy the **Client ID**.
+3. **Worker** — set `GOOGLE_CLIENT_ID` in `wrangler.toml`, then choose who may enter (kept as a secret, not in git):
+   ```bash
+   npx wrangler secret put ADMIN_LOGIN_EMAILS     # e.g. you@aaresidency.com,aaresidency5@gmail.com
+   npx wrangler deploy
+   ```
+4. **Site** — add the repo secret `GOOGLE_CLIENT_ID` (same Client ID) in GitHub → Settings → Secrets → Actions, then re-run the Pages deploy. For local dev put `VITE_GOOGLE_CLIENT_ID=...` and `VITE_BOOKING_API_URL=...` in `.env.local`.
+
+### How access is enforced
+
+Every `/admin/*` request carries the Google ID token; the Worker verifies its RS256 signature against Google's keys, the audience (your Client ID), issuer, expiry, and that the email is in `ADMIN_LOGIN_EMAILS`. The page itself is public JavaScript but shows no data without a valid token. Tokens last about an hour; after that the page asks the admin to sign in again. `/admin` is `noindex` and disallowed in `robots.txt`.
+
+### API (all require `Authorization: Bearer <google id token>`)
+
+| Route | Purpose |
+|---|---|
+| `GET /admin/bookings?view=today\|upcoming\|past\|all&offset=` | Paged lists (30 per page) |
+| `GET /admin/bookings?from=YYYY-MM-DD&to=YYYY-MM-DD` | Bookings overlapping a date range (calendar) |
+| `GET /admin/search?q=` | Name / email / reference / phone (digits, `+91` optional) |
+| `GET /admin/bookings/:id` | Booking + notes |
+| `POST /admin/bookings/:id/notes` `{note}` | Add a note |
+| `PATCH /admin/bookings/:id` `{status}` | `new`, `confirmed`, `cancelled` |
+
+Cost: D1 and Workers free tiers are far above a hotel's volume; Google sign-in is free.

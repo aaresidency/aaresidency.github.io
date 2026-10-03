@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { WhatsAppChatButton } from './components/WhatsAppChatButton'
@@ -19,7 +20,19 @@ import { RoomsInTirupati } from './pages/RoomsInTirupati'
 import { HotelsNearTirupatiTemple } from './pages/HotelsNearTirupatiTemple'
 import './App.css'
 
+// Staff-only dashboard: loaded on demand so public visitors never download it.
+const AdminPage = lazy(() => import('./pages/admin/AdminPage'))
+
 function App() {
+  const { pathname } = useLocation()
+  if (pathname === '/admin' || pathname.startsWith('/admin/')) {
+    return (
+      <Suspense fallback={null}>
+        <AdminPage />
+      </Suspense>
+    )
+  }
+
   return (
     <>
       <Header />

@@ -2,7 +2,9 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "db:migrate": "wrangler d1 migrations apply aaresidency-bookings --remote",
+    "db:migrate:local": "wrangler d1 migrations apply aaresidency-bookings --local"
   },
   "devDependencies": {
     "wrangler": "^3.114.17"
