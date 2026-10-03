@@ -1,3 +1,5 @@
+import { handleAdmin } from "./admin.js";
+
 const RESEND_API = "https://api.resend.com/emails";
 
 /**
@@ -40,8 +42,8 @@ function corsHeaders(env, origin) {
   /** @type {Record<string,string>} */
   const h = {
     Vary: "Origin",
-    "Access-Control-Allow-Methods": "POST,OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "GET,POST,PATCH,OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type,Authorization",
     "Access-Control-Max-Age": "86400",
   };
   const allow = normalizeAllowedOrigins(env.ALLOWED_ORIGINS);
@@ -324,6 +326,12 @@ export default {
       return new Response("", { headers: responseHeaders(cors) });
     }
 
+    const url = new URL(request.url);
+    if (url.pathname === "/admin" || url.pathname.startsWith("/admin/")) {
+      if (!cors["Access-Control-Allow-Origin"]) return new Response("Forbidden", { status: 403, headers: responseHeaders({}) });
+      return handleAdmin(request, env, responseHeaders(cors), url);
+    }
+
     if (request.method !== "POST") {
       return new Response("method not allowed", {
         status: 405,
@@ -460,6 +468,20 @@ export default {
 
     const from = env.FROM_EMAIL_RESEND || "AA Residency <onboarding@resend.dev>";
 
+    await saveBooking(env, {
+      ref: bookingRef,
+      name,
+      email,
+      phone: phoneDisplay,
+      phoneDigits: phoneDigits.length === 10 ? `91${phoneDigits}` : phoneDigits,
+      arrival: arrivalDate || null,
+      departure: departureDate || null,
+      roomType,
+      adults: a,
+      children: c,
+      guestNotes: notesRaw.trim(),
+    });
+
     const customerHtml = customerBookingEmailHtml(bookingRef, fields);
     const adminHtml = adminBookingEmailHtml(bookingRef, fields);
 
@@ -511,6 +533,24 @@ export default {
     });
   },
 };
+
+/**
+ * Stores the booking for the admin dashboard. A storage failure must never reject the guest's booking
+ * (the hotel is still emailed), so errors are only logged.
+ */
+async function saveBooking(env, b) {
+  if (!env.DB) return;
+  try {
+    await env.DB.prepare(
+      `INSERT INTO bookings (ref, name, email, phone, phone_digits, arrival, departure, room_type, adults, children, guest_notes)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    )
+      .bind(b.ref, b.name, b.email, b.phone, b.phoneDigits, b.arrival, b.departure, b.roomType, b.adults, b.children, b.guestNotes)
+      .run();
+  } catch (err) {
+    console.error("saveBooking failed", err);
+  }
+}
 
 /** @param {Record<string,string>} cors @param {{error:string}} body */
 function badRequest(cors, body) {
