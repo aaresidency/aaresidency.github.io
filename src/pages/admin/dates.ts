@@ -32,3 +32,11 @@ export function monthGrid(monthStart: string): string[] {
   const total = Math.ceil((lead + daysInMonth) / 7) * 7
   return Array.from({ length: total }, (_, i) => addDays(monthStart, i - lead))
 }
+
+const partsFmt = new Intl.DateTimeFormat('en-IN', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' })
+
+/** Pieces for the little calendar-leaf badge on cards, e.g. { weekday: 'Sat', day: '3', month: 'Oct' }. */
+export function dayParts(iso: string) {
+  const get = (type: string) => partsFmt.formatToParts(toMs(iso)).find((p) => p.type === type)?.value ?? ''
+  return { weekday: get('weekday'), day: get('day'), month: get('month') }
+}
