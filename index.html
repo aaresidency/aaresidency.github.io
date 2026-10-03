@@ -31,7 +31,12 @@
       // Decode the deep-link path GitHub Pages' 404.html encoded, and restore the
       // real URL before the SPA router mounts. https://github.com/rafgraph/spa-github-pages
       (function (l) {
-        if (l.search[1] === '/') {
+        // public/404.html redirects deep links to /?p=/path&q=query.
+        var m = l.search.match(/^\?p=(\/[^&]*)(?:&q=(.*))?$/)
+        if (m) {
+          var restored = m[1].replace(/~and~/g, '&') + (m[2] ? '?' + m[2].replace(/~and~/g, '&') : '')
+          window.history.replaceState(null, '', restored + l.hash)
+        } else if (l.search[1] === '/') {
           var decoded = l.search
             .slice(1)
             .split('&')
