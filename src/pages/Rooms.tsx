@@ -86,11 +86,16 @@ export function Rooms() {
 
               {/* Image dots */}
               {room.images.length > 1 && (
-                <div className="absolute top-3 right-3 flex gap-1.5">
+                <div className="absolute top-1 right-1 flex">
                   {room.images.map((_, i) => (
+                    // 8 px dot inside a 32 px tap target
                     <button key={i} onClick={() => setActiveImg({ ...activeImg, [room.typeKey]: i })}
-                      className="w-2 h-2 rounded-full transition-all"
-                      style={{ backgroundColor: getImg(room.typeKey) === i ? '#c9a84c' : 'rgba(255,255,255,0.5)' }} />
+                      aria-label={`Show photo ${i + 1} of ${room.images.length}`}
+                      aria-pressed={getImg(room.typeKey) === i}
+                      className="flex h-8 w-8 items-center justify-center">
+                      <span className="block h-2 w-2 rounded-full transition-all"
+                        style={{ backgroundColor: getImg(room.typeKey) === i ? '#c9a84c' : 'rgba(255,255,255,0.6)' }} />
+                    </button>
                   ))}
                 </div>
               )}

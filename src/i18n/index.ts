@@ -13,4 +13,11 @@ i18n
     interpolation: { escapeValue: false },
   })
 
+// Keep <html lang> in step with the chosen language (screen readers and search engines use it).
+if (typeof document !== 'undefined') {
+  i18n.on('languageChanged', (lng) => {
+    document.documentElement.lang = lng
+  })
+}
+
 export default i18n

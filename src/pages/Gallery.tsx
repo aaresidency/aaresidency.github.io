@@ -35,6 +35,7 @@ export function Gallery() {
   const [activeCat, setActiveCat] = useState<CategoryKey>('all')
   const [lightbox, setLightbox] = useState<null | { src: string; imgKey: ImageKey; index: number }>(null)
   const filteredRef = useRef<typeof IMAGES>([])
+  const touchStartX = useRef<number | null>(null)
 
   const filtered = activeCat === 'all' ? IMAGES : IMAGES.filter((img) => img.categoryKey === activeCat)
   filteredRef.current = filtered
@@ -160,19 +161,31 @@ export function Gallery() {
       {lightbox && (
         <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 animate-fade-in"
           onClick={() => setLightbox(null)}>
-          <div className="relative max-w-4xl w-full" onClick={(e) => e.stopPropagation()}>
-            <button onClick={() => setLightbox(null)} className="absolute -top-12 right-0 text-white/70 hover:text-white text-3xl leading-none transition-colors">✕</button>
-            <button onClick={() => goTo(-1)}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 text-white rounded-full p-3 transition-colors duration-200"
-              style={{ backgroundColor: '#c9a84c30', border: '1px solid #c9a84c50' }}>
+          <div
+            className="relative max-w-4xl w-full"
+            onClick={(e) => e.stopPropagation()}
+            // Swipe left/right to move between photos on touch screens.
+            onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX }}
+            onTouchEnd={(e) => {
+              if (touchStartX.current === null) return
+              const dx = e.changedTouches[0].clientX - touchStartX.current
+              touchStartX.current = null
+              if (Math.abs(dx) > 50) goTo(dx < 0 ? 1 : -1)
+            }}
+          >
+            <button onClick={() => setLightbox(null)} aria-label="Close photo" className="absolute -top-14 right-0 flex h-11 w-11 items-center justify-center text-white/80 hover:text-white text-3xl leading-none transition-colors">✕</button>
+            {/* On phones the arrows sit over the photo's edges (there is no room beside it); on larger screens they sit outside. */}
+            <button onClick={() => goTo(-1)} aria-label="Previous photo"
+              className="absolute left-2 sm:left-0 top-1/2 -translate-y-1/2 sm:-translate-x-14 z-10 text-white rounded-full p-3 transition-colors duration-200"
+              style={{ backgroundColor: 'rgba(0,0,0,0.55)', border: '1px solid #c9a84c80' }}>
               <svg className="w-6 h-6" fill="none" stroke="#c9a84c" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             <img src={lightbox.src} alt={t(`gallery.images.${lightbox.imgKey}`)} className="w-full max-h-[80vh] object-contain rounded-xl animate-scale-in" style={{ border: '1px solid #c9a84c' }} />
-            <button onClick={() => goTo(1)}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 text-white rounded-full p-3 transition-colors duration-200"
-              style={{ backgroundColor: '#c9a84c30', border: '1px solid #c9a84c50' }}>
+            <button onClick={() => goTo(1)} aria-label="Next photo"
+              className="absolute right-2 sm:right-0 top-1/2 -translate-y-1/2 sm:translate-x-14 z-10 text-white rounded-full p-3 transition-colors duration-200"
+              style={{ backgroundColor: 'rgba(0,0,0,0.55)', border: '1px solid #c9a84c80' }}>
               <svg className="w-6 h-6" fill="none" stroke="#c9a84c" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>

@@ -1,6 +1,6 @@
 import { useField } from 'formik'
 
-type FieldType = 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'textarea' | 'select'
+type FieldType = 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'date' | 'textarea' | 'select'
 
 interface FormFieldProps {
   name: string
@@ -11,6 +11,8 @@ interface FormFieldProps {
   disabled?: boolean
   className?: string
   required?: boolean
+  /** Lower bound for date/number inputs. */
+  min?: string
 }
 
 export function FormField({
@@ -22,11 +24,12 @@ export function FormField({
   disabled = false,
   className = '',
   required = false,
+  min,
 }: FormFieldProps) {
   const [field, meta] = useField(name)
   const hasError = meta.touched && meta.error
 
-  const baseInputClass = `w-full px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 transition-colors ${
+  const baseInputClass = `w-full px-3 py-2 border rounded-md text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 transition-colors ${
     hasError
       ? 'border-red-500 focus:ring-red-300'
       : 'border-gray-300 focus:ring-cyan-300 focus:border-cyan-400'
@@ -68,6 +71,7 @@ export function FormField({
           type={type}
           placeholder={placeholder}
           disabled={disabled}
+          min={min}
           className={baseInputClass}
         />
       )}
