@@ -13,7 +13,7 @@ export function B2B() {
     <div>
       <Seo title="Corporate & Travel Partners" description="Corporate, travel agent and tour operator partnerships with AA Residency Tirupati. Group and corporate bookings made simple. Contact us to set up an account." path="/b2b" />
       <div className="h-72 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/reception-desk-1.webp)' }}>
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/35" />
         <div className="relative text-center px-4">
           <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#c9a84c' }}>{t('b2b.badge')}</span>
           <h1 className="text-4xl md:text-5xl font-bold mt-2" style={{ color: '#f5e6c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)' }}>{t('b2b.heroTitle')}</h1>

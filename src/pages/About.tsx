@@ -32,7 +32,7 @@ export function About() {
       <Seo title="About Us" description="AA Residency is a family-friendly hotel in Tirupati for pilgrims, families and business travellers. Learn our story and book direct for the best rates." path="/about" jsonLd={[hotelSchema()]} />
       {/* Hero */}
       <div className="h-72 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/exterior-front.webp)' }}>
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/35" />
         <div className="relative text-center animate-fade-in-up">
           <h1 className="text-5xl font-bold mb-2" style={{ color: '#f5e6c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)' }}>{t('about.heroTitle')}</h1>
           <p className="text-lg" style={{ color: '#c9a84c' }}>{t('about.heroSubtitle')}</p>

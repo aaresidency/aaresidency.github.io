@@ -26,7 +26,7 @@ export function LandingPage({ seo, heroImage, kicker, heading, intro, sections =
     <div>
       <Seo {...seo} jsonLd={[hotelSchema(), faqSchema(faqs)]} />
       <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: `url(${heroImage})` }}>
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/35" />
         <div className="relative text-center px-4">
           <p className="font-semibold uppercase tracking-widest text-sm mb-2" style={{ color: '#c9a84c' }}>{kicker}</p>
           <h1 className="text-3xl md:text-4xl font-bold" style={{ color: '#f5e6c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)' }}>{heading}</h1>

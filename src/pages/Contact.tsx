@@ -11,7 +11,7 @@ export function Contact() {
       <Seo title="Contact Us" description="Call, WhatsApp or visit AA Residency on Renigunta Road, Tirupati. Our front desk is open 24/7 to help with rooms, rates and availability. Get in touch today." path="/contact" jsonLd={[hotelSchema()]} />
       {/* Hero */}
       <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/reception-entrance.webp)' }}>
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/35" />
         <div className="relative text-center">
           <h1 className="text-4xl font-bold" style={{ color: '#f5e6c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)' }}>Contact & Location</h1>
           <p className="mt-1" style={{ color: '#c9a84c' }}>Call, WhatsApp, or simply drive over</p>

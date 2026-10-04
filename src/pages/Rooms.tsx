@@ -57,7 +57,7 @@ export function Rooms() {
       <Seo title="Rooms & Rates" description="Book AC and Non-AC deluxe, studio and family rooms in Tirupati at AA Residency. Clear pricing, free Wi-Fi and parking. Check availability and reserve direct." path="/rooms" jsonLd={[roomsSchema()]} />
       {/* Hero */}
       <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/room-ac-1.webp)' }}>
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/35" />
         <div className="relative text-center">
           <h1 className="text-4xl font-bold" style={{ color: '#f5e6c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)' }}>{t('rooms.heroTitle')}</h1>
           <p className="mt-1" style={{ color: '#c9a84c' }}>{t('rooms.heroSubtitle')}</p>
