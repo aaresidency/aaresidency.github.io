@@ -30,7 +30,12 @@ interface GuestForm {
   name: string
   email: string
   mobile: string
+  checkIn: string
+  checkOut: string
+  guests: string
 }
+
+const todayIso = () => new Date().toISOString().slice(0, 10)
 
 
 export function BookingModal({ bookingData, onClose }: BookingModalProps) {
@@ -42,6 +47,8 @@ export function BookingModal({ bookingData, onClose }: BookingModalProps) {
     const errors: Partial<GuestForm> = {}
     if (!values.name) errors.name = 'Name is required'
     if (!values.mobile || values.mobile.length < 10) errors.mobile = 'Enter a valid mobile number'
+    // Dates are optional, but if both are given the stay must be at least one night.
+    if (values.checkIn && values.checkOut && values.checkOut <= values.checkIn) errors.checkOut = 'Check-out must be after check-in'
     return errors
   }
 
@@ -57,10 +64,10 @@ export function BookingModal({ bookingData, onClose }: BookingModalProps) {
       `Name: ${values.name}`,
       `Phone: +${values.mobile}`,
       `Email: ${values.email || 'N/A'}`,
-      `Check-in: ${bookingData.checkIn}`,
-      `Check-out: ${bookingData.checkOut}`,
+      `Check-in: ${values.checkIn || 'Not specified'}`,
+      `Check-out: ${values.checkOut || 'Not specified'}`,
       `Rooms: ${bookingData.rooms}`,
-      `Guests: ${bookingData.guests}`,
+      `Guests: ${values.guests}`,
     ].join('\n')
     window.open(`https://wa.me/${PHONE_DIGITS}?text=${encodeURIComponent(msg)}`, '_blank')
 
@@ -69,10 +76,10 @@ export function BookingModal({ bookingData, onClose }: BookingModalProps) {
       name: values.name,
       email: values.email,
       phone: values.mobile,
-      checkIn: bookingData.checkIn,
-      checkOut: bookingData.checkOut,
+      checkIn: values.checkIn,
+      checkOut: values.checkOut,
       roomType: bookingData.rooms,
-      guests: bookingData.guests,
+      guests: values.guests,
       turnstileToken,
     })
     onClose()
@@ -80,31 +87,43 @@ export function BookingModal({ bookingData, onClose }: BookingModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 relative">
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl leading-none">✕</button>
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 relative max-h-[94vh] overflow-y-auto">
+        <button onClick={onClose} aria-label="Close" className="absolute top-2 right-2 flex h-11 w-11 items-center justify-center text-gray-400 hover:text-gray-600 text-xl leading-none">✕</button>
 
         <h2 className="text-xl font-bold text-gray-800 mb-1">{t('booking.completeBooking')}</h2>
         <p className="text-sm text-gray-500 mb-5">{t('booking.sentViaWhatsapp')}</p>
 
-        <div className="bg-cyan-50 border border-cyan-200 rounded-lg p-3 mb-5 grid grid-cols-2 gap-2 text-sm">
-          <div><span className="text-gray-500">{t('booking.summary.checkIn')}</span><p className="font-medium">{bookingData.checkIn || '—'}</p></div>
-          <div><span className="text-gray-500">{t('booking.summary.checkOut')}</span><p className="font-medium">{bookingData.checkOut || '—'}</p></div>
-          <div><span className="text-gray-500">{t('booking.summary.rooms')}</span><p className="font-medium">{bookingData.rooms}</p></div>
-          <div><span className="text-gray-500">{t('booking.summary.guests')}</span><p className="font-medium">{bookingData.guests}</p></div>
+        <div className="bg-cyan-50 border border-cyan-200 rounded-lg p-3 mb-5 text-sm">
+          <span className="text-gray-500">{t('booking.summary.rooms')}</span>
+          <p className="font-medium text-gray-800">{bookingData.rooms}</p>
         </div>
 
-        <Formik initialValues={{ name: '', email: '', mobile: '' }} validate={validate} onSubmit={handleSubmit}>
-          {({ values, errors, touched, setFieldValue, setFieldTouched }) => (
+        <Formik initialValues={{ name: '', email: '', mobile: '', checkIn: bookingData.checkIn, checkOut: bookingData.checkOut, guests: bookingData.guests || '1' }} validate={validate} onSubmit={handleSubmit}>
+          {({ values, errors, touched, setFieldValue, setFieldTouched, handleChange }) => (
           <Form className="flex flex-col gap-4">
             <FormField name="name" label={t('booking.form.name')} placeholder={t('booking.form.namePlaceholder')} required />
+            <div className="grid grid-cols-2 gap-3">
+              <FormField name="checkIn" label={t('booking.summary.checkIn')} type="date" min={todayIso()} />
+              <FormField name="checkOut" label={t('booking.summary.checkOut')} type="date" min={values.checkIn || todayIso()} />
+            </div>
             <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-gray-700">{t('booking.form.mobile')}<span className="text-red-500 ml-0.5">*</span></label>
+              <label htmlFor="guests" className="text-sm font-medium text-gray-700">{t('booking.summary.guests')}</label>
+              <select id="guests" name="guests" value={values.guests} onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-400">
+                {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+                  <option key={n} value={String(n)}>{n} {n === 1 ? 'Guest' : 'Guests'}</option>
+                ))}
+              </select>
+            </div>
+            <div className="flex flex-col gap-1">
+              <label htmlFor="booking-mobile" className="text-sm font-medium text-gray-700">{t('booking.form.mobile')}<span className="text-red-500 ml-0.5">*</span></label>
               <PhoneInput
                 country="in"
                 value={values.mobile}
                 onChange={(phone) => setFieldValue('mobile', phone)}
                 onBlur={() => setFieldTouched('mobile', true)}
-                inputClass="!w-full !h-10 !text-sm !border-gray-300 !rounded-md focus:!border-cyan-400 focus:!ring-2 focus:!ring-cyan-300"
+                inputProps={{ id: 'booking-mobile' }}
+                inputClass="!w-full !h-10 !text-sm !text-gray-800 !border-gray-300 !rounded-md focus:!border-cyan-400 focus:!ring-2 focus:!ring-cyan-300"
                 containerClass="!w-full"
                 buttonClass="!border-gray-300 !rounded-l-md"
               />

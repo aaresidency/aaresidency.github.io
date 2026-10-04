@@ -54,15 +54,15 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <span>📞</span>
-              <a href={`tel:${PHONE_E164}`} className="gold-link">{PHONE_DISPLAY}</a>
+              <a href={`tel:${PHONE_E164}`} className="gold-link inline-block py-1.5">{PHONE_DISPLAY}</a>
             </li>
             <li className="flex items-center gap-2">
               <span>✉️</span>
-              <a href={`mailto:${EMAIL}`} className="gold-link">{EMAIL}</a>
+              <a href={`mailto:${EMAIL}`} className="gold-link inline-block py-1.5">{EMAIL}</a>
             </li>
             <li className="flex items-center gap-2">
               <span>💬</span>
-              <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="text-green-500 hover:text-green-400 transition-colors">
+              <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="text-green-500 hover:text-green-400 transition-colors inline-block py-1.5">
                 {t('footer.whatsappUs')}
               </a>
             </li>

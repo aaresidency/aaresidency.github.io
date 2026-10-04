@@ -161,7 +161,7 @@ export function HeroSlider() {
         <button
           onClick={() => setCurrent((p) => (p - 1 + SLIDES.length) % SLIDES.length)}
           aria-label="Previous slide"
-          className="absolute left-5 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-yellow-400 text-white hover:text-gray-900 rounded-full p-3 transition-all duration-200 border border-white/20 hover:border-yellow-400 backdrop-blur-sm"
+          className="absolute left-3 top-[76%] sm:left-5 sm:top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-yellow-400 text-white hover:text-gray-900 rounded-full p-3 transition-all duration-200 border border-white/20 hover:border-yellow-400 backdrop-blur-sm"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -172,7 +172,7 @@ export function HeroSlider() {
         <button
           onClick={() => setCurrent((p) => (p + 1) % SLIDES.length)}
           aria-label="Next slide"
-          className="absolute right-5 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-yellow-400 text-white hover:text-gray-900 rounded-full p-3 transition-all duration-200 border border-white/20 hover:border-yellow-400 backdrop-blur-sm"
+          className="absolute right-3 top-[76%] sm:right-5 sm:top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-yellow-400 text-white hover:text-gray-900 rounded-full p-3 transition-all duration-200 border border-white/20 hover:border-yellow-400 backdrop-blur-sm"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -180,7 +180,7 @@ export function HeroSlider() {
         </button>
 
         {/* Dot indicators */}
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex">
+        <div className="absolute bottom-5 sm:bottom-5 left-1/2 -translate-x-1/2 z-20 flex">
           {SLIDES.map((_, i) => (
             <button key={i} onClick={() => setCurrent(i)} aria-label={`Slide ${i + 1}`} className="p-2 flex items-center justify-center">
               <span
@@ -196,7 +196,7 @@ export function HeroSlider() {
       </div>
 
       {/* ── Book Now Section ── */}
-      <section id="book-now" className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-14 px-4">
+      <section id="book-now" className="scroll-mt-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-14 px-4">
         <div className="max-w-5xl mx-auto">
           {/* Heading */}
           <div className="text-center mb-10">
