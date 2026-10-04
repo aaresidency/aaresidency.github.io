@@ -9,21 +9,21 @@ type ImageKey = 'receptionLobby' | 'frontDesk' | 'receptionSeating' | 'acRoom101
 const CATEGORY_KEYS: CategoryKey[] = ['all', 'reception', 'acRooms', 'nonAcRooms', 'exterior', 'events']
 
 const IMAGES: { categoryKey: Exclude<CategoryKey, 'all'>; imgKey: ImageKey; src: string }[] = [
-  { categoryKey: 'reception',  imgKey: 'receptionLobby',   src: '/images/reception-entrance.jpg' },
-  { categoryKey: 'reception',  imgKey: 'frontDesk',         src: '/images/reception-desk-1.jpg' },
-  { categoryKey: 'reception',  imgKey: 'receptionSeating',  src: '/images/reception-desk-2.jpg' },
-  { categoryKey: 'acRooms',    imgKey: 'acRoom101',          src: '/images/room-ac-1.jpg' },
-  { categoryKey: 'acRooms',    imgKey: 'acRoom102',          src: '/images/room-ac-2.jpg' },
-  { categoryKey: 'acRooms',    imgKey: 'acRoomDetail',       src: '/images/room-ac-3.jpg' },
-  { categoryKey: 'nonAcRooms', imgKey: 'standardRoom',       src: '/images/room-nonac-1.jpg' },
-  { categoryKey: 'acRooms',    imgKey: 'familyRoom1',        src: '/images/room-family-1.jpg' },
-  { categoryKey: 'acRooms',    imgKey: 'familyRoom2',        src: '/images/room-family-2.jpg' },
-  { categoryKey: 'exterior',   imgKey: 'frontView',          src: '/images/exterior-front.jpg' },
-  { categoryKey: 'exterior',   imgKey: 'buildingExterior',   src: '/images/exterior-signage.jpg' },
-  { categoryKey: 'events',     imgKey: 'eventHall',          src: '/images/banquet-event-1.jpg' },
-  { categoryKey: 'events',     imgKey: 'eventStage1',        src: '/images/banquet-stage-1.jpg' },
-  { categoryKey: 'events',     imgKey: 'eventStage2',        src: '/images/banquet-stage-2.jpg' },
-  { categoryKey: 'events',     imgKey: 'eventStage3',        src: '/images/banquet-stage-3.jpg' },
+  { categoryKey: 'reception',  imgKey: 'receptionLobby',   src: '/images/reception-entrance.webp' },
+  { categoryKey: 'reception',  imgKey: 'frontDesk',         src: '/images/reception-desk-1.webp' },
+  { categoryKey: 'reception',  imgKey: 'receptionSeating',  src: '/images/reception-desk-2.webp' },
+  { categoryKey: 'acRooms',    imgKey: 'acRoom101',          src: '/images/room-ac-1.webp' },
+  { categoryKey: 'acRooms',    imgKey: 'acRoom102',          src: '/images/room-ac-2.webp' },
+  { categoryKey: 'acRooms',    imgKey: 'acRoomDetail',       src: '/images/room-ac-3.webp' },
+  { categoryKey: 'nonAcRooms', imgKey: 'standardRoom',       src: '/images/room-nonac-1.webp' },
+  { categoryKey: 'acRooms',    imgKey: 'familyRoom1',        src: '/images/room-family-1.webp' },
+  { categoryKey: 'acRooms',    imgKey: 'familyRoom2',        src: '/images/room-family-2.webp' },
+  { categoryKey: 'exterior',   imgKey: 'frontView',          src: '/images/exterior-front.webp' },
+  { categoryKey: 'exterior',   imgKey: 'buildingExterior',   src: '/images/exterior-signage.webp' },
+  { categoryKey: 'events',     imgKey: 'eventHall',          src: '/images/banquet-event-1.webp' },
+  { categoryKey: 'events',     imgKey: 'eventStage1',        src: '/images/banquet-stage-1.webp' },
+  { categoryKey: 'events',     imgKey: 'eventStage2',        src: '/images/banquet-stage-2.webp' },
+  { categoryKey: 'events',     imgKey: 'eventStage3',        src: '/images/banquet-stage-3.webp' },
 ]
 
 const MARQUEE_ROW1 = [...IMAGES, ...IMAGES]
@@ -65,7 +65,7 @@ export function Gallery() {
     <div>
       <Seo title="Gallery" description="See photos of AA Residency Tirupati: clean AC and Non-AC rooms, reception, exteriors and banquet spaces. Browse the gallery, then book your stay direct." path="/gallery" />
       {/* Hero */}
-      <div className="h-72 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/exterior-front.jpg)' }}>
+      <div className="h-72 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/exterior-front.webp)' }}>
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative text-center animate-fade-in-up">
           <h1 className="text-5xl font-bold mb-2" style={{ color: '#f5e6c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)' }}>{t('gallery.heroTitle')}</h1>
@@ -79,7 +79,7 @@ export function Gallery() {
           <div className="animate-marquee gap-3 flex">
             {MARQUEE_ROW1.map((img, i) => (
               <div key={i} className="h-28 w-44 shrink-0 rounded-xl overflow-hidden" style={{ border: '1px solid #c9a84c' }}>
-                <img src={img.src} alt="" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                <img loading="lazy" decoding="async" src={img.src} alt="" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
               </div>
             ))}
           </div>
@@ -88,7 +88,7 @@ export function Gallery() {
           <div className="animate-marquee-reverse gap-3 flex">
             {MARQUEE_ROW2.map((img, i) => (
               <div key={i} className="h-28 w-44 shrink-0 rounded-xl overflow-hidden" style={{ border: '1px solid #c9a84c' }}>
-                <img src={img.src} alt="" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                <img loading="lazy" decoding="async" src={img.src} alt="" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
               </div>
             ))}
           </div>
@@ -124,7 +124,7 @@ export function Gallery() {
               className="relative rounded-2xl overflow-hidden h-48 cursor-pointer group transition-all duration-300 hover:-translate-y-1"
               style={{ border: '1px solid #c9a84c' }}
             >
-              <img src={img.src} alt={t(`gallery.images.${img.imgKey}`)} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <img loading="lazy" decoding="async" src={img.src} alt={t(`gallery.images.${img.imgKey}`)} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300" />
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="rounded-full p-3" style={{ backgroundColor: '#c9a84c30', border: '1px solid #c9a84c' }}>
@@ -168,7 +168,7 @@ export function Gallery() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <img src={lightbox.src} alt={t(`gallery.images.${lightbox.imgKey}`)} className="w-full max-h-[80vh] object-contain rounded-xl animate-scale-in" style={{ border: '1px solid #c9a84c' }} />
+            <img loading="lazy" decoding="async" src={lightbox.src} alt={t(`gallery.images.${lightbox.imgKey}`)} className="w-full max-h-[80vh] object-contain rounded-xl animate-scale-in" style={{ border: '1px solid #c9a84c' }} />
             <button onClick={() => goTo(1)}
               className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 text-white rounded-full p-3 transition-colors duration-200"
               style={{ backgroundColor: '#c9a84c30', border: '1px solid #c9a84c50' }}>

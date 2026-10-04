@@ -16,10 +16,10 @@ const FACILITIES = [
 ]
 
 const GALLERY = [
-  { src: '/images/reception-desk-1.jpg', label: 'Reception' },
-  { src: '/images/amenity-elevator.jpg', label: 'Elevator' },
-  { src: '/images/bathroom-1.jpg',       label: 'Bathroom' },
-  { src: '/images/reception-entrance.jpg', label: 'Entrance Lobby' },
+  { src: '/images/reception-desk-1.webp', label: 'Reception' },
+  { src: '/images/amenity-elevator.webp', label: 'Elevator' },
+  { src: '/images/bathroom-1.webp',       label: 'Bathroom' },
+  { src: '/images/reception-entrance.webp', label: 'Entrance Lobby' },
 ]
 
 export function Facilities() {
@@ -29,7 +29,7 @@ export function Facilities() {
     <div>
       <Seo title="Facilities & Amenities" description="Free Wi-Fi, AC rooms, parking, housekeeping and a 24/7 front desk at AA Residency Tirupati. See all hotel amenities and book your comfortable stay direct." path="/facilities" jsonLd={[hotelSchema()]} />
       {/* Hero */}
-      <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/reception-desk-1.jpg)' }}>
+      <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/reception-desk-1.webp)' }}>
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative text-center">
           <h1 className="text-4xl font-bold" style={{ color: '#f5e6c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)' }}>{t('about.facilitiesTitle')}</h1>
@@ -63,7 +63,7 @@ export function Facilities() {
             {GALLERY.map((img) => (
               <div key={img.src} className="relative rounded-2xl overflow-hidden h-44 group"
                 style={{ border: '1px solid #c9a84c' }}>
-                <img src={img.src} alt={img.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <img loading="lazy" decoding="async" src={img.src} alt={img.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <p className="absolute bottom-3 left-3 text-xs font-semibold" style={{ color: '#e8d5a3' }}>{img.label}</p>
               </div>

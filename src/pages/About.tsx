@@ -18,9 +18,9 @@ const STATS = [
 ]
 
 const HOTEL_IMGS = [
-  { src: '/images/reception-desk-1.jpg', label: 'Reception Lobby' },
-  { src: '/images/banquet-event-1.jpg',  label: 'Banquet Hall' },
-  { src: '/images/amenity-elevator.jpg', label: 'Lift / Elevator' },
+  { src: '/images/reception-desk-1.webp', label: 'Reception Lobby' },
+  { src: '/images/banquet-event-1.webp',  label: 'Banquet Hall' },
+  { src: '/images/amenity-elevator.webp', label: 'Lift / Elevator' },
 ]
 
 export function About() {
@@ -30,7 +30,7 @@ export function About() {
     <div>
       <Seo title="About Us" description="AA Residency is a family-friendly hotel in Tirupati for pilgrims, families and business travellers. Learn our story and book direct for the best rates." path="/about" jsonLd={[hotelSchema()]} />
       {/* Hero */}
-      <div className="h-72 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/exterior-front.jpg)' }}>
+      <div className="h-72 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/exterior-front.webp)' }}>
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative text-center animate-fade-in-up">
           <h1 className="text-5xl font-bold mb-2" style={{ color: '#f5e6c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)' }}>{t('about.heroTitle')}</h1>
@@ -63,10 +63,10 @@ export function About() {
             </div>
           </div>
           <div className="space-y-3">
-            <img src="/images/reception-desk-2.jpg" alt={t('about.heroTitle')} className="rounded-2xl w-full h-60 object-cover" style={{ border: '1px solid #c9a84c' }} />
+            <img loading="lazy" decoding="async" src="/images/reception-desk-2.webp" alt={t('about.heroTitle')} className="rounded-2xl w-full h-60 object-cover" style={{ border: '1px solid #c9a84c' }} />
             <div className="grid grid-cols-2 gap-3">
-              <img src="/images/room-ac-1.jpg" alt="AC Room" className="rounded-xl h-32 w-full object-cover hover:scale-105 transition-transform duration-300" style={{ border: '1px solid #c9a84c' }} />
-              <img src="/images/reception-entrance.jpg" alt="Reception" className="rounded-xl h-32 w-full object-cover hover:scale-105 transition-transform duration-300" style={{ border: '1px solid #c9a84c' }} />
+              <img loading="lazy" decoding="async" src="/images/room-ac-1.webp" alt="AC Room" className="rounded-xl h-32 w-full object-cover hover:scale-105 transition-transform duration-300" style={{ border: '1px solid #c9a84c' }} />
+              <img loading="lazy" decoding="async" src="/images/reception-entrance.webp" alt="Reception" className="rounded-xl h-32 w-full object-cover hover:scale-105 transition-transform duration-300" style={{ border: '1px solid #c9a84c' }} />
             </div>
           </div>
         </div>
@@ -124,7 +124,7 @@ export function About() {
         <div className="grid md:grid-cols-3 gap-5">
           {HOTEL_IMGS.map((img) => (
             <div key={img.src} className="relative rounded-2xl overflow-hidden h-56 group" style={{ border: '1px solid #c9a84c' }}>
-              <img src={img.src} alt={img.label} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <img loading="lazy" decoding="async" src={img.src} alt={img.label} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               <div className="absolute bottom-0 inset-x-0 p-4">
                 <p className="font-semibold text-sm" style={{ color: '#e8d5a3' }}>{img.label}</p>

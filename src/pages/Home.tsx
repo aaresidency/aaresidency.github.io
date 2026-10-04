@@ -7,23 +7,23 @@ import { hotelSchema } from '../lib/schema'
 
 const ABOUT_IMG_KEYS = ['receptionLobby', 'deluxeRoom', 'familyRoom', 'facilities'] as const
 const ABOUT_IMGS = [
-  '/images/reception-entrance.jpg',
-  '/images/room-ac-1.jpg',
-  '/images/room-family-1.jpg',
-  '/images/amenity-elevator.jpg',
+  '/images/reception-entrance.webp',
+  '/images/room-ac-1.webp',
+  '/images/room-family-1.webp',
+  '/images/amenity-elevator.webp',
 ]
 
 const MARQUEE_IMGS = [
-  '/images/reception-entrance.jpg',
-  '/images/room-ac-1.jpg',
-  '/images/room-family-1.jpg',
-  '/images/bathroom-1.jpg',
-  '/images/exterior-front.jpg',
-  '/images/banquet-event-1.jpg',
-  '/images/room-ac-2.jpg',
-  '/images/reception-desk-1.jpg',
-  '/images/room-nonac-1.jpg',
-  '/images/banquet-stage-1.jpg',
+  '/images/reception-entrance.webp',
+  '/images/room-ac-1.webp',
+  '/images/room-family-1.webp',
+  '/images/bathroom-1.webp',
+  '/images/exterior-front.webp',
+  '/images/banquet-event-1.webp',
+  '/images/room-ac-2.webp',
+  '/images/reception-desk-1.webp',
+  '/images/room-nonac-1.webp',
+  '/images/banquet-stage-1.webp',
 ]
 
 export function Home() {
@@ -40,7 +40,7 @@ export function Home() {
           <div className="animate-marquee gap-4 flex">
             {[...MARQUEE_IMGS, ...MARQUEE_IMGS].map((src, i) => (
               <div key={i} className="h-32 w-48 shrink-0 rounded-xl overflow-hidden" style={{ border: '1px solid #c9a84c' }}>
-                <img src={src} alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <img loading="lazy" decoding="async" src={src} alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
             ))}
           </div>
@@ -102,7 +102,7 @@ export function Home() {
         <div className="grid grid-cols-2 gap-3">
           {ABOUT_IMG_KEYS.map((key, i) => (
             <div key={key} className="relative rounded-xl overflow-hidden h-36" style={{ border: '1px solid #c9a84c' }}>
-              <img src={ABOUT_IMGS[i]} alt={t(`home.images.${key}`)} className="w-full h-full object-cover" />
+              <img loading="lazy" decoding="async" src={ABOUT_IMGS[i]} alt={t(`home.images.${key}`)} className="w-full h-full object-cover" />
               <div className="absolute bottom-0 inset-x-0 bg-black/50 text-xs py-1 px-2" style={{ color: '#e8d5a3' }}>{t(`home.images.${key}`)}</div>
             </div>
           ))}

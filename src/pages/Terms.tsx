@@ -7,7 +7,7 @@ export function Terms() {
       <Seo title="Terms & Conditions" description="Terms and conditions for bookings at AA Residency Tirupati." path="/terms" />
       <div
         className="h-60 bg-cover bg-center relative flex items-center justify-center"
-        style={{ backgroundImage: 'url(/images/exterior-front.jpg)' }}
+        style={{ backgroundImage: 'url(/images/exterior-front.webp)' }}
       >
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative text-center text-white">

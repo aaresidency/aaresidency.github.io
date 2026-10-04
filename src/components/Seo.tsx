@@ -9,7 +9,7 @@ interface SeoProps {
 }
 
 const SITE_URL = 'https://aaresidency.com'
-const DEFAULT_IMAGE = `${SITE_URL}/images/hero-slide-exterior.jpg`
+const DEFAULT_IMAGE = `${SITE_URL}/images/og-image.jpg`
 
 export function Seo({ title, description, path, jsonLd = [] }: SeoProps) {
   const url = `${SITE_URL}${path}`

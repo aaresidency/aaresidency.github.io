@@ -50,7 +50,7 @@ export function AdminLogin({ onToken, notice }: { onToken: (idToken: string) => 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#2a1706] to-dark px-4">
       <div className="w-full max-w-sm rounded-3xl border border-gold/20 bg-dark-card p-8 text-center shadow-2xl shadow-black/40">
-        <img src="/logo.png" alt="" width={72} height={72} className="mx-auto rounded-2xl ring-1 ring-gold/30" />
+        <img src="/logo-sm.webp" alt="" className="mx-auto h-16 w-auto" />
         <h1 className="mt-5 text-2xl font-semibold text-cream">AA Residency</h1>
         <p className="mt-1 text-sm uppercase tracking-widest text-gold">Admin</p>
         <p className="mt-4 text-sm text-warm">Sign in with your Google account to manage bookings.</p>
