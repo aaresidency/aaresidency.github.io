@@ -87,6 +87,8 @@ export function Header() {
           className="md:hidden p-2 rounded transition-colors"
           style={{ color: '#c9a84c' }}
           onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {menuOpen

@@ -22,7 +22,16 @@ export function HeroSlider() {
   const [form, setForm] = useState({ guestName: '', numPeople: '1', checkIn: '', contact: '', email: '' })
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const [resetSignal, setResetSignal] = useState(0)
+  // The Cloudflare check is ~750 KB, so it only loads once the visitor starts the form (or tries to submit).
+  const [captchaActive, setCaptchaActive] = useState(false)
+  // Only the first slide is needed to paint; the others are fetched a moment later so they don't compete with it.
+  const [loadAllSlides, setLoadAllSlides] = useState(false)
   const [status, setStatus] = useState<{ kind: 'info' | 'error'; text: string } | null>(null)
+
+  useEffect(() => {
+    const id = setTimeout(() => setLoadAllSlides(true), 2500)
+    return () => clearTimeout(id)
+  }, [])
 
   useEffect(() => {
     const timer = setInterval(() => setCurrent((p) => (p + 1) % SLIDES.length), 4500)
@@ -37,6 +46,7 @@ export function HeroSlider() {
     }
     // Without a token the Worker rejects the booking, so stop here before WhatsApp opens.
     if (turnstileRequired && !turnstileToken) {
+      setCaptchaActive(true)
       setStatus({ kind: 'error', text: TURNSTILE_PROMPT })
       return
     }
@@ -88,14 +98,16 @@ export function HeroSlider() {
             className="absolute inset-0 transition-opacity duration-1000 ease-in-out bg-black"
             style={{ opacity: i === current ? 1 : 0 }}
           >
-            <img
-              src={slide.src}
-              alt={slide.alt}
-              // The first slide is the page's largest visible image, so fetch it first; the others can wait.
-              fetchPriority={i === 0 ? 'high' : 'low'}
-              decoding="async"
-              className="absolute inset-0 w-full h-full object-cover object-center"
-            />
+            {(i === 0 || loadAllSlides || i === current) && (
+              <img
+                src={slide.src}
+                alt={slide.alt}
+                // The first slide is the page's largest visible image, so fetch it first.
+                fetchPriority={i === 0 ? 'high' : 'low'}
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover object-center"
+              />
+            )}
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
           </div>
         ))}
@@ -162,18 +174,17 @@ export function HeroSlider() {
         </button>
 
         {/* Dot indicators */}
-        <div className="absolute bottom-7 left-1/2 -translate-x-1/2 z-20 flex gap-2.5">
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex">
           {SLIDES.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              aria-label={`Slide ${i + 1}`}
-              className={`rounded-full transition-all duration-300 ${
-                i === current
-                  ? 'w-8 h-2.5 bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.7)]'
-                  : 'w-2.5 h-2.5 bg-white/40 hover:bg-white/70'
-              }`}
-            />
+            <button key={i} onClick={() => setCurrent(i)} aria-label={`Slide ${i + 1}`} className="p-2 flex items-center justify-center">
+              <span
+                className={`block rounded-full transition-all duration-300 ${
+                  i === current
+                    ? 'w-8 h-2.5 bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.7)]'
+                    : 'w-2.5 h-2.5 bg-white/40 hover:bg-white/70'
+                }`}
+              />
+            </button>
           ))}
         </div>
       </div>
@@ -198,14 +209,17 @@ export function HeroSlider() {
           <div className="relative border border-yellow-400/30 rounded-2xl p-1 bg-gradient-to-r from-yellow-400/10 via-transparent to-yellow-400/10">
             <form
               onSubmit={handleSubmit}
+              onFocusCapture={() => setCaptchaActive(true)}
+              onPointerDownCapture={() => setCaptchaActive(true)}
               className="bg-white/5 backdrop-blur-sm rounded-xl px-6 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-end"
             >
               {/* Guest Name */}
               <div className="flex flex-col gap-2 lg:col-span-1">
-                <label className="text-yellow-300 text-[11px] font-bold uppercase tracking-widest">
+                <label htmlFor="hero-name" className="text-yellow-300 text-[11px] font-bold uppercase tracking-widest">
                   Guest Name
                 </label>
                 <input
+                  id="hero-name"
                   type="text"
                   required
                   placeholder="Your full name"
@@ -217,10 +231,11 @@ export function HeroSlider() {
 
               {/* No. of People */}
               <div className="flex flex-col gap-2 lg:col-span-1">
-                <label className="text-yellow-300 text-[11px] font-bold uppercase tracking-widest">
+                <label htmlFor="hero-people" className="text-yellow-300 text-[11px] font-bold uppercase tracking-widest">
                   No. of People
                 </label>
                 <select
+                  id="hero-people"
                   value={form.numPeople}
                   onChange={(e) => setForm({ ...form, numPeople: e.target.value })}
                   className="px-4 py-3 rounded-lg bg-white text-gray-800 text-sm focus:ring-2 focus:ring-yellow-400 outline-none transition"
@@ -235,10 +250,11 @@ export function HeroSlider() {
 
               {/* Check-in Date */}
               <div className="flex flex-col gap-2 lg:col-span-1">
-                <label className="text-yellow-300 text-[11px] font-bold uppercase tracking-widest">
+                <label htmlFor="hero-checkin" className="text-yellow-300 text-[11px] font-bold uppercase tracking-widest">
                   Check-in Date
                 </label>
                 <input
+                  id="hero-checkin"
                   type="date"
                   required
                   value={form.checkIn}
@@ -249,14 +265,15 @@ export function HeroSlider() {
 
               {/* Contact Number */}
               <div className="flex flex-col gap-2 lg:col-span-1">
-                <label className="text-yellow-300 text-[11px] font-bold uppercase tracking-widest">
+                <label htmlFor="hero-phone" className="text-yellow-300 text-[11px] font-bold uppercase tracking-widest">
                   Contact Number
                 </label>
                 <PhoneInput
                   country="in"
                   value={form.contact}
                   onChange={(phone) => setForm({ ...form, contact: phone })}
-                  inputClass="!w-full !h-[46px] !text-sm !border-gray-300 !rounded-md focus:!border-yellow-400 focus:!ring-2 focus:!ring-yellow-300"
+                  inputProps={{ id: 'hero-phone' }}
+                  inputClass="!w-full !h-[46px] !text-sm !text-gray-800 !border-gray-300 !rounded-md focus:!border-yellow-400 focus:!ring-2 focus:!ring-yellow-300"
                   containerClass="!w-full"
                   buttonClass="!border-gray-300 !rounded-l-md"
                 />
@@ -264,10 +281,11 @@ export function HeroSlider() {
 
               {/* Email (for the confirmation copy) */}
               <div className="flex flex-col gap-2 sm:col-span-2 lg:col-span-3">
-                <label className="text-yellow-300 text-[11px] font-bold uppercase tracking-widest">
+                <label htmlFor="hero-email" className="text-yellow-300 text-[11px] font-bold uppercase tracking-widest">
                   Email (for your confirmation)
                 </label>
                 <input
+                  id="hero-email"
                   type="email"
                   required
                   placeholder="you@example.com"
@@ -289,13 +307,18 @@ export function HeroSlider() {
               </button>
 
               <div className="sm:col-span-2 lg:col-span-4 flex flex-col gap-2 items-start">
-                <Turnstile
-                  onToken={(token) => {
-                    setTurnstileToken(token)
-                    if (token) setStatus((s) => (s?.text === TURNSTILE_PROMPT ? null : s))
-                  }}
-                  resetSignal={resetSignal}
-                />
+                {captchaActive ? (
+                  <Turnstile
+                    onToken={(token) => {
+                      setTurnstileToken(token)
+                      if (token) setStatus((s) => (s?.text === TURNSTILE_PROMPT ? null : s))
+                    }}
+                    resetSignal={resetSignal}
+                  />
+                ) : (
+                  // Reserve the widget's height so the form doesn't jump when it appears.
+                  turnstileRequired && <div className="h-[65px]" aria-hidden="true" />
+                )}
                 {status && (
                   <p role="status" className={`text-xs ${status.kind === 'error' ? 'text-red-300' : 'text-green-300'}`}>
                     {status.text}
