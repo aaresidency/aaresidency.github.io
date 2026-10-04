@@ -1,4 +1,5 @@
 import { Seo } from '../components/Seo'
+import { EMAIL, PHONE_DISPLAY, PHONE_E164 } from '../lib/contact'
 
 export function Privacy() {
   return (
@@ -116,14 +117,14 @@ export function Privacy() {
           <ul className="list-none space-y-1 text-sm leading-relaxed">
             <li>
               📧{' '}
-              <a href="mailto:aaresidency5@gmail.com" className="text-cyan-600 hover:underline">
-                aaresidency5@gmail.com
+              <a href={`mailto:${EMAIL}`} className="text-cyan-600 hover:underline">
+                {EMAIL}
               </a>
             </li>
             <li>
               📞{' '}
-              <a href="tel:+918790057559" className="text-cyan-600 hover:underline">
-                +91 87900 57559
+              <a href={`tel:${PHONE_E164}`} className="text-cyan-600 hover:underline">
+                {PHONE_DISPLAY}
               </a>
             </li>
             <li>📍 22-11-246/1, Gollavani Gunta, Renigunta Rd, AutoNagar, Tirupati, Andhra Pradesh 517501</li>

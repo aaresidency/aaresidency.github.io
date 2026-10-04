@@ -1,4 +1,5 @@
 import { LandingPage } from '../components/LandingPage'
+import { PHONE_DISPLAY } from '../lib/contact'
 
 export function HotelsInTirupati() {
   return (
@@ -37,7 +38,7 @@ export function HotelsInTirupati() {
       faqs={[
         { q: 'Where is AA Residency in Tirupati?', a: 'AA Residency is at 22-11-246/1, Gollavani Gunta, Renigunta Road, Auto Nagar, Tirupati 517501.' },
         { q: 'Do you support family stays?', a: 'Yes. AA Residency regularly hosts family, pilgrimage and group travellers, and offers family rooms.' },
-        { q: 'How do I get the fastest booking confirmation?', a: 'Book through our website, WhatsApp us or call +91 87900 57559 for immediate assistance.' },
+        { q: 'How do I get the fastest booking confirmation?', a: `Book through our website, WhatsApp us or call ${PHONE_DISPLAY} for immediate assistance.` },
       ]}
       related={[
         { label: 'Rooms in Tirupati', to: '/rooms-in-tirupati' },

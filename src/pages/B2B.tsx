@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Seo } from '../components/Seo'
+import { WHATSAPP_URL } from '../lib/contact'
 
 type PartnerKey = 'corporate' | 'travel' | 'tour'
 const PARTNER_KEYS: PartnerKey[] = ['corporate', 'travel', 'tour']
@@ -45,7 +46,7 @@ export function B2B() {
         <h2 className="text-2xl font-bold mb-2" style={{ color: '#f5e6c8' }}>{t('b2b.interestTitle')}</h2>
         <p className="text-sm mb-8" style={{ color: '#a89070' }}>{t('b2b.interestDesc')}</p>
         <a
-          href={`https://wa.me/918790057559?text=${encodeURIComponent("I'm interested in B2B partnership with AA Residency")}`}
+          href={`${WHATSAPP_URL}?text=${encodeURIComponent("I'm interested in B2B partnership with AA Residency")}`}
           target="_blank" rel="noreferrer"
           className="inline-flex items-center gap-2 bg-green-600 text-white font-semibold px-8 py-3 rounded-xl hover:bg-green-700 transition-colors"
         >

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { EMAIL, PHONE_DISPLAY, PHONE_E164, WHATSAPP_URL } from '../lib/contact'
 
 export function Footer() {
   const { t } = useTranslation()
@@ -52,15 +53,15 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <span>📞</span>
-              <a href="tel:+918790057559" className="gold-link">+91 87900 57559</a>
+              <a href={`tel:${PHONE_E164}`} className="gold-link">{PHONE_DISPLAY}</a>
             </li>
             <li className="flex items-center gap-2">
               <span>✉️</span>
-              <a href="mailto:aaresidency5@gmail.com" className="gold-link">aaresidency5@gmail.com</a>
+              <a href={`mailto:${EMAIL}`} className="gold-link">{EMAIL}</a>
             </li>
             <li className="flex items-center gap-2">
               <span>💬</span>
-              <a href="https://wa.me/918790057559" target="_blank" rel="noreferrer" className="text-green-500 hover:text-green-400 transition-colors">
+              <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="text-green-500 hover:text-green-400 transition-colors">
                 {t('footer.whatsappUs')}
               </a>
             </li>

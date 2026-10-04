@@ -6,6 +6,7 @@ import { fireBookingConversion } from '../lib/analytics'
 import { submitBooking } from '../lib/booking'
 import { Turnstile } from './Turnstile'
 import { turnstileRequired, TURNSTILE_PROMPT } from '../lib/turnstile'
+import { PHONE_DIGITS } from '../lib/contact'
 
 const PhoneInput = ((_PhoneInput as any).default ?? _PhoneInput) as React.ComponentType<PhoneInputProps>
 
@@ -15,7 +16,6 @@ const SLIDES = [
   { src: '/images/hero-slide-banquet.jpg',  alt: 'Banquet & Event Hall' },
 ]
 
-const WHATSAPP_NUMBER = '918790057559'
 
 export function HeroSlider() {
   const [current, setCurrent] = useState(0)
@@ -49,7 +49,7 @@ export function HeroSlider() {
       `Email: ${form.email}`,
     ].join('\n')
     // Open WhatsApp first, synchronously, so the browser treats it as part of the click.
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank')
+    window.open(`https://wa.me/${PHONE_DIGITS}?text=${encodeURIComponent(msg)}`, '_blank')
 
     fireBookingConversion()
     setStatus({ kind: 'info', text: 'Request opened in WhatsApp. Sending your confirmation email…' })

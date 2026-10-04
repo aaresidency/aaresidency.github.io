@@ -5,10 +5,10 @@ import _PhoneInput from 'react-phone-input-2'
 import type { PhoneInputProps } from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { Seo } from '../components/Seo'
+import { PHONE_DIGITS } from '../lib/contact'
 
 const PhoneInput = ((_PhoneInput as any).default ?? _PhoneInput) as React.ComponentType<PhoneInputProps>
 
-const WHATSAPP = '918790057559'
 
 interface EventForm {
   guestName: string
@@ -83,7 +83,7 @@ export function Events() {
       `Expected Guests: ${values.expectedGuests}`,
       `Contact: +${values.contact}`,
     ].join('\n')
-    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank')
+    window.open(`https://wa.me/${PHONE_DIGITS}?text=${encodeURIComponent(msg)}`, '_blank')
     resetForm()
     setSubmitted(true)
     setTimeout(() => setSubmitted(false), 4000)
@@ -91,7 +91,7 @@ export function Events() {
 
   const enquireViaWhatsApp = (eventTitle: string) => {
     const msg = `*Event Enquiry - AA Residency*\nEvent Type: ${eventTitle}\n\nPlease share more details about availability and pricing.`
-    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank')
+    window.open(`https://wa.me/${PHONE_DIGITS}?text=${encodeURIComponent(msg)}`, '_blank')
   }
 
   return (
