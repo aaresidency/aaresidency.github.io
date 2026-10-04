@@ -41,6 +41,9 @@ export function HotelsInTirupati() {
         { q: 'How do I get the fastest booking confirmation?', a: `Book through our website, WhatsApp us or call ${PHONE_DISPLAY} for immediate assistance.` },
       ]}
       related={[
+        { label: 'Hotels near Tirupati railway station', to: '/hotels-near-tirupati-railway-station' },
+        { label: 'Hotels near Tirupati bus stand', to: '/hotels-near-tirupati-bus-stand' },
+        { label: 'Family rooms in Tirupati', to: '/family-rooms-in-tirupati' },
         { label: 'Rooms in Tirupati', to: '/rooms-in-tirupati' },
         { label: 'Hotels Near Tirupati Temple', to: '/hotels-near-tirupati-temple' },
         { label: 'Nearby attractions', to: '/nearby' },

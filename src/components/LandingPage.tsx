@@ -10,6 +10,8 @@ export interface LandingPageProps {
   kicker: string
   heading: string
   intro: string[]
+  /** Optional extra headed sections between the intro and the two cards. */
+  sections?: { title: string; body: string[] }[]
   cta: { label: string; to: string }
   cardOne: { title: string; items: string[] }
   cardTwo: { title: string; items: string[] }
@@ -19,7 +21,7 @@ export interface LandingPageProps {
 
 const card = { backgroundColor: '#251508', border: '1px solid #c9a84c' }
 
-export function LandingPage({ seo, heroImage, kicker, heading, intro, cta, cardOne, cardTwo, faqs, related }: LandingPageProps) {
+export function LandingPage({ seo, heroImage, kicker, heading, intro, sections = [], cta, cardOne, cardTwo, faqs, related }: LandingPageProps) {
   return (
     <div>
       <Seo {...seo} jsonLd={[hotelSchema(), faqSchema(faqs)]} />
@@ -49,6 +51,21 @@ export function LandingPage({ seo, heroImage, kicker, heading, intro, cta, cardO
           </a>
         </div>
       </section>
+
+      {sections.length > 0 && (
+        <section className="max-w-4xl mx-auto px-4 pb-14 space-y-10">
+          {sections.map((sec) => (
+            <div key={sec.title}>
+              <h2 className="text-2xl font-bold mb-4" style={{ color: '#f5e6c8' }}>{sec.title}</h2>
+              <div className="space-y-4">
+                {sec.body.map((p) => (
+                  <p key={p} className="leading-relaxed" style={{ color: '#c8b89a' }}>{p}</p>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
+      )}
 
       <section className="max-w-6xl mx-auto px-4 pb-14 grid md:grid-cols-2 gap-6">
         {[cardOne, cardTwo].map((c) => (
