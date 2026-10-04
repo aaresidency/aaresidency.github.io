@@ -11,9 +11,9 @@ import { PHONE_DIGITS } from '../lib/contact'
 const PhoneInput = ((_PhoneInput as any).default ?? _PhoneInput) as React.ComponentType<PhoneInputProps>
 
 const SLIDES = [
-  { src: '/images/hero-slide-room.webp',     alt: 'Deluxe AC Room' },
-  { src: '/images/hero-slide-exterior.webp', alt: 'AA Residency Building' },
-  { src: '/images/hero-slide-banquet.webp',  alt: 'Banquet & Event Hall' },
+  { src: '/images/hero-slide-room.webp',     mobile: '/images/hero-slide-room-m.webp',     alt: 'Deluxe AC Room' },
+  { src: '/images/hero-slide-exterior.webp', mobile: '/images/hero-slide-exterior-m.webp', alt: 'AA Residency Building' },
+  { src: '/images/hero-slide-banquet.webp',  mobile: '/images/hero-slide-banquet-m.webp',  alt: 'Banquet & Event Hall' },
 ]
 
 
@@ -99,44 +99,50 @@ export function HeroSlider() {
             style={{ opacity: i === current ? 1 : 0 }}
           >
             {(i === 0 || loadAllSlides || i === current) && (
-              <img
-                src={slide.src}
-                alt={slide.alt}
-                // The first slide is the page's largest visible image, so fetch it first.
-                fetchPriority={i === 0 ? 'high' : 'low'}
-                decoding="async"
-                className="absolute inset-0 w-full h-full object-cover object-center"
-              />
+              <picture>
+                {/* Phones get a 1300 px version (about half the bytes); larger screens get the full-resolution photo. */}
+                <source media="(max-width: 768px)" srcSet={slide.mobile} />
+                <img
+                  src={slide.src}
+                  alt={slide.alt}
+                  // The first slide is the page's largest visible image, so fetch it first.
+                  fetchPriority={i === 0 ? 'high' : 'low'}
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+              </picture>
             )}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/5 to-black/55" />
           </div>
         ))}
 
         {/* Centered hotel name + tagline overlay */}
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-4 pointer-events-none">
-          <div className="flex items-center gap-4 mb-5">
+          {/* Soft dark patch behind the text so it stays readable over bright photos without dimming the whole image */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_center,rgba(0,0,0,0.45),transparent)]" aria-hidden="true" />
+          <div className="relative flex items-center gap-4 mb-5">
             <div className="w-16 h-px bg-yellow-400/70" />
             <div className="w-2 h-2 rotate-45 bg-yellow-400" />
             <div className="w-16 h-px bg-yellow-400/70" />
           </div>
 
-          <p className="text-yellow-400 text-xs font-bold tracking-[0.35em] uppercase mb-3 animate-fade-in-up">
+          <p className="relative text-yellow-400 text-xs font-bold tracking-[0.35em] uppercase mb-3 animate-fade-in-up [text-shadow:0_1px_6px_rgba(0,0,0,0.8)]">
             Welcome to
           </p>
           <h1
-            className="text-5xl md:text-7xl font-bold text-white mb-3 tracking-wide drop-shadow-2xl animate-fade-in-up"
+            className="relative text-5xl md:text-7xl font-bold text-white mb-3 tracking-wide drop-shadow-2xl animate-fade-in-up"
             style={{ animationDelay: '0.1s' }}
           >
             AA Residency
           </h1>
           <p
-            className="text-white/80 text-base md:text-lg tracking-[0.25em] uppercase font-light animate-fade-in-up"
+            className="relative text-white text-base md:text-lg tracking-[0.25em] uppercase font-normal animate-fade-in-up [text-shadow:0_1px_8px_rgba(0,0,0,0.85)]"
             style={{ animationDelay: '0.2s' }}
           >
             Comfort &nbsp;•&nbsp; Luxury &nbsp;•&nbsp; Hospitality
           </p>
 
-          <div className="flex items-center gap-4 mt-5 mb-8">
+          <div className="relative flex items-center gap-4 mt-5 mb-8">
             <div className="w-16 h-px bg-yellow-400/70" />
             <div className="w-2 h-2 rotate-45 bg-yellow-400" />
             <div className="w-16 h-px bg-yellow-400/70" />

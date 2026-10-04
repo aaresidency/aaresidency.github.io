@@ -9,7 +9,7 @@ export function Terms() {
         className="h-60 bg-cover bg-center relative flex items-center justify-center"
         style={{ backgroundImage: 'url(/images/exterior-front.webp)' }}
       >
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/35" />
         <div className="relative text-center text-white">
           <h1 className="text-4xl font-bold">Terms &amp; Conditions</h1>
           <p className="text-cyan-300 mt-1">AA Residency, Tirupati</p>

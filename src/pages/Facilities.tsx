@@ -30,7 +30,7 @@ export function Facilities() {
       <Seo title="Facilities & Amenities" description="Free Wi-Fi, AC rooms, parking, housekeeping and a 24/7 front desk at AA Residency Tirupati. See all hotel amenities and book your comfortable stay direct." path="/facilities" jsonLd={[hotelSchema()]} />
       {/* Hero */}
       <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/reception-desk-1.webp)' }}>
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/35" />
         <div className="relative text-center">
           <h1 className="text-4xl font-bold" style={{ color: '#f5e6c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)' }}>{t('about.facilitiesTitle')}</h1>
           <p className="mt-1" style={{ color: '#c9a84c' }}>Everything you need for a comfortable stay</p>

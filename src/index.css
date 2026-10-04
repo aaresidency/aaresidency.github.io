@@ -103,3 +103,10 @@
   animation-play-state: paused;
 }
 
+
+/* Page banners put text over a photo with a light 35% scrim; keep their subtitles/headings legible. */
+.bg-black\/35 + .relative h1,
+.bg-black\/35 + .relative p,
+.bg-black\/35 + .relative span {
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9), 0 0 3px rgba(0, 0, 0, 0.6);
+}
