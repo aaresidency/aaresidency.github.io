@@ -4,6 +4,7 @@ import { HeroSlider } from '../components/HeroSlider'
 import { ReviewCard, GUEST_REVIEWS } from '../components/ReviewCard'
 import { Seo } from '../components/Seo'
 import { hotelSchema } from '../lib/schema'
+import { thumb } from '../lib/images'
 
 const ABOUT_IMG_KEYS = ['receptionLobby', 'deluxeRoom', 'familyRoom', 'facilities'] as const
 const ABOUT_IMGS = [
@@ -38,7 +39,7 @@ export function Home() {
       <div className="py-5 overflow-hidden" style={{ backgroundColor: '#0f0700' }}>
         <div className="marquee-wrapper overflow-hidden" aria-hidden="true">
           <div className="animate-marquee gap-4 flex">
-            {[...MARQUEE_IMGS, ...MARQUEE_IMGS].map((src, i) => (
+            {[...MARQUEE_IMGS, ...MARQUEE_IMGS].map(thumb).map((src, i) => (
               <div key={i} className="h-32 w-48 shrink-0 rounded-xl overflow-hidden" style={{ border: '1px solid #c9a84c' }}>
                 <img loading="lazy" decoding="async" src={src} alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
@@ -102,7 +103,7 @@ export function Home() {
         <div className="grid grid-cols-2 gap-3">
           {ABOUT_IMG_KEYS.map((key, i) => (
             <div key={key} className="relative rounded-xl overflow-hidden h-36" style={{ border: '1px solid #c9a84c' }}>
-              <img loading="lazy" decoding="async" src={ABOUT_IMGS[i]} alt={t(`home.images.${key}`)} className="w-full h-full object-cover" />
+              <img loading="lazy" decoding="async" src={thumb(ABOUT_IMGS[i])} alt={t(`home.images.${key}`)} className="w-full h-full object-cover" />
               <div className="absolute bottom-0 inset-x-0 bg-black/50 text-xs py-1 px-2" style={{ color: '#e8d5a3' }}>{t(`home.images.${key}`)}</div>
             </div>
           ))}

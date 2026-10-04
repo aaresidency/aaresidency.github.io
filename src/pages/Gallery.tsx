@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ReviewCard, GUEST_REVIEWS } from '../components/ReviewCard'
 import { Seo } from '../components/Seo'
+import { thumb } from '../lib/images'
 
 type CategoryKey = 'all' | 'reception' | 'acRooms' | 'nonAcRooms' | 'exterior' | 'events'
 type ImageKey = 'receptionLobby' | 'frontDesk' | 'receptionSeating' | 'acRoom101' | 'acRoom102' | 'acRoomDetail' | 'standardRoom' | 'familyRoom1' | 'familyRoom2' | 'frontView' | 'buildingExterior' | 'eventHall' | 'eventStage1' | 'eventStage2' | 'eventStage3'
@@ -79,7 +80,7 @@ export function Gallery() {
           <div className="animate-marquee gap-3 flex">
             {MARQUEE_ROW1.map((img, i) => (
               <div key={i} className="h-28 w-44 shrink-0 rounded-xl overflow-hidden" style={{ border: '1px solid #c9a84c' }}>
-                <img loading="lazy" decoding="async" src={img.src} alt="" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                <img loading="lazy" decoding="async" src={thumb(img.src)} alt="" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
               </div>
             ))}
           </div>
@@ -88,7 +89,7 @@ export function Gallery() {
           <div className="animate-marquee-reverse gap-3 flex">
             {MARQUEE_ROW2.map((img, i) => (
               <div key={i} className="h-28 w-44 shrink-0 rounded-xl overflow-hidden" style={{ border: '1px solid #c9a84c' }}>
-                <img loading="lazy" decoding="async" src={img.src} alt="" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                <img loading="lazy" decoding="async" src={thumb(img.src)} alt="" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
               </div>
             ))}
           </div>
@@ -124,7 +125,7 @@ export function Gallery() {
               className="relative rounded-2xl overflow-hidden h-48 cursor-pointer group transition-all duration-300 hover:-translate-y-1"
               style={{ border: '1px solid #c9a84c' }}
             >
-              <img loading="lazy" decoding="async" src={img.src} alt={t(`gallery.images.${img.imgKey}`)} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <img loading="lazy" decoding="async" src={thumb(img.src)} alt={t(`gallery.images.${img.imgKey}`)} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300" />
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="rounded-full p-3" style={{ backgroundColor: '#c9a84c30', border: '1px solid #c9a84c' }}>
@@ -168,7 +169,7 @@ export function Gallery() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <img loading="lazy" decoding="async" src={lightbox.src} alt={t(`gallery.images.${lightbox.imgKey}`)} className="w-full max-h-[80vh] object-contain rounded-xl animate-scale-in" style={{ border: '1px solid #c9a84c' }} />
+            <img src={lightbox.src} alt={t(`gallery.images.${lightbox.imgKey}`)} className="w-full max-h-[80vh] object-contain rounded-xl animate-scale-in" style={{ border: '1px solid #c9a84c' }} />
             <button onClick={() => goTo(1)}
               className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 text-white rounded-full p-3 transition-colors duration-200"
               style={{ backgroundColor: '#c9a84c30', border: '1px solid #c9a84c50' }}>

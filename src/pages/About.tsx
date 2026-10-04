@@ -2,6 +2,7 @@ import { useTranslation, Trans } from 'react-i18next'
 import { ReviewCard, GUEST_REVIEWS } from '../components/ReviewCard'
 import { Seo } from '../components/Seo'
 import { hotelSchema } from '../lib/schema'
+import { LazyIframe } from '../components/LazyIframe'
 
 const NEARBY = [
   { icon: '🏛️', name: 'Sri Venkateswara Museum', dist: '1.2 km' },
@@ -162,7 +163,7 @@ export function About() {
           <p style={{ color: '#a89070' }}>22-11-246/1, Gollavani Gunta, Renigunta Rd, AutoNagar, Tirupati, Andhra Pradesh 517501</p>
         </div>
         <div className="rounded-2xl overflow-hidden h-80" style={{ border: '1px solid #c9a84c' }}>
-          <iframe
+          <LazyIframe
             src="https://www.google.com/maps?q=22-11-246/1,+Gollavani+Gunta,+Renigunta+Rd,+AutoNagar,+Tirupati,+Andhra+Pradesh+517501&output=embed"
             width="100%" height="100%" style={{ border: 0 }}
             allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="AA Residency Location"

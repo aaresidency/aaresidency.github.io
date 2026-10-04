@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Stay at AA Residency, a hotel in Tirupati on Renigunta Road. AC and Non-AC family rooms, free Wi-Fi, parking and 24/7 front desk. Book direct for best rates." />
     <meta name="author" content="AA Residency Tirupati" />
@@ -18,13 +20,28 @@
     <title>Hotel in Tirupati Near Temple | AA Residency Tirupati</title>
 
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17283929589"></script>
+    <!-- Google tag (gtag.js). The queue below is set up immediately so no event is lost, but the 165 KB library
+         itself loads on first interaction (or 5 s after load) so it doesn't compete with the hero image on slow phones. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'AW-17283929589');
+      (function () {
+        var events = ['scroll', 'pointerdown', 'keydown', 'touchstart'];
+        var loaded = false;
+        function load() {
+          if (loaded) return;
+          loaded = true;
+          events.forEach(function (e) { removeEventListener(e, load); });
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17283929589';
+          document.head.appendChild(s);
+        }
+        events.forEach(function (e) { addEventListener(e, load, { passive: true }); });
+        addEventListener('load', function () { setTimeout(load, 5000); });
+      })();
     </script>
 
     <script>

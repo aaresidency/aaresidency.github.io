@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { EMAIL, PHONE_DISPLAY, PHONE_E164, WHATSAPP_URL } from '../lib/contact'
+import { LazyIframe } from './LazyIframe'
 
 export function Footer() {
   const { t } = useTranslation()
@@ -72,7 +73,7 @@ export function Footer() {
         <div>
           <h3 className="font-semibold mb-4" style={{ color: '#c9a84c' }}>{t('footer.location')}</h3>
           <div className="rounded-xl overflow-hidden h-36" style={{ border: '1px solid #c9a84c' }}>
-            <iframe
+            <LazyIframe
               src="https://www.google.com/maps?q=22-11-246/1,+Gollavani+Gunta,+Renigunta+Rd,+AutoNagar,+Tirupati,+Andhra+Pradesh+517501&output=embed"
               width="100%"
               height="100%"
@@ -86,7 +87,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="py-4 text-center text-xs" style={{ borderTop: '1px solid #251005', color: '#6a5040' }}>
+      <div className="py-4 text-center text-xs" style={{ borderTop: '1px solid #251005', color: '#a89070' }}>
         {t('footer.copyright', { year: new Date().getFullYear() })}
       </div>
     </footer>
