@@ -1,4 +1,5 @@
 import { LandingPage } from '../components/LandingPage'
+import { PHONE_DISPLAY } from '../lib/contact'
 
 export function HotelsNearTirupatiTemple() {
   return (
@@ -37,7 +38,7 @@ export function HotelsNearTirupatiTemple() {
       }}
       faqs={[
         { q: 'How far is AA Residency from Tirumala Temple?', a: 'About 22 km by road. Distances are approximate; see our Nearby page for directions.' },
-        { q: 'Can pilgrims get quick booking help?', a: 'Yes. WhatsApp us or call +91 87900 57559 for immediate booking and stay support.' },
+        { q: 'Can pilgrims get quick booking help?', a: `Yes. WhatsApp us or call ${PHONE_DISPLAY} for immediate booking and stay support.` },
         { q: 'Is AA Residency suitable for short temple trips?', a: 'Yes. Many guests choose us for short, comfortable pilgrimage stays, and our front desk is open 24/7.' },
       ]}
       related={[

@@ -1,4 +1,5 @@
 import { LandingPage } from '../components/LandingPage'
+import { PHONE_DISPLAY } from '../lib/contact'
 
 export function RoomsInTirupati() {
   return (
@@ -37,7 +38,7 @@ export function RoomsInTirupati() {
       faqs={[
         { q: 'Can I book family rooms in Tirupati here?', a: 'Yes. We offer room options suited to family stays and small groups.' },
         { q: 'Do you provide Wi-Fi with rooms?', a: 'Yes, complimentary Wi-Fi is available across the property.' },
-        { q: 'How can I choose the right room quickly?', a: 'Call us on +91 87900 57559 and our team will guide you based on your travel plan.' },
+        { q: 'How can I choose the right room quickly?', a: `Call us on ${PHONE_DISPLAY} and our team will guide you based on your travel plan.` },
       ]}
       related={[
         { label: 'Hotels in Tirupati', to: '/hotels-in-tirupati' },

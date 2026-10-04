@@ -1,10 +1,8 @@
 import { Link } from 'react-router-dom'
 import { Seo } from './Seo'
 import { faqSchema, hotelSchema } from '../lib/schema'
+import { PHONE_DIGITS, PHONE_DISPLAY, PHONE_E164 } from '../lib/contact'
 
-const WHATSAPP = '918790057559'
-const PHONE = '+918790057559'
-const PHONE_LABEL = '+91 87900 57559'
 
 export interface LandingPageProps {
   seo: { title: string; description: string; path: string }
@@ -38,12 +36,12 @@ export function LandingPage({ seo, heroImage, kicker, heading, intro, cta, cardO
           <p key={p} className="leading-relaxed" style={{ color: '#c8b89a' }}>{p}</p>
         ))}
         <p className="leading-relaxed" style={{ color: '#c8b89a' }}>
-          For quick booking support call <a href={`tel:${PHONE}`} className="font-semibold" style={{ color: '#c9a84c' }}>{PHONE_LABEL}</a>.
+          For quick booking support call <a href={`tel:${PHONE_E164}`} className="font-semibold" style={{ color: '#c9a84c' }}>{PHONE_DISPLAY}</a>.
         </p>
         <div className="flex flex-wrap gap-4 pt-2">
           <Link to={cta.to} className="px-6 py-2.5 rounded-lg font-medium" style={{ backgroundColor: '#c9a84c', color: '#1a0e00' }}>{cta.label}</Link>
           <a
-            href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent('Hello AA Residency, I want to book a room.')}`}
+            href={`https://wa.me/${PHONE_DIGITS}?text=${encodeURIComponent('Hello AA Residency, I want to book a room.')}`}
             target="_blank" rel="noreferrer"
             className="bg-green-600 text-white px-6 py-2.5 rounded-lg font-medium hover:bg-green-700"
           >

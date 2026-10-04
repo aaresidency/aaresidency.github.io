@@ -1,4 +1,5 @@
 import { Seo } from '../components/Seo'
+import { EMAIL, PHONE_DISPLAY, PHONE_E164 } from '../lib/contact'
 
 export function Terms() {
   return (
@@ -98,12 +99,12 @@ export function Terms() {
           <h2 className="text-xl font-bold text-gray-800">9. Contact</h2>
           <p className="text-sm leading-relaxed">
             For any questions regarding these terms, contact us at{' '}
-            <a href="mailto:aaresidency5@gmail.com" className="text-cyan-600 hover:underline">
-              aaresidency5@gmail.com
+            <a href={`mailto:${EMAIL}`} className="text-cyan-600 hover:underline">
+              {EMAIL}
             </a>{' '}
             or call{' '}
-            <a href="tel:+918790057559" className="text-cyan-600 hover:underline">
-              +91 87900 57559
+            <a href={`tel:${PHONE_E164}`} className="text-cyan-600 hover:underline">
+              {PHONE_DISPLAY}
             </a>
             .
           </p>

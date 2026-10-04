@@ -4,8 +4,8 @@ import { ReviewCard, GUEST_REVIEWS } from '../components/ReviewCard'
 import { BookingModal } from '../components/BookingModal'
 import { Seo } from '../components/Seo'
 import { roomsSchema } from '../lib/schema'
+import { PHONE_DIGITS, PHONE_E164 } from '../lib/contact'
 
-const WHATSAPP = '918790057559'
 const ADDRESS = '22-11-246/1, Gollavani Gunta, Renigunta Rd, AutoNagar, Tirupati, Andhra Pradesh 517501'
 
 type RoomTypeKey = 'ac' | 'nonAc' | 'deluxe' | 'studio' | 'family'
@@ -156,7 +156,7 @@ export function Rooms() {
                   {t('rooms.bookRoom')}
                 </button>
                 <a
-                  href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`I'd like to enquire about ${t(`rooms.types.${room.typeKey}`)}`)}`}
+                  href={`https://wa.me/${PHONE_DIGITS}?text=${encodeURIComponent(`I'd like to enquire about ${t(`rooms.types.${room.typeKey}`)}`)}`}
                   target="_blank" rel="noreferrer"
                   className="flex-1 font-semibold py-2.5 rounded-xl text-sm text-center transition-all hover:opacity-80"
                   style={{ border: '1px solid #c9a84c', color: '#c9a84c' }}
@@ -174,9 +174,9 @@ export function Rooms() {
           <h2 className="font-bold text-lg mb-2" style={{ color: '#f5e6c8' }}>{t('rooms.helpTitle')}</h2>
           <p className="text-sm mb-4" style={{ color: '#a89070' }}>{ADDRESS}</p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <a href="tel:+918790057559" className="px-5 py-2 rounded-lg text-sm font-medium"
+            <a href={`tel:${PHONE_E164}`} className="px-5 py-2 rounded-lg text-sm font-medium"
               style={{ backgroundColor: '#c9a84c', color: '#1a0e00' }}>{t('rooms.callUs')}</a>
-            <a href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noreferrer"
+            <a href={`https://wa.me/${PHONE_DIGITS}`} target="_blank" rel="noreferrer"
               className="bg-green-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-green-700">{t('rooms.whatsapp')}</a>
           </div>
         </div>

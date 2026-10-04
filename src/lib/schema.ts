@@ -1,4 +1,5 @@
 import en from '../i18n/en.json'
+import { EMAIL, PHONE_E164 } from './contact'
 
 const SITE_URL = 'https://aaresidency.com'
 export const HOTEL_ID = `${SITE_URL}/#hotel`
@@ -20,8 +21,8 @@ export function hotelSchema(extra: JsonLd = {}): JsonLd {
       `${SITE_URL}/images/reception-entrance.jpg`,
     ],
     logo: `${SITE_URL}/logo.png`,
-    telephone: '+91-87900-57559',
-    email: 'info@aaresidency.com',
+    telephone: PHONE_E164,
+    email: EMAIL,
     priceRange: '₹1200-₹2200',
     checkinTime: '12:00',
     checkoutTime: '11:00',

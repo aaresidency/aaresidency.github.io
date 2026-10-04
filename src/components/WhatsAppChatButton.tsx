@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next'
+import { PHONE_DIGITS } from '../lib/contact'
 
-const WHATSAPP_NUMBER = '918790057559'
 
 /** Floating click-to-chat link; works with the hotel's regular WhatsApp Business app number (no API needed). */
 export function WhatsAppChatButton() {
   const { t } = useTranslation()
-  const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello AA Residency, I have a question about my stay.')}`
+  const href = `https://wa.me/${PHONE_DIGITS}?text=${encodeURIComponent('Hello AA Residency, I have a question about my stay.')}`
 
   return (
     <a

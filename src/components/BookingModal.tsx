@@ -12,6 +12,7 @@ import { fireBookingConversion } from '../lib/analytics'
 import { submitBooking } from '../lib/booking'
 import { Turnstile } from './Turnstile'
 import { turnstileRequired, TURNSTILE_PROMPT } from '../lib/turnstile'
+import { PHONE_DIGITS } from '../lib/contact'
 
 interface BookingData {
   checkIn: string
@@ -31,7 +32,6 @@ interface GuestForm {
   mobile: string
 }
 
-const WHATSAPP_NUMBER = '918790057559'
 
 export function BookingModal({ bookingData, onClose }: BookingModalProps) {
   const { t } = useTranslation()
@@ -62,7 +62,7 @@ export function BookingModal({ bookingData, onClose }: BookingModalProps) {
       `Rooms: ${bookingData.rooms}`,
       `Guests: ${bookingData.guests}`,
     ].join('\n')
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank')
+    window.open(`https://wa.me/${PHONE_DIGITS}?text=${encodeURIComponent(msg)}`, '_blank')
 
     fireBookingConversion()
     void submitBooking({
