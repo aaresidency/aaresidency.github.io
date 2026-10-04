@@ -41,6 +41,7 @@ export function RoomsInTirupati() {
         { q: 'How can I choose the right room quickly?', a: `Call us on ${PHONE_DISPLAY} and our team will guide you based on your travel plan.` },
       ]}
       related={[
+        { label: 'Family rooms in Tirupati', to: '/family-rooms-in-tirupati' },
         { label: 'Hotels in Tirupati', to: '/hotels-in-tirupati' },
         { label: 'Hotels Near Tirupati Temple', to: '/hotels-near-tirupati-temple' },
         { label: 'All rooms and rates', to: '/rooms' },

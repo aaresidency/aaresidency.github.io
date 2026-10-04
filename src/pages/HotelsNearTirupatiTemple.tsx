@@ -42,6 +42,7 @@ export function HotelsNearTirupatiTemple() {
         { q: 'Is AA Residency suitable for short temple trips?', a: 'Yes. Many guests choose us for short, comfortable pilgrimage stays, and our front desk is open 24/7.' },
       ]}
       related={[
+        { label: 'Hotels for Tirumala darshan', to: '/hotels-for-tirumala-darshan' },
         { label: 'Hotels in Tirupati', to: '/hotels-in-tirupati' },
         { label: 'Rooms in Tirupati', to: '/rooms-in-tirupati' },
         { label: 'Nearby attractions and directions', to: '/nearby' },

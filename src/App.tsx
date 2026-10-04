@@ -18,6 +18,10 @@ import { Terms } from './pages/Terms'
 import { HotelsInTirupati } from './pages/HotelsInTirupati'
 import { RoomsInTirupati } from './pages/RoomsInTirupati'
 import { HotelsNearTirupatiTemple } from './pages/HotelsNearTirupatiTemple'
+import { HotelsNearTirupatiRailwayStation } from './pages/HotelsNearTirupatiRailwayStation'
+import { HotelsNearTirupatiBusStand } from './pages/HotelsNearTirupatiBusStand'
+import { FamilyRoomsInTirupati } from './pages/FamilyRoomsInTirupati'
+import { HotelsForTirumalaDarshan } from './pages/HotelsForTirumalaDarshan'
 import './App.css'
 
 // Staff-only dashboard: loaded on demand so public visitors never download it.
@@ -51,6 +55,10 @@ function App() {
           <Route path="/hotels-in-tirupati" element={<HotelsInTirupati />} />
           <Route path="/rooms-in-tirupati" element={<RoomsInTirupati />} />
           <Route path="/hotels-near-tirupati-temple" element={<HotelsNearTirupatiTemple />} />
+          <Route path="/hotels-near-tirupati-railway-station" element={<HotelsNearTirupatiRailwayStation />} />
+          <Route path="/hotels-near-tirupati-bus-stand" element={<HotelsNearTirupatiBusStand />} />
+          <Route path="/family-rooms-in-tirupati" element={<FamilyRoomsInTirupati />} />
+          <Route path="/hotels-for-tirumala-darshan" element={<HotelsForTirumalaDarshan />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
         </Routes>

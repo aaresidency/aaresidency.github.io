@@ -12,6 +12,10 @@ export const ROUTE_PATHS = [
   '/hotels-in-tirupati',
   '/rooms-in-tirupati',
   '/hotels-near-tirupati-temple',
+  '/hotels-near-tirupati-railway-station',
+  '/hotels-near-tirupati-bus-stand',
+  '/family-rooms-in-tirupati',
+  '/hotels-for-tirumala-darshan',
   '/privacy',
   '/terms',
 ]
