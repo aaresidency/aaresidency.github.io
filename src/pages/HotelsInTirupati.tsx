@@ -9,7 +9,7 @@ export function HotelsInTirupati() {
         description: 'Find a trusted hotel in Tirupati for family, pilgrimage and business stays. Clean rooms, free Wi-Fi, parking and direct booking support at AA Residency.',
         path: '/hotels-in-tirupati',
       }}
-      heroImage="/images/exterior-front.jpg"
+      heroImage="/images/exterior-front.webp"
       kicker="AA Residency Tirupati"
       heading="Looking for Hotels in Tirupati?"
       intro={[

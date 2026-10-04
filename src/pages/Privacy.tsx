@@ -7,7 +7,7 @@ export function Privacy() {
       <Seo title="Privacy Policy" description="Privacy policy for AA Residency Tirupati guests." path="/privacy" />
       <div
         className="h-60 bg-cover bg-center relative flex items-center justify-center"
-        style={{ backgroundImage: 'url(/images/exterior-front.jpg)' }}
+        style={{ backgroundImage: 'url(/images/exterior-front.webp)' }}
       >
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative text-center text-white">

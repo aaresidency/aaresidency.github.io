@@ -9,7 +9,7 @@ export function HotelsNearTirupatiTemple() {
         description: 'Looking for hotels near Tirupati temple? Stay at AA Residency for comfortable rooms, clear distances to Tirumala and the city, and direct booking support.',
         path: '/hotels-near-tirupati-temple',
       }}
-      heroImage="/images/reception-entrance.jpg"
+      heroImage="/images/reception-entrance.webp"
       kicker="Pilgrimage-Friendly Stay"
       heading="Hotels Near Tirupati Temple With Reliable Service"
       intro={[

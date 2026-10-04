@@ -18,7 +18,7 @@ const ROOMS: { typeKey: RoomTypeKey; price: string; capacity: string; size: stri
     capacity: '2 Adults',
     size: '220 sq ft',
     desc: 'Comfortable non-AC room with modern furnishings, ideal for budget-conscious travellers seeking quality.',
-    images: ['/images/room-nonac-1.jpg', '/images/bathroom-1.jpg'],
+    images: ['/images/room-nonac-1.webp', '/images/bathroom-1.webp'],
     featureKeys: ['fan', 'wifi', 'tv', 'bathroom', 'hotWater', 'powerBackup'],
     available: true,
   },
@@ -28,7 +28,7 @@ const ROOMS: { typeKey: RoomTypeKey; price: string; capacity: string; size: stri
     capacity: '2 Adults',
     size: '220 sq ft',
     desc: 'Premium air-conditioned room with elegant décor and all modern amenities for a refined stay.',
-    images: ['/images/room-ac-2.jpg', '/images/room-ac-3.jpg'],
+    images: ['/images/room-ac-2.webp', '/images/room-ac-3.webp'],
     featureKeys: ['ac', 'wifi', 'tv', 'bathroom', 'hotWater', 'powerBackup'],
     available: true,
   },
@@ -38,7 +38,7 @@ const ROOMS: { typeKey: RoomTypeKey; price: string; capacity: string; size: stri
     capacity: '4 Adults',
     size: '220 sq ft',
     desc: 'Spacious air-conditioned family suite with multiple beds, seating area and all the comforts of home.',
-    images: ['/images/room-family-ac-1.jpg', '/images/room-family-1.jpg', '/images/room-family-2.jpg'],
+    images: ['/images/room-family-ac-1.webp', '/images/room-family-1.webp', '/images/room-family-2.webp'],
     featureKeys: ['ac', 'wifi', 'tv', 'bathroom', 'hotWater', 'powerBackup', 'seating'],
     available: true,
   },
@@ -56,7 +56,7 @@ export function Rooms() {
     <div>
       <Seo title="Rooms & Rates" description="Book AC and Non-AC deluxe, studio and family rooms in Tirupati at AA Residency. Clear pricing, free Wi-Fi and parking. Check availability and reserve direct." path="/rooms" jsonLd={[roomsSchema()]} />
       {/* Hero */}
-      <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/room-ac-1.jpg)' }}>
+      <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/room-ac-1.webp)' }}>
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative text-center">
           <h1 className="text-4xl font-bold" style={{ color: '#f5e6c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)' }}>{t('rooms.heroTitle')}</h1>
@@ -71,7 +71,7 @@ export function Rooms() {
 
             {/* Image — takes 2/5 columns */}
             <div className="relative md:col-span-2 h-64 md:h-auto min-h-[280px]">
-              <img
+              <img loading="lazy" decoding="async"
                 src={room.images[getImg(room.typeKey)]}
                 alt={t(`rooms.types.${room.typeKey}`)}
                 className="w-full h-full object-cover"

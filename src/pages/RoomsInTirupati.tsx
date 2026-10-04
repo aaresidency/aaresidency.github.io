@@ -9,7 +9,7 @@ export function RoomsInTirupati() {
         description: 'Searching for rooms in Tirupati? Book family and budget AC and Non-AC rooms at AA Residency with free Wi-Fi, parking and direct booking for faster confirmation.',
         path: '/rooms-in-tirupati',
       }}
-      heroImage="/images/room-ac-1.jpg"
+      heroImage="/images/room-ac-1.webp"
       kicker="Comfort and Value"
       heading="Book Clean and Comfortable Rooms in Tirupati"
       intro={[

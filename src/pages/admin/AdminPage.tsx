@@ -117,7 +117,7 @@ function Dashboard({ onSignOut, profile }: { onSignOut: () => void; profile: Pro
     <div className="min-h-screen">
       <div className="mx-auto max-w-4xl px-4 pb-20">
         <header className="flex items-center gap-3 py-5">
-          <img src="/logo.png" alt="" width={44} height={44} className="h-11 w-11 rounded-xl ring-1 ring-gold/30" />
+          <img src="/logo-sm.webp" alt="" className="h-11 w-auto rounded-lg" />
           <div className="min-w-0 flex-1">
             <h1 className="truncate text-xl font-semibold leading-tight text-cream">AA Residency</h1>
             <p className="truncate text-sm text-warm-muted">{today ? <><span className="sm:hidden">{formatDay(today)}</span><span className="hidden sm:inline">{formatLongDay(today)}</span></> : 'Bookings dashboard'}</p>

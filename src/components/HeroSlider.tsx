@@ -11,9 +11,9 @@ import { PHONE_DIGITS } from '../lib/contact'
 const PhoneInput = ((_PhoneInput as any).default ?? _PhoneInput) as React.ComponentType<PhoneInputProps>
 
 const SLIDES = [
-  { src: '/images/hero-slide-room.jpg',     alt: 'Deluxe AC Room' },
-  { src: '/images/hero-slide-exterior.jpg', alt: 'AA Residency Building' },
-  { src: '/images/hero-slide-banquet.jpg',  alt: 'Banquet & Event Hall' },
+  { src: '/images/hero-slide-room.webp',     alt: 'Deluxe AC Room' },
+  { src: '/images/hero-slide-exterior.webp', alt: 'AA Residency Building' },
+  { src: '/images/hero-slide-banquet.webp',  alt: 'Banquet & Event Hall' },
 ]
 
 
@@ -91,6 +91,9 @@ export function HeroSlider() {
             <img
               src={slide.src}
               alt={slide.alt}
+              // The first slide is the page's largest visible image, so fetch it first; the others can wait.
+              fetchPriority={i === 0 ? 'high' : 'low'}
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />

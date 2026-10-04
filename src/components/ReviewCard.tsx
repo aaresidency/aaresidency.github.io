@@ -19,7 +19,7 @@ export function ReviewCard({ name, rating, reviewKey, avatarColor = 'bg-amber-60
       </svg>
       <div className="flex items-center gap-3">
         {avatarImage ? (
-          <img src={avatarImage} alt={name} className="w-11 h-11 rounded-full object-cover shrink-0" />
+          <img loading="lazy" decoding="async" src={avatarImage} alt={name} className="w-11 h-11 rounded-full object-cover shrink-0" />
         ) : (
           <div className={`w-11 h-11 rounded-full ${avatarColor} flex items-center justify-center text-white font-bold text-sm shrink-0`}>
             {initials}

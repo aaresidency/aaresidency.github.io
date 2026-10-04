@@ -16,9 +16,9 @@ export function hotelSchema(extra: JsonLd = {}): JsonLd {
     description:
       'AA Residency is a family-friendly hotel on Renigunta Road, Tirupati, with AC and Non-AC rooms, free Wi-Fi, parking and a 24/7 front desk.',
     image: [
-      `${SITE_URL}/images/hero-slide-exterior.jpg`,
-      `${SITE_URL}/images/room-ac-1.jpg`,
-      `${SITE_URL}/images/reception-entrance.jpg`,
+      `${SITE_URL}/images/og-image.jpg`,
+      `${SITE_URL}/images/room-ac-1.webp`,
+      `${SITE_URL}/images/reception-entrance.webp`,
     ],
     logo: `${SITE_URL}/logo.png`,
     telephone: PHONE_E164,

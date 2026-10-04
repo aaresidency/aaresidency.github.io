@@ -47,14 +47,14 @@ const PACKAGES = [
   {
     title: 'Occasional Functions',
     price: '₹30,000',
-    image: '/images/banquet-stage-1.jpg',
+    image: '/images/banquet-stage-1.webp',
     includes: 'Electricity Charges, Parking Security & Cleaning Charges',
     idealFor: '200 members',
   },
   {
     title: 'Corporate Meetings',
     price: '₹25,000',
-    image: '/images/banquet-stage-3.jpg',
+    image: '/images/banquet-stage-3.webp',
     includes: 'Electricity Charges & Cleaning Charges',
     idealFor: '200 members',
   },
@@ -98,7 +98,7 @@ export function Events() {
     <div>
       <Seo title="Events & Banquets" description="Host weddings, conferences and celebrations in the banquet hall at AA Residency Tirupati. Flexible event spaces and on-site rooms. Enquire on WhatsApp now." path="/events" />
       {/* Hero */}
-      <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/banquet-event-1.jpg)' }}>
+      <div className="h-60 bg-cover bg-center relative flex items-center justify-center" style={{ backgroundImage: 'url(/images/banquet-event-1.webp)' }}>
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative text-center">
           <h1 className="text-4xl font-bold" style={{ color: '#f5e6c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)' }}>Events & Celebrations</h1>
@@ -121,7 +121,7 @@ export function Events() {
             <div key={pkg.title} className="rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1 transition-transform"
               style={{ backgroundColor: '#251508', border: '1px solid #c9a84c' }}>
               <div className="h-52 overflow-hidden">
-                <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <img loading="lazy" decoding="async" src={pkg.image} alt={pkg.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="p-6 flex flex-col gap-3 flex-1">
                 <div>

@@ -26,7 +26,7 @@ export function Footer() {
         {/* Brand */}
         <div>
           <div className="mb-3">
-            <img src="/logo.png" alt="AA Residency" className="h-10 w-auto object-contain" />
+            <img loading="lazy" decoding="async" src="/logo-sm.webp" alt="AA Residency" className="h-10 w-auto object-contain" />
           </div>
           <p className="text-sm leading-relaxed" style={{ color: '#a89070' }}>{t('footer.tagline')}</p>
         </div>
