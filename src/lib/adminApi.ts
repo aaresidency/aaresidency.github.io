@@ -25,6 +25,20 @@ export interface AdminNote {
   created_at: string
 }
 
+export interface NewBooking {
+  name: string
+  /** Both contact fields are optional for bookings taken by phone or in person. */
+  email?: string
+  phone?: string
+  arrival_date?: string
+  departure_date?: string
+  room_type?: string
+  adults: number
+  children: number
+  notes?: string
+  status: BookingStatus
+}
+
 export interface BookingList {
   bookings: Booking[]
   hasMore: boolean
@@ -69,6 +83,8 @@ export function createAdminApi(token: string, onUnauthorized: () => void) {
     list: (view: BookingView, offset = 0) => request<BookingList>(`/admin/bookings?view=${view}&offset=${offset}`),
     range: (from: string, to: string) => request<BookingList>(`/admin/bookings?from=${from}&to=${to}`),
     search: (q: string) => request<BookingList>(`/admin/search?q=${encodeURIComponent(q)}`),
+    create: (booking: NewBooking) =>
+      request<{ booking: Booking }>('/admin/bookings', { method: 'POST', body: JSON.stringify(booking) }),
     detail: (id: number) => request<{ booking: Booking; notes: AdminNote[] }>(`/admin/bookings/${id}`),
     addNote: (id: number, note: string) =>
       request<{ note: AdminNote }>(`/admin/bookings/${id}/notes`, { method: 'POST', body: JSON.stringify({ note }) }),

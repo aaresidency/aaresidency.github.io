@@ -130,19 +130,25 @@ export function BookingCard({ booking, today }: { booking: Booking; today: strin
 
           {open && (
             <div className="space-y-5 border-t border-gold/15 bg-dark/40 p-4">
-              <section aria-label="Contact" className={`grid gap-2 ${booking.email ? 'sm:grid-cols-3' : 'sm:grid-cols-2'}`}>
-                <a href={`tel:+${phoneDigits}`} className={actionClass}>
-                  📞 <span className="truncate">{booking.phone}</span>
-                </a>
-                <a href={`https://wa.me/${phoneDigits}`} target="_blank" rel="noreferrer" className={actionClass}>
-                  💬 WhatsApp
-                </a>
-                {booking.email && (
-                  <a href={`mailto:${booking.email}`} className={actionClass}>
-                    ✉️ <span className="truncate">{booking.email}</span>
-                  </a>
-                )}
-              </section>
+              {(booking.phone || booking.email) && (
+                <section aria-label="Contact" className={`grid gap-2 ${booking.phone && booking.email ? 'sm:grid-cols-3' : booking.phone ? 'sm:grid-cols-2' : ''}`}>
+                  {booking.phone && (
+                    <>
+                      <a href={`tel:+${phoneDigits}`} className={actionClass}>
+                        📞 <span className="truncate">{booking.phone}</span>
+                      </a>
+                      <a href={`https://wa.me/${phoneDigits}`} target="_blank" rel="noreferrer" className={actionClass}>
+                        💬 WhatsApp
+                      </a>
+                    </>
+                  )}
+                  {booking.email && (
+                    <a href={`mailto:${booking.email}`} className={actionClass}>
+                      ✉️ <span className="truncate">{booking.email}</span>
+                    </a>
+                  )}
+                </section>
+              )}
 
               <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
                 <div>
@@ -157,7 +163,7 @@ export function BookingCard({ booking, today }: { booking: Booking; today: strin
 
               {booking.guest_notes && (
                 <p className="rounded-xl border border-gold/15 bg-dark p-3 text-sm text-warm">
-                  <span className="mb-1 block text-xs uppercase tracking-wide text-warm-muted">Guest request</span>
+                  <span className="mb-1 block text-xs uppercase tracking-wide text-warm-muted">Guest notes</span>
                   {booking.guest_notes}
                 </p>
               )}
