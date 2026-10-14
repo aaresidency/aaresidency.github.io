@@ -4,6 +4,7 @@ import { ApiError, createAdminApi, type Booking, type BookingView } from '../../
 import { AdminLogin } from './AdminLogin'
 import { BookingList, type Grouping } from './BookingList'
 import { CalendarView } from './CalendarView'
+import { NewBookingForm } from './NewBookingForm'
 import { formatDay, formatLongDay } from './dates'
 import { AdminApiContext, useAdminApi } from './session'
 
@@ -102,6 +103,8 @@ function Dashboard({ onSignOut, profile }: { onSignOut: () => void; profile: Pro
   const [query, setQuery] = useState('')
   const [term, setTerm] = useState('')
   const [today, setToday] = useState('')
+  const [creating, setCreating] = useState(false)
+  const [refresh, setRefresh] = useState(0)
   const api = useAdminApi()
 
   useEffect(() => {
@@ -129,6 +132,9 @@ function Dashboard({ onSignOut, profile }: { onSignOut: () => void; profile: Pro
             >
               {initial}
             </span>
+            <button type="button" onClick={() => setCreating(true)} className="min-h-10 rounded-lg bg-gold px-3 text-sm font-semibold text-dark transition hover:bg-gold-light">
+              + New booking
+            </button>
             <button type="button" onClick={onSignOut} className="min-h-10 rounded-lg border border-gold/30 px-3 text-sm text-gold-light transition hover:border-gold hover:bg-gold/10">
               Sign out
             </button>
@@ -175,12 +181,22 @@ function Dashboard({ onSignOut, profile }: { onSignOut: () => void; profile: Pro
         {searching ? (
           <SearchResults term={term} onToday={setToday} today={today} api={api} />
         ) : tab === 'calendar' ? (
-          <CalendarGate today={today} onToday={setToday} />
+          <CalendarGate key={refresh} today={today} onToday={setToday} />
         ) : (
-          <ViewList key={tab} view={tab} onToday={setToday} />
+          <ViewList key={`${tab}-${refresh}`} view={tab} onToday={setToday} />
         )}
       </main>
       </div>
+      {creating && (
+        <NewBookingForm
+          onClose={() => setCreating(false)}
+          onCreated={() => {
+            setCreating(false)
+            setQuery('')
+            setRefresh((n) => n + 1)
+          }}
+        />
+      )}
     </div>
   )
 }

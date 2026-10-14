@@ -1,9 +1,11 @@
 import { AuthError, verifyAdmin } from "./auth.js";
+import { generateBookingReference } from "./ref.js";
 
 const PAGE_SIZE = 30;
 const CALENDAR_LIMIT = 500;
 const SEARCH_LIMIT = 50;
 const MAX_NOTE_LENGTH = 2000;
+const MAX_ROOM_TYPE_LENGTH = 80;
 const STATUSES = new Set(["new", "confirmed", "cancelled"]);
 
 const LIST_COLUMNS = `b.id, b.ref, b.name, b.email, b.phone, b.arrival, b.departure, b.room_type, b.adults, b.children,
@@ -105,6 +107,46 @@ async function search(db, q) {
   return { bookings: results, hasMore: false, today: todayIst() };
 }
 
+/** Validates an admin-entered booking. Returns `{ error }` or the row to insert; email and phone may be blank. */
+function parseNewBooking(body) {
+  const name = String(body?.name ?? "").trim();
+  const email = String(body?.email ?? "").trim().toLowerCase();
+  const phoneDigits = String(body?.phone ?? "").replace(/[\s+\-()]/g, "");
+  const arrival = String(body?.arrival_date ?? "").trim();
+  const departure = String(body?.departure_date ?? "").trim();
+  const roomType = String(body?.room_type ?? "").trim() || "Not specified";
+  const adults = Number(body?.adults ?? 1);
+  const children = Number(body?.children ?? 0);
+  const guestNotes = String(body?.notes ?? "").trim();
+  const status = String(body?.status ?? "confirmed");
+
+  if (!name || name.length > 160) return { error: "invalid name" };
+  if (email && (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254)) return { error: "invalid email" };
+  if (phoneDigits && !/^[0-9]{10,15}$/.test(phoneDigits)) return { error: "invalid phone" };
+  if (roomType.length > MAX_ROOM_TYPE_LENGTH) return { error: "invalid room type" };
+  if (!Number.isInteger(adults) || adults < 1 || adults > 10 || !Number.isInteger(children) || children < 0 || children > 10) return { error: "invalid guest counts" };
+  if ((arrival && !isIsoDate(arrival)) || (departure && !isIsoDate(departure))) return { error: "invalid dates" };
+  if (arrival && departure && departure <= arrival) return { error: "invalid stay range" };
+  if (guestNotes.length > MAX_NOTE_LENGTH) return { error: "notes too long" };
+  if (!STATUSES.has(status)) return { error: "invalid_status" };
+
+  return {
+    row: {
+      name,
+      email,
+      phone: !phoneDigits ? "" : phoneDigits.length === 10 ? `+91 ${phoneDigits}` : `+${phoneDigits}`,
+      phoneDigits: !phoneDigits ? "" : phoneDigits.length === 10 ? `91${phoneDigits}` : phoneDigits,
+      arrival: arrival || null,
+      departure: departure || null,
+      roomType,
+      adults,
+      children,
+      guestNotes,
+      status,
+    },
+  };
+}
+
 async function getBooking(db, id) {
   const booking = await db.prepare(`SELECT ${LIST_COLUMNS} FROM bookings b WHERE b.id = ?`).bind(id).first();
   if (!booking) return null;
@@ -152,6 +194,23 @@ export async function handleAdmin(request, env, cors, url) {
       const offset = Math.max(0, Number.parseInt(url.searchParams.get("offset") ?? "0", 10) || 0);
       const result = await listByView(db, url.searchParams.get("view") ?? "today", offset);
       return result ? json(result, 200, cors) : json({ error: "invalid_view" }, 400, cors);
+    }
+
+    if (method === "POST" && path === "/admin/bookings") {
+      const body = await request.json().catch(() => ({}));
+      const parsed = parseNewBooking(body);
+      if (parsed.error) return json({ error: parsed.error, message: parsed.error }, 400, cors);
+      const r = parsed.row;
+      const ref = generateBookingReference();
+      const created = await db
+        .prepare(
+          `INSERT INTO bookings (ref, name, email, phone, phone_digits, arrival, departure, room_type, adults, children, guest_notes, status)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id`,
+        )
+        .bind(ref, r.name, r.email, r.phone, r.phoneDigits, r.arrival, r.departure, r.roomType, r.adults, r.children, r.guestNotes, r.status)
+        .first();
+      const found = await getBooking(db, created.id);
+      return json({ booking: found.booking }, 201, cors);
     }
 
     if (method === "GET" && path === "/admin/search") {
